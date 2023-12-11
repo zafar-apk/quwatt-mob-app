@@ -12,7 +12,7 @@ fun painterResource(resName: String): Painter {
     return painterResource(getImageByFileName(resName))
 }
 
-fun getImageByFileName(name: String): ImageResource {
+private fun getImageByFileName(name: String): ImageResource {
     val fallbackImage = SharedRes.images.ic_yakroh
     return SharedRes.images.getImageByFileName(name.substringBeforeLast(".xml")) ?: fallbackImage
 }

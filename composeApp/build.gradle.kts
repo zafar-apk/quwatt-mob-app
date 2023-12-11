@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.Packaging
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
@@ -81,6 +82,8 @@ kotlin {
 
             implementation(libs.compose.date.picker)
             implementation(libs.photo.picker)
+
+            implementation(libs.kamel.image)
         }
     }
 }
@@ -103,6 +106,7 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            pickFirsts.add("META-INF/versions/9/previous-compilation-data.bin")
         }
     }
     buildTypes {
