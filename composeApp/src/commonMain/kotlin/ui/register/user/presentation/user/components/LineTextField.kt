@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import tj.ham_safar.app.android.theme.Blue
-import tj.ham_safar.app.android.theme.Gray
+import ui.theme.Blue
+import ui.theme.Gray
 
 @Composable
 fun LineTextField(

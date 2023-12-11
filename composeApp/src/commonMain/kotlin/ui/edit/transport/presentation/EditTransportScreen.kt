@@ -34,10 +34,13 @@ import profile.domain.transport.TransportBrand
 import profile.domain.transport.TransportColors
 import profile.domain.transport.TransportType
 import tj.ham_safar.app.android.core.presentation.components.TopBar
-import tj.ham_safar.app.android.theme.*
 import ui.auth.presentation.components.BigStyleTextField
 import ui.core.presentation.components.MainButton
 import ui.core.presentation.getImagePainterOrPlaceHolder
+import ui.theme.Blue
+import ui.theme.Gray
+import ui.theme.GrayGainsboro
+import ui.theme.Red
 import ui.trips.filter.presentation.components.TextDropDown
 
 @OptIn(ExperimentalComposeUiApi::class)

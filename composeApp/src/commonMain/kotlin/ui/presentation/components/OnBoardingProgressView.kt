@@ -14,8 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
-import tj.ham_safar.app.android.theme.Blue
-import ui.theme.HamSafarTheme
+import ui.theme.Blue
 
 private const val PROGRESS_ITEM_SPACE_DP = 31
 private const val MAX_STAGES = 3

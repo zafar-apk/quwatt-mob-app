@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import tj.ham_safar.app.android.theme.Yellow
+import ui.theme.Yellow
 import kotlin.math.ceil
 import kotlin.math.floor
 

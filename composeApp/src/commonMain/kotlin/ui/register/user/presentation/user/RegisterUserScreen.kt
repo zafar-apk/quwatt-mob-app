@@ -34,9 +34,9 @@ import register.user.presentation.RegisterUserScreenEvent
 import register.user.presentation.RegisterUserScreenState
 import ui.core.presentation.components.BackButton
 import tj.ham_safar.app.android.register.user.presentation.user.components.LineTextField
-import tj.ham_safar.app.android.theme.Blue
-import tj.ham_safar.app.android.theme.Gray
-import tj.ham_safar.app.android.theme.LightGray
+import ui.theme.Blue
+import ui.theme.Gray
+import ui.theme.LightGray
 import ui.core.presentation.components.MainButton
 import ui.core.presentation.getImagePainterOrPlaceHolder
 

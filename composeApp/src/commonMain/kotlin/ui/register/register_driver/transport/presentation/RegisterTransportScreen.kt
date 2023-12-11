@@ -41,10 +41,10 @@ import profile.domain.transport.TransportType
 import register.transport.presentation.RegisterTransportEvent
 import register.transport.presentation.RegisterTransportScreenState
 import tj.ham_safar.app.android.core.presentation.components.TopBar
-import tj.ham_safar.app.android.theme.Blue
-import tj.ham_safar.app.android.theme.Gray
-import tj.ham_safar.app.android.theme.GrayGainsboro
-import tj.ham_safar.app.android.theme.Red
+import ui.theme.Blue
+import ui.theme.Gray
+import ui.theme.GrayGainsboro
+import ui.theme.Red
 import ui.auth.presentation.components.BigStyleTextField
 import ui.core.presentation.components.MainButton
 import ui.core.presentation.getImagePainterOrPlaceHolder

@@ -10,7 +10,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import core.domain.util.stringResource
-import tj.ham_safar.app.android.theme.Blue
+import ui.theme.Blue
 
 @Composable
 fun RequestConfirmationDialog(

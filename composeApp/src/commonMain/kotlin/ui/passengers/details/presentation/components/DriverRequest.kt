@@ -11,8 +11,8 @@ import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
 import profile.domain.User
-import tj.ham_safar.app.android.theme.Blue
-import tj.ham_safar.app.android.theme.PrimaryGray
+import ui.theme.Blue
+import ui.theme.PrimaryGray
 import ui.theme.propertyText
 import ui.trips.components.RatingBar
 import ui.core.presentation.getImagePainterOrPlaceHolder

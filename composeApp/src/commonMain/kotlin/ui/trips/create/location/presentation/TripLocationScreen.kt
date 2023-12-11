@@ -18,7 +18,7 @@ import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
 import ui.core.presentation.components.BackButton
-import tj.ham_safar.app.android.theme.Gray
+import ui.theme.Gray
 import tj.ham_safar.app.trips.create.location.presentation.TripLocationEvent
 import tj.ham_safar.app.trips.create.location.presentation.TripLocationScreenState
 import ui.auth.presentation.components.BigStyleTextField

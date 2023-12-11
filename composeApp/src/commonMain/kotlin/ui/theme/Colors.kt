@@ -1,4 +1,4 @@
-package tj.ham_safar.app.android.theme
+package ui.theme
 
 import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
@@ -23,7 +23,8 @@ val lightColors = lightColors(
     onPrimary = Color.White,
     onBackground = TextBlack,
     surface = Color.White,
-    onSurface = TextBlack
+    onSurface = TextBlack,
+    secondary = Blue
 )
 val lightColorScheme = lightColors(
     primary = Yellow,

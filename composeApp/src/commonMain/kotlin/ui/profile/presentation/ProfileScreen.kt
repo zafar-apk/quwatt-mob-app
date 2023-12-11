@@ -29,7 +29,7 @@ import tj.ham_safar.app.android.core.presentation.components.Loader
 import tj.ham_safar.app.android.core.presentation.components.TopBar
 import ui.register.user.presentation.user.DateOfBirthField
 import tj.ham_safar.app.android.register.user.presentation.user.components.LineTextField
-import tj.ham_safar.app.android.theme.LightGray
+import ui.theme.LightGray
 import ui.core.presentation.components.ErrorView
 import ui.core.presentation.components.LoginView
 import ui.core.presentation.getImagePainterOrPlaceHolder

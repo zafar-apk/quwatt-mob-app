@@ -17,7 +17,7 @@ import core.domain.util.getCurrentDateTime
 import core.domain.util.stringResource
 import core.domain.util.toYYYYmmDD
 import kotlinx.datetime.*
-import tj.ham_safar.app.android.theme.Gray
+import ui.theme.Gray
 import tj.yakroh.yakrohapp.SharedRes
 
 @Composable

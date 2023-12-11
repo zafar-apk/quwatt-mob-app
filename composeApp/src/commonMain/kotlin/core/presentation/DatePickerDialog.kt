@@ -44,8 +44,8 @@ import epicarchitect.calendar.compose.pager.config.rememberEpicCalendarPagerConf
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Month
-import tj.ham_safar.app.android.theme.BackgroundGray
-import tj.ham_safar.app.android.theme.Blue
+import ui.theme.BackgroundGray
+import ui.theme.Blue
 import tj.yakroh.yakrohapp.SharedRes
 
 private const val SHAKE_ANIMATION_DURATION = 250

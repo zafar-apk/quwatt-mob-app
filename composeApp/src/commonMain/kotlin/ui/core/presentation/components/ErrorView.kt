@@ -17,9 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import tj.ham_safar.app.android.theme.Blue
-import tj.ham_safar.app.android.theme.Gray
+import ui.theme.Blue
+import ui.theme.Gray
 import ui.core.presentation.painterResource
 
 @Composable

@@ -17,8 +17,8 @@ import moe.tlaster.precompose.navigation.Navigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
 import tj.ham_safar.app.android.core.presentation.Routes
-import tj.ham_safar.app.android.theme.Gray
-import tj.ham_safar.app.android.theme.Yellow
+import ui.theme.Gray
+import ui.theme.Yellow
 import ui.passengers.all.presentation.allPassengersRoute
 import ui.trips.all.presentation.allTripsRoute
 

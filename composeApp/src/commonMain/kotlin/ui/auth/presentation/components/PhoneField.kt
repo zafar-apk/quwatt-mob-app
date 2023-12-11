@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import core.domain.util.stringResource
-import tj.ham_safar.app.android.theme.TextBlack
+import ui.theme.TextBlack
 
 @Composable
 fun PhoneField(

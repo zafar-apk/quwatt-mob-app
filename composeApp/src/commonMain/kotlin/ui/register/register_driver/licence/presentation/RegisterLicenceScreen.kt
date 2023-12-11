@@ -34,9 +34,9 @@ import ui.core.presentation.painterResource
 import register.licence.presentation.RegisterUserLicenceEvent
 import register.licence.presentation.RegisterUserLicenceScreenState
 import tj.ham_safar.app.android.core.presentation.components.TopBar
-import tj.ham_safar.app.android.theme.GrayGainsboro
-import tj.ham_safar.app.android.theme.Red
-import tj.ham_safar.app.android.theme.TextBlack
+import ui.theme.GrayGainsboro
+import ui.theme.Red
+import ui.theme.TextBlack
 import ui.auth.presentation.components.BigStyleTextField
 import ui.core.presentation.components.MainButton
 

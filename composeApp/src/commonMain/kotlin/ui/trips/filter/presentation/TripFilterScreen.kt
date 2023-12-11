@@ -28,7 +28,7 @@ import trips.filter.presentation.TripFilterScreenEvent
 import trips.filter.presentation.TripFilterScreenState
 import ui.core.presentation.components.BackButton
 import ui.core.presentation.components.MainButton
-import ui.core.utils.toTimeHHmm
+import ui.core.presentation.components.TimePickerDialog
 import ui.trips.core.mapper.toTripsFilterParcelize
 import ui.trips.filter.presentation.components.FilterDatePicker
 import ui.trips.filter.presentation.components.FilterTimePicker
@@ -60,6 +60,17 @@ fun TripFilterScreen(
             },
             onDateSelected = { selectedDate ->
                 onEvent(TripFilterScreenEvent.ChangeTripDate(selectedDate))
+            }
+        )
+    }
+
+    if (state.choosingState.isChoosingTimeDate) {
+        TimePickerDialog(
+            onDismissRequest = {
+                onEvent(TripFilterScreenEvent.DismissAllChoosing)
+            },
+            onTimePicked = { selectedTime ->
+                onEvent(TripFilterScreenEvent.ChangeTripTime(selectedTime))
             }
         )
     }
@@ -212,8 +223,8 @@ fun TripFilterScreen(
                     hint = stringResource(SharedRes.strings.trip_time),
                     selectedText = state.selectedState.selectedTripTime
                         ?: stringResource(SharedRes.strings.any),
-                    onTimeChange = {
-                        onEvent(TripFilterScreenEvent.ChangeTripTime(it.let(Long::toTimeHHmm)))
+                    onOpenTimePicker = {
+                        onEvent(TripFilterScreenEvent.OpenTripTimeDialog)
                     }
                 )
             }

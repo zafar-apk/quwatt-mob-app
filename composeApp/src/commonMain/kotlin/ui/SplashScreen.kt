@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import core.domain.util.stringResource
 import kotlinx.coroutines.delay
 import presentatition.SplashScreenEvent
-import tj.ham_safar.app.android.theme.Yellow
+import ui.theme.Yellow
 
 private const val SPLASH_SCREEN_DELAY = 1500L
 

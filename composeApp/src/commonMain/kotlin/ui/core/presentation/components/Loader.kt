@@ -9,8 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import tj.ham_safar.app.android.theme.BackgroundGray
-import ui.theme.HamSafarTheme
+import ui.theme.BackgroundGray
 
 @Composable
 fun Loader() {

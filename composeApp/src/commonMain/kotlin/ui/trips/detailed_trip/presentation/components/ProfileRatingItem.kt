@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
-import tj.ham_safar.app.android.theme.PrimaryGray
+import ui.theme.PrimaryGray
 import ui.trips.components.RatingBar
 
 @Composable

@@ -1,6 +1,14 @@
 package ui.passengers.filter.presentation
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -19,8 +27,6 @@ import passengers.filter.presentation.PassengerFilterScreenState
 import tj.ham_safar.app.android.core.presentation.components.ActionButton
 import tj.yakroh.yakrohapp.SharedRes
 import ui.core.presentation.components.BackButton
-import ui.core.utils.toDateDDMMYYYY
-import ui.core.utils.toTimeHHmm
 import ui.core.presentation.components.MainButton
 import ui.passengers.core.shared_trip_filter.PassengerTripsFilterParcelize
 import ui.passengers.core.shared_trip_filter.toPassengerTripsFilter
@@ -156,12 +162,14 @@ fun PassengerFilterScreen(
             item {
                 Spacer(modifier = Modifier.height(12.dp))
 
-                FilterTimePicker(hint = stringResource(SharedRes.strings.trip_time),
+                FilterTimePicker(
+                    hint = stringResource(SharedRes.strings.trip_time),
                     selectedText = state.selectedState.selectedTripTime
                         ?: stringResource(SharedRes.strings.any),
-                    onTimeChange = {
-                        onEvent(PassengerFilterScreenEvent.ChangeTripTime(it.let(Long::toTimeHHmm)))
-                    })
+                    onOpenTimePicker = {
+                        onEvent(PassengerFilterScreenEvent.OpenTripTimeDialog)
+                    }
+                )
             }
 
             item {
@@ -187,17 +195,20 @@ fun PassengerFilterScreen(
             }
         }
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            // todo
             Text(
-                text = "todo there was some commented text",
-//                resources.getQuantityString(R.plurals.available_trips_plurals, state.availableTrips, state.availableTrips),
+                text = stringResource(
+                    SharedRes.plurals.available_trips_plurals,
+                    state.availableTrips,
+                    state.availableTrips
+                ),
                 style = MaterialTheme.typography.h3
             )
 
             Spacer(modifier = Modifier.size(14.dp))
 
             MainButton(
-                modifier = Modifier.fillMaxWidth(), labelRes = "apply"
+                modifier = Modifier.fillMaxWidth(),
+                labelResource = SharedRes.strings.apply
             ) {
                 onEvent(PassengerFilterScreenEvent.Submit)
             }

@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
-import tj.ham_safar.app.android.theme.TextBlack
-import tj.ham_safar.app.android.theme.Yellow
+import ui.theme.TextBlack
+import ui.theme.Yellow
 import tj.ham_safar.app.android.trips.components.DashLine
 import tj.ham_safar.app.android.trips.components.PassengersCount
 

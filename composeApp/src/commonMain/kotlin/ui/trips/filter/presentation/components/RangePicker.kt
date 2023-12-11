@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
-import tj.ham_safar.app.android.theme.Gray
+import ui.theme.Gray
 
 @Composable
 fun RangePicker(

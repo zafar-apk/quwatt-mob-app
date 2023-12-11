@@ -16,8 +16,8 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import tj.ham_safar.app.android.theme.TextBlack
-import tj.ham_safar.app.android.theme.Yellow
+import ui.theme.TextBlack
+import ui.theme.Yellow
 import tj.ham_safar.app.android.trips.components.DashLine
 import tj.ham_safar.app.android.trips.components.PassengersCount
 import trips.all.domain.models.Trip

@@ -20,7 +20,7 @@ import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
 import tj.ham_safar.app.android.on_boarding.presentation.components.OnBoardingProgressView
-import tj.ham_safar.app.android.theme.Yellow
+import ui.theme.Yellow
 import ui.presentation.components.OnBoardingButton
 import ui.presentation.components.SkipButton
 

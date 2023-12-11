@@ -16,9 +16,12 @@ import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
-import tj.ham_safar.app.android.theme.*
 import ui.trips.components.AddressRow
 import tj.ham_safar.app.android.trips.components.DashLine
+import ui.theme.Gray
+import ui.theme.LightGray
+import ui.theme.TextBlack
+import ui.theme.Yellow
 import ui.trips.components.RatingBar
 
 @Composable

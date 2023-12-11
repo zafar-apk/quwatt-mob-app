@@ -11,9 +11,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import tj.ham_safar.app.android.theme.Gray
-import tj.ham_safar.app.android.theme.TextBlack
-import tj.ham_safar.app.android.theme.lightColors
 
 @Composable
 fun HamSafarTheme(

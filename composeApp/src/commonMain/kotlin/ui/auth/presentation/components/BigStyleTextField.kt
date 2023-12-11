@@ -23,10 +23,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import tj.ham_safar.app.android.theme.GrayGainsboro
-import tj.ham_safar.app.android.theme.LightGray
-import tj.ham_safar.app.android.theme.Red
-import tj.ham_safar.app.android.theme.TextBlack
+import ui.theme.GrayGainsboro
+import ui.theme.LightGray
+import ui.theme.Red
+import ui.theme.TextBlack
 
 @Composable
 internal fun BigStyleTextField(

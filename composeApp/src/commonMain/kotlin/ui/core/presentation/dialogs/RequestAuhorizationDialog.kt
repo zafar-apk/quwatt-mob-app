@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import tj.ham_safar.app.android.theme.BackgroundGray
+import ui.theme.BackgroundGray
 import ui.core.presentation.components.LoginView
 
 @Composable

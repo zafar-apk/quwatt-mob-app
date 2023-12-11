@@ -21,13 +21,14 @@ import passengers.detail.presentation.DetailedPassengerScreenState
 import tj.ham_safar.app.android.core.presentation.components.Loader
 import tj.ham_safar.app.android.core.presentation.components.TopBar
 import ui.passengers.details.presentation.components.DriverRequest
-import tj.ham_safar.app.android.theme.*
 import tj.ham_safar.app.android.trips.components.LabelRating
 import tj.ham_safar.app.android.trips.components.LabelText
 import tj.ham_safar.app.android.trips.components.TripDestinationPath
 import ui.core.presentation.components.ErrorView
 import ui.core.presentation.components.MainButton
 import ui.core.presentation.getImagePainterOrPlaceHolder
+import ui.theme.PrimaryGray
+import ui.theme.Yellow
 import ui.theme.labelText
 import ui.theme.propertyText
 import ui.trips.detailed_trip.presentation.components.ProfileRatingItem

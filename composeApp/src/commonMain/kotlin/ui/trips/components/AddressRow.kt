@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
-import tj.ham_safar.app.android.theme.TextBlack
+import ui.theme.TextBlack
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
