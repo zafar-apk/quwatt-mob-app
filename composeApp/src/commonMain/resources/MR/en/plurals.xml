@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <plurals name="remained_seats_plurals">
+        <item quantity="zero">No seats left</item>
+        <item quantity="one">%1$d seat left</item>
+        <item quantity="two">%1$d seats left</item>
+        <item quantity="few">%1$d seats left</item>
+        <item quantity="many">%1$d seats left</item>
+        <item quantity="other">%1$d seats left</item>
+    </plurals>
+    <plurals name="available_trips_plurals">
+        <item quantity="zero">No trips available</item>
+        <item quantity="one">%1$d trip available</item>
+        <item quantity="two">%1$d trips available</item>
+        <item quantity="few">%1$d trips available</item>
+        <item quantity="many">%1$d trips available</item>
+        <item quantity="other">%1$d trips available</item>
+    </plurals>
+    <plurals name="seats_plurals">
+        <item quantity="zero">No seats</item>
+        <item quantity="one">%1$d seat</item>
+        <item quantity="two">%1$d seats</item>
+        <item quantity="few">%1$d seats</item>
+        <item quantity="many">%1$d seats</item>
+        <item quantity="other">%1$d seats</item>
+    </plurals>
+</resources>

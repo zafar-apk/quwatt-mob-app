@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <plurals name="remained_seats_plurals">
+        <item quantity="zero">Не осталось мест</item>
+        <item quantity="one">осталось %1$d место</item>
+        <item quantity="two">осталось %1$d места</item>
+        <item quantity="few">осталось %1$d места</item>
+        <item quantity="many">осталось %1$d мест</item>
+        <item quantity="other">осталось %1$d мест</item>
+    </plurals>
+    <plurals name="available_trips_plurals">
+        <item quantity="zero">Нет поездок</item>
+        <item quantity="one">Доступно %1$d поездка</item>
+        <item quantity="two">Доступно %1$d поездки</item>
+        <item quantity="few">Доступно %1$d поездки</item>
+        <item quantity="many">Доступно %1$d поездок</item>
+        <item quantity="other">Доступно %1$d поездки</item>
+    </plurals>
+    <plurals name="seats_plurals">
+        <item quantity="zero">Нет мест</item>
+        <item quantity="one">%1$d место</item>
+        <item quantity="two">%1$d места</item>
+        <item quantity="few">%1$d места</item>
+        <item quantity="many">%1$d мест</item>
+        <item quantity="other">%1$d мест</item>
+    </plurals>
+</resources>
