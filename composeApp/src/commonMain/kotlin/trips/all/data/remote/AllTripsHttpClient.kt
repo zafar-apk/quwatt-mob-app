@@ -18,10 +18,13 @@ class AllTripsHttpClient(
     override suspend fun getTrips(query: TripsFilter?): Resource<Trips> = networkCall(
         map = mapper::createTrips,
         call = {
-            client.post {
-                url("${AppConstants.BASE_URL}/trips")
+            client.get {
+                url {
+                    takeFrom("${AppConstants.BASE_URL}/trips")
+                    parameter("role", "DRIVER")
+                    query?.tripDate?.let { parameter("start_date", it) }
+                }
                 contentType(ContentType.Application.Json)
-                setBody(query?.let(mapper::createTripFilterBody))
             }
         }
     )
