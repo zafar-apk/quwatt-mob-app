@@ -11,23 +11,10 @@ import kotlinx.serialization.json.Json
 
 actual class HttpClientFactory {
 
-    actual fun create(tokenProvider: suspend () -> String): HttpClient = HttpClient(Android) {
-        install(ContentNegotiation) {
-            val json = Json {
-                ignoreUnknownKeys = true
-                isLenient = true
-                explicitNulls = false
-            }
-            json(json = json, contentType = ContentType.Any)
-        }
+    actual fun create(): HttpClient = HttpClient(Android) {
         install(Logging) {
             logger = Logger.DEFAULT
             level = LogLevel.ALL
         }
-        install(HttpTimeout) {
-            requestTimeoutMillis = HttpConfig.REQUEST_TIMEOUT
-        }
-    }.apply {
-        addAuthorization(tokenProvider)
     }
 }

@@ -1,6 +1,11 @@
 package auth.enter_phone.domain
 
 data class SendOtpResult(
-    val isSuccess: Boolean,
-    val name: String?
+    val success: Boolean,
+    val result: SendOtpData?
+)
+
+data class SendOtpData(
+    val code: String?,
+    val registerId: String?
 )

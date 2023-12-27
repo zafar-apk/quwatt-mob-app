@@ -1,6 +1,7 @@
 package auth.enter_phone.presentation
 
 import auth.enter_phone.domain.SendOtp
+import core.domain.Strings
 import core.domain.util.Resource
 import core.domain.util.toCommonStateFlow
 import kotlinx.coroutines.Job
@@ -11,9 +12,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
+import user.domain.UserRepository
 
 class EnterPhoneViewModel(
     private val sendOtp: SendOtp,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(EnterPhoneScreenState())
@@ -41,7 +44,7 @@ class EnterPhoneViewModel(
         if (state.value.phone.length != 9) {
             _state.update {
                 it.copy(
-                    error = "Введите коректный номер телефона",
+                    error = Strings.enterValidPhoneNumber,
                     isLoading = false
                 )
             }
@@ -59,21 +62,37 @@ class EnterPhoneViewModel(
 
     private fun sendOtp(): Job = viewModelScope.launch {
         when (val result = sendOtp.execute(state.value.phone)) {
-            is Resource.Success -> _state.update {
-                it.copy(
-                    isLoading = false,
-                    error = null,
-                    next = true
-                )
+            is Resource.Success -> {
+                val registerId = result.data?.result?.registerId
+                if (registerId != null) {
+                    userRepository.saveRegisterId(registerId)
+                    updateStateSuccessfullySentOtp()
+                } else {
+                    updateStateWithError(Strings.unknownError)
+                }
             }
 
-            is Resource.Error -> _state.update {
-                it.copy(
-                    isLoading = false,
-                    error = result.throwable?.message,
-                    next = false
-                )
-            }
+            is Resource.Error -> updateStateWithError(result.throwable?.message)
+        }
+    }
+
+    private fun updateStateSuccessfullySentOtp() {
+        _state.update {
+            it.copy(
+                isLoading = false,
+                error = null,
+                next = true
+            )
+        }
+    }
+
+    private fun updateStateWithError(message: String?) {
+        _state.update {
+            it.copy(
+                isLoading = false,
+                error = message,
+                next = false
+            )
         }
     }
 }

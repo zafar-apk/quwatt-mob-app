@@ -1,23 +1,34 @@
 package ui.root
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.Scaffold
-import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material.SelectableChipColors
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import dev.icerock.moko.resources.compose.painterResource
+import auth.enter_code.presentation.EnterCodeViewModel
+import com.mmk.kmpnotifier.notification.NotifierManager
 import hamsafar_root.HamsafarRootEvent
 import hamsafar_root.HamsafarRootViewModel
+import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.koin.koinViewModel
 import moe.tlaster.precompose.navigation.NavHost
+import moe.tlaster.precompose.navigation.NavOptions
 import moe.tlaster.precompose.navigation.Navigator
+import moe.tlaster.precompose.navigation.PopUpTo
 import moe.tlaster.precompose.navigation.rememberNavigator
 import tj.ham_safar.app.android.core.presentation.Routes
 import tj.ham_safar.app.trips.create.CompleteAction
-import tj.yakroh.yakrohapp.SharedRes
+import ui.auth.presentation.enter_code.EnterCode
 import ui.auth.presentation.enter_phone.EnterPhone
 import ui.core.presentation.changePlaceHoldersToArgs
 import ui.core.presentation.components.HamsafarBottomNavigation
@@ -25,6 +36,7 @@ import ui.passengers.all.presentation.allPassengersRoute
 import ui.presentation.OnBoarding
 import ui.register.register_driver.addRegisterDriverGraph
 import ui.register.register_driver.navigateToRegisterDriverGraph
+import ui.root.Arguments.PhoneNumber
 import ui.root.Arguments.TripId
 import ui.trips.all.presentation.addToGraphAllTripsScreen
 import ui.trips.all.presentation.allTripsRoute
@@ -51,6 +63,12 @@ private val bottomNavigationRoutes = listOf(
 fun HamSafarRoot() {
     val viewModel: HamsafarRootViewModel = koinViewModel(vmClass = HamsafarRootViewModel::class)
     val state = viewModel.state.collectAsState()
+
+    NotifierManager.addListener(object : NotifierManager.Listener {
+        override fun onNewToken(token: String) {
+            viewModel.onEvent(HamsafarRootEvent.OnNewFcmToken(token))
+        }
+    })
 
     if (state.value.isFirstLaunch == true) {
         OnBoarding(
@@ -109,40 +127,38 @@ private fun AppNavigation(
         addRegisterDriverGraph(navController)
 //
         scene(route = Routes.ENTER_PHONE) {
-            EnterPhone { route ->
-                navController.navigate(route)
-            }
+            EnterPhone(
+                navigateToEnterCode = { navController.navigate("${Routes.ENTER_CODE}/$it") },
+                onNavigateUp = navController::goBack
+            )
         }
-//
-//        scene(route = "${Routes.ENTER_CODE}/{$PhoneNumber}") {
-//            EnterCode(
-//                onNavigateUp = navController::goBack,
-//                navigate = { route ->
-////                  TODO popUpTo issue
-//                    navController.navigate(
-//                        route = route,
-//                        options = NavOptions(
-//                            popUpTo = PopUpTo(
-//                                route = Routes.ENTER_PHONE,
-//                                inclusive = true
-//                            )
-//                        )
-//                    )
-//                },
-//                onSuccessfullyAuthorized = {
-////                    navController.popBackStack(Routes.ENTER_PHONE) previous logic
-//                    navController.navigate(
-//                        route = Routes.ENTER_PHONE,
-////                        options = NavOptions(
-////                            popUpTo = PopUpTo(
-////                                route = Routes.ENTER_PHONE,
-////                                inclusive = true
-////                            )
-////                        )
-//                    )
-//                }
-//            )
-//        }
+
+        scene(route = "${Routes.ENTER_CODE}/{$PhoneNumber}") {
+            val viewModel = koinViewModel(EnterCodeViewModel::class)
+            val state by viewModel.state.collectAsStateWithLifecycle()
+            EnterCode(
+                state = state,
+                onEvent = viewModel::onEvent,
+                onNavigateUp = navController::goBack,
+                onForgotPassword = {
+                    navController.navigate(Routes.FORGOT_PASSWORD)
+                },
+                onRegister = {
+                    navController.navigate(Routes.REGISTER_USER)
+                },
+                onSuccessfullyAuthorized = {
+                    navController.navigate(
+                        route = Routes.ENTER_PHONE,
+                        options = NavOptions(
+                            popUpTo = PopUpTo(
+                                route = Routes.ENTER_PHONE,
+                                inclusive = true
+                            )
+                        )
+                    )
+                }
+            )
+        }
 //
 //        scene(route = Routes.REGISTER_USER) {
 //            val viewModel: RegisterUserAndroidViewModel =

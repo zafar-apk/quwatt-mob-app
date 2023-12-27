@@ -23,12 +23,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import auth.enter_code.presentation.EnterCodeNavigation
 import auth.enter_code.presentation.EnterCodeScreenEvent
+import auth.enter_code.presentation.EnterCodeScreenState
 import core.domain.util.stringResource
 import moe.tlaster.precompose.koin.koinViewModel
 import ui.auth.presentation.components.BigStyleTextField
 import tj.ham_safar.app.android.core.presentation.Routes
 import ui.core.presentation.components.BackButton
 import tj.ham_safar.app.android.core.presentation.components.Loader
+import tj.yakroh.yakrohapp.SharedRes
 import ui.core.presentation.components.MainButton
 
 private const val OTP_CODE_MAX_LENGTH = 4
@@ -36,28 +38,29 @@ private const val OTP_CODE_MAX_LENGTH = 4
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun EnterCode(
-    viewModel: EnterCodeAndroidViewModel = koinViewModel(EnterCodeAndroidViewModel::class),
+    state: EnterCodeScreenState,
+    onEvent: (EnterCodeScreenEvent) -> Unit,
     onNavigateUp: () -> Unit,
-    navigate: (String) -> Unit,
-    onSuccessfullyAuthorized: () -> Unit
+    onSuccessfullyAuthorized: () -> Unit,
+    onForgotPassword: () -> Unit,
+    onRegister: () -> Unit
 ) {
-    val state by viewModel.state.collectAsState()
     LaunchedEffect(key1 = state.navigation) {
         when (state.navigation) {
             EnterCodeNavigation.BACK -> onNavigateUp()
             EnterCodeNavigation.NEXT -> onSuccessfullyAuthorized()
-            EnterCodeNavigation.FORGOT_PASSWORD -> navigate(Routes.FORGOT_PASSWORD)
-            EnterCodeNavigation.REGISTER -> navigate(Routes.REGISTER_USER)
+            EnterCodeNavigation.FORGOT_PASSWORD -> onForgotPassword()
+            EnterCodeNavigation.REGISTER -> onRegister()
             null -> Unit
         }
         state.navigation?.let {
-            viewModel.onEvent(EnterCodeScreenEvent.ResetNavigation)
+            onEvent(EnterCodeScreenEvent.ResetNavigation)
         }
     }
     val keyboardManger = LocalSoftwareKeyboardController.current
     Column(modifier = Modifier.fillMaxSize()) {
         BackButton(
-            onClick = { viewModel.onEvent(EnterCodeScreenEvent.GoBack) },
+            onClick = { onEvent(EnterCodeScreenEvent.GoBack) },
             modifier = Modifier.padding(
                 start = 21.dp,
                 top = 16.dp
@@ -68,7 +71,7 @@ fun EnterCode(
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                text = stringResource(id = "enter_code", listOf(state.phone)),
+                text = stringResource(id = SharedRes.strings.enter_code, listOf(state.phone)),
                 style = MaterialTheme.typography.h2
             )
             Spacer(modifier = Modifier.size(16.dp))
@@ -78,7 +81,7 @@ fun EnterCode(
                     .padding(horizontal = 21.dp),
                 value = state.code,
                 onValueChanged = {
-                    viewModel.onEvent(EnterCodeScreenEvent.OnCodeChanged(it))
+                    onEvent(EnterCodeScreenEvent.OnCodeChanged(it))
                 },
                 onDone = { keyboardManger?.hide() }
             )
@@ -87,7 +90,7 @@ fun EnterCode(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    text = state.error ?: "",
+                    text = state.error,
                     color = Color.Red,
                     textAlign = TextAlign.Center
                 )
@@ -98,8 +101,8 @@ fun EnterCode(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 21.dp),
-            labelRes = "next",
-            onClick = { viewModel.onEvent(EnterCodeScreenEvent.Continue) }
+            labelResource = SharedRes.strings.next,
+            onClick = { onEvent(EnterCodeScreenEvent.Continue) }
         )
         Spacer(modifier = Modifier.size(34.dp))
     }
@@ -120,7 +123,7 @@ private fun CodeTextField(
         value = value,
         fontSize = 18.sp,
         onValueChanged = onValueChanged,
-        label = stringResource(id = "code"),
+        label = stringResource(id = SharedRes.strings.code),
         maxLength = OTP_CODE_MAX_LENGTH,
         textAlignment = TextAlign.Center,
         keyboardOptions = KeyboardOptions(

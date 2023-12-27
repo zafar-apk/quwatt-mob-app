@@ -1,5 +1,6 @@
 package user.domain
 
+@Deprecated("Use repo directly. Interactor is meant for merging several use cases not repos")
 class UserInteractor (
     private val repository: UserRepository
 ) {
@@ -9,7 +10,8 @@ class UserInteractor (
     suspend fun isAuthorized(): Boolean = repository.isAuthorized()
     suspend fun logout() = repository.logout()
     suspend fun saveToken(token: String) = repository.saveToken(token)
-    suspend fun getToken(): String? = repository.getToken()
     suspend fun getNotificationToken(): String? = repository.getNotificationToken()
     suspend fun saveNotificationToken(token: String) = repository.saveNotificationToken(token)
+    suspend fun getRegisterId(): String? = repository.getRegisterId()
+    suspend fun saveRegisterId(id: String) = repository.saveRegisterId(id)
 }

@@ -21,7 +21,7 @@ object Strings {
     }
 
     val notRegistered: String
-        get() = when(language) {
+        get() = when (language) {
             Language.RU -> "Вы не зарегистрированы"
             Language.TJ -> "Шумо регистрация накардаед"
         }
@@ -31,6 +31,18 @@ object Strings {
         get() = when (language) {
             Language.RU -> "Не удалось соединиться с сервером, проверьте интернет соединение."
             Language.TJ -> "Барнома ба сервер пайваст карда нашуд, лутфан интернети худро санҷед."
+        }
+
+    val unknownError: String
+        get() = when (language) {
+            Language.RU -> "Ошибка. Попробуйте позже!"
+            Language.TJ -> "Хатогӣ рӯй дод, баъдтар бори дигар кӯшиш кунед!"
+        }
+
+    val enterValidPhoneNumber: String
+        get() = when (language) {
+            Language.RU -> "Введите коректный номер телефона"
+            Language.TJ -> "Рақами телефони дурустро ворид кунед"
         }
 
     val enterData: String

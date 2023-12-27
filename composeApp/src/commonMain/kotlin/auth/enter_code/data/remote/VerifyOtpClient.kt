@@ -5,7 +5,8 @@ import core.domain.util.Resource
 
 interface VerifyOtpClient {
     suspend fun verifyOtp(
-        phone: String,
-        otp: String
+        otp: String,
+        registerId: String,
+        fcmToken: String
     ): Resource<VerifyOtpResult>
 }

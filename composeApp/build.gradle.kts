@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.serialization)
     alias(libs.plugins.mokoRes)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 kotlin {
@@ -28,6 +30,7 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
             export("dev.icerock.moko:resources:${libs.versions.moko.res}")
+            export("io.github.mirzemehdi:kmpnotifier:${libs.versions.kmpNotifier}")
             freeCompilerArgs += "-Xbinary=bundleId=tj.yakroh.yakrohapp"
         }
     }
@@ -47,6 +50,9 @@ kotlin {
             implementation(libs.ktor.logger)
 
             implementation(libs.compressor)
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.analytics)
+            implementation(libs.firebase.crashlytics)
         }
         iosMain.dependencies {
             implementation(libs.ktor.ios)
@@ -70,7 +76,10 @@ kotlin {
             api(libs.moko.resources)
             api(libs.moko.resources.compose)
 
+            api(libs.kmpNotifier)
+
             implementation(libs.ktor.core)
+            implementation(libs.ktor.auth)
             implementation(libs.ktor.serialization)
             implementation(libs.ktor.serialization.json)
 

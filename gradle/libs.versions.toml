@@ -3,7 +3,7 @@ agp = "8.2.0"
 android-compileSdk = "34"
 android-minSdk = "26"
 android-targetSdk = "34"
-androidx-activityCompose = "1.8.1"
+androidx-activityCompose = "1.8.2"
 androidx-appcompat = "1.6.1"
 androidx-constraintlayout = "2.1.4"
 androidx-core-ktx = "1.12.0"
@@ -24,9 +24,13 @@ photo-picker = "0.2.0"
 compose-date-picker = "1.0.5"
 molecule = "1.3.0"
 kotlin-date-time = "0.4.1"
-ktor = "2.1.3"
+ktor = "2.3.6"
 data-store = "1.1.0-alpha07"
 compressor = "3.0.1"
+google-services = "4.4.0"
+firebase = "32.7.0"
+crashlytics = "2.9.9"
+kmpNotifier = "0.1.9"
 
 [libraries]
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
@@ -51,6 +55,7 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose" }
 ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-serialization = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 ktor-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
@@ -65,6 +70,10 @@ precompose-koin = { module = "moe.tlaster:precompose-koin", version.ref = "pre-c
 photo-picker = { module = "io.github.team-preat:peekaboo-image-picker", version.ref = "photo-picker" }
 molecule-runtime = { module = "app.cash.molecule:molecule-runtime", version.ref = "molecule" }
 compressor = { module = "id.zelory:compressor", version.ref = "compressor" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+kmpNotifier = { module = "io.github.mirzemehdi:kmpnotifier", version.ref = "kmpNotifier" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -73,3 +82,5 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 mokoRes = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-res" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics" }

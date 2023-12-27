@@ -1,8 +1,9 @@
 package hamsafar_root
 
 import core.domain.util.toCommonStateFlow
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -25,17 +26,26 @@ class HamsafarRootViewModel(
     fun onEvent(event: HamsafarRootEvent) = when (event) {
         is HamsafarRootEvent.CheckIfTheFirstLaunch -> isFirstLaunch()
         is HamsafarRootEvent.SetFirstLaunchFalse -> setFirstLaunchFalse()
+        is HamsafarRootEvent.OnNewFcmToken -> updateFcmToken(event.token)
+    }
+
+    private fun updateFcmToken(token: String): Job = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            userRepository.saveNotificationToken(token)
+        }
     }
 
     private fun isFirstLaunch() = viewModelScope.launch {
-        val isFirst = withContext(Dispatchers.Default) {
+        val isFirst = withContext(Dispatchers.IO) {
             userRepository.getIsFirstLaunch()
         }
         _state.update { it.copy(isFirstLaunch = isFirst) }
     }
 
     private fun setFirstLaunchFalse() = viewModelScope.launch {
-        userRepository.setIsFirstLaunch(isFirst = false)
+        withContext(Dispatchers.IO) {
+            userRepository.setIsFirstLaunch(isFirst = false)
+        }
         _state.update { it.copy(isFirstLaunch = false) }
     }
 }

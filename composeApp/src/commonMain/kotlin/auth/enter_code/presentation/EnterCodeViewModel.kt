@@ -1,6 +1,10 @@
 package auth.enter_code.presentation
 
-import kotlinx.coroutines.CoroutineScope
+import auth.enter_code.domain.VerifyOtp
+import core.domain.Strings
+import core.domain.util.CommonStateFlow
+import core.domain.util.Resource
+import core.domain.util.toCommonStateFlow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,27 +13,23 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import auth.enter_code.domain.VerifyOtp
-import core.domain.Strings
-import core.domain.util.Resource
-import core.domain.util.toCommonStateFlow
+import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
 import profile.domain.User
 import user.domain.UserInteractor
 
 class EnterCodeViewModel(
     private val verifyOtp: VerifyOtp,
-    private val userInteractor: UserInteractor,
-    private val coroutineScope: CoroutineScope?
-) {
+    private val userInteractor: UserInteractor
+): ViewModel() {
 
     companion object {
 
         private const val VALID_CODE_LENGTH = 4
     }
 
-    private val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
     private val _state = MutableStateFlow(EnterCodeScreenState())
-    val state = _state.stateIn(
+    val state: CommonStateFlow<EnterCodeScreenState> = _state.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         EnterCodeScreenState()
@@ -71,20 +71,18 @@ class EnterCodeViewModel(
 
     private fun verifyOtp(): Job = viewModelScope.launch {
         val result = verifyOtp.execute(
-            phone = state.value.phone,
             otp = state.value.code
         )
         when (result) {
             is Resource.Success -> _state.update { screenState ->
                 saveTokenIfExist(result.data?.token)
-                setIsUserExist(result.data?.user)
 
-                val navigation = if (result.data?.user == null) {
-                    EnterCodeNavigation.REGISTER
-                } else {
-                    EnterCodeNavigation.NEXT
-                }
-
+//                val navigation = if (result.data?.user == null) {
+//                    EnterCodeNavigation.REGISTER
+//                } else {
+//                    EnterCodeNavigation.NEXT
+//                }
+                val navigation = EnterCodeNavigation.NEXT
                 screenState.copy(
                     isLoading = false,
                     error = null,

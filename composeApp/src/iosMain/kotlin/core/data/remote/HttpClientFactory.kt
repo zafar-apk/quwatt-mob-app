@@ -8,14 +8,5 @@ import io.ktor.serialization.kotlinx.json.*
 
 actual class HttpClientFactory {
 
-    actual fun create(tokenProvider: suspend () -> String): HttpClient = HttpClient(Darwin) {
-        install(ContentNegotiation) {
-            json()
-        }
-        install(HttpTimeout) {
-            requestTimeoutMillis = HttpConfig.REQUEST_TIMEOUT
-        }
-    }.apply {
-        addAuthorization(tokenProvider)
-    }
+    actual fun create(): HttpClient = HttpClient(Darwin)
 }

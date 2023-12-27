@@ -2,6 +2,7 @@ package ui.auth.di
 
 import auth.enter_code.data.remote.VerifyOtpHttpClient
 import auth.enter_code.domain.VerifyOtp
+import auth.enter_code.presentation.EnterCodeViewModel
 import auth.enter_phone.data.remote.SendOtpClient
 import auth.enter_phone.data.remote.SendOtpHttpClient
 import auth.enter_phone.domain.SendOtp
@@ -22,4 +23,6 @@ val AuthModule = module {
     singleOf(::VerifyOtp)
 
     factoryOf(::EnterPhoneViewModel)
+
+    factoryOf(::EnterCodeViewModel)
 }

@@ -14,6 +14,7 @@ class UserLocalDataSource(private val dataStore: DataStore<Preferences>) {
 
         val KEY_TOKEN = stringPreferencesKey("key::SecureString")
         val KEY_NOTIFICATION_TOKEN = stringPreferencesKey("keyNotification::SecureString")
+        val KEY_REGISTER_ID = stringPreferencesKey("keyRegisterId::SecureString")
         val KEY_IS_USER_EXIST = booleanPreferencesKey("userExist::SecureString")
         val KEY_IS_FIRST_LAUNCH = booleanPreferencesKey("isFirstLaunch::SecureString")
     }
@@ -27,6 +28,18 @@ class UserLocalDataSource(private val dataStore: DataStore<Preferences>) {
     suspend fun insertToken(token: String) {
         dataStore.edit { preferences ->
             preferences[KEY_TOKEN] = token
+        }
+    }
+
+    suspend fun getRegisterId(): String? {
+        return dataStore.data.map { preferences ->
+            preferences[KEY_REGISTER_ID]
+        }.first()
+    }
+
+    suspend fun insertRegisterId(id: String) {
+        dataStore.edit { preferences ->
+            preferences[KEY_REGISTER_ID] = id
         }
     }
 
