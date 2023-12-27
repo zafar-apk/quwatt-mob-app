@@ -1,26 +1,24 @@
 package register.licence.presentation
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import core.domain.Strings
+import core.domain.util.Resource
+import core.domain.util.toCommonStateFlow
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import core.domain.Strings
-import core.domain.util.Resource
-import core.domain.util.toCommonStateFlow
+import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
 import profile.data.remote.getuser.GetUser
 import register.licence.domain.RegisterLicence
 
 class RegisterUserLicenceViewModel(
     private val getUser: GetUser,
-    private val registerLicence: RegisterLicence,
-    private val coroutineScope: CoroutineScope?
-) {
+    private val registerLicence: RegisterLicence
+) : ViewModel() {
 
-    private val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
     private val _state = MutableStateFlow(RegisterUserLicenceScreenState())
     val state = _state.stateIn(
         viewModelScope,
@@ -35,6 +33,15 @@ class RegisterUserLicenceViewModel(
     fun onEvent(event: RegisterUserLicenceEvent) {
         when (event) {
             RegisterUserLicenceEvent.GoNext -> onGoNext()
+
+            RegisterUserLicenceEvent.DismissDocumentDatePicker -> _state.update {
+                it.copy(isPickingDocumentDate = false)
+            }
+
+            RegisterUserLicenceEvent.OpenDocumentExpirationDatePicker -> _state.update {
+                it.copy(isPickingDocumentDate = true)
+            }
+
             RegisterUserLicenceEvent.ResetState -> _state.update {
                 it.copy(
                     error = null,

@@ -9,22 +9,30 @@ import androidx.compose.material.SelectableChipColors
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import auth.enter_code.presentation.EnterCodeScreenEvent
 import auth.enter_code.presentation.EnterCodeViewModel
 import com.mmk.kmpnotifier.notification.NotifierManager
+import core.presentation.Toast
 import hamsafar_root.HamsafarRootEvent
 import hamsafar_root.HamsafarRootViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.koin.koinViewModel
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.NavOptions
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.PopUpTo
+import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.rememberNavigator
 import tj.ham_safar.app.android.core.presentation.Routes
 import tj.ham_safar.app.trips.create.CompleteAction
@@ -133,9 +141,19 @@ private fun AppNavigation(
             )
         }
 
-        scene(route = "${Routes.ENTER_CODE}/{$PhoneNumber}") {
+        scene(route = "${Routes.ENTER_CODE}/{$PhoneNumber}") { backStackEntry ->
+            val scope = rememberCoroutineScope()
             val viewModel = koinViewModel(EnterCodeViewModel::class)
             val state by viewModel.state.collectAsStateWithLifecycle()
+
+            LaunchedEffect(true) {
+                viewModel.onEvent(
+                    EnterCodeScreenEvent.OnPhoneAvailable(
+                        backStackEntry.path<String>(PhoneNumber).orEmpty()
+                    )
+                )
+            }
+
             EnterCode(
                 state = state,
                 onEvent = viewModel::onEvent,
@@ -147,15 +165,9 @@ private fun AppNavigation(
                     navController.navigate(Routes.REGISTER_USER)
                 },
                 onSuccessfullyAuthorized = {
-                    navController.navigate(
-                        route = Routes.ENTER_PHONE,
-                        options = NavOptions(
-                            popUpTo = PopUpTo(
-                                route = Routes.ENTER_PHONE,
-                                inclusive = true
-                            )
-                        )
-                    )
+                    scope.launch {
+                        navController.popUpTo(route = Routes.ENTER_PHONE, inclusive = true)
+                    }
                 }
             )
         }
@@ -455,5 +467,17 @@ private fun AppNavigation(
 //        addToGraphEditLicenceScreen(
 //            onGoBack = { navController.goBack() }
 //        )
+    }
+}
+
+private suspend fun Navigator.popUpTo(route: String, inclusive: Boolean) {
+    currentEntry.collectLatest {
+        val currentRoute = it?.route?.route
+        while (currentRoute != route) {
+           goBack()
+        }
+        if (currentRoute == route && inclusive) {
+            goBack()
+        }
     }
 }

@@ -1,5 +1,6 @@
 package ui.auth.di
 
+import auth.enter_code.data.remote.VerifyOtpClient
 import auth.enter_code.data.remote.VerifyOtpHttpClient
 import auth.enter_code.domain.VerifyOtp
 import auth.enter_code.presentation.EnterCodeViewModel
@@ -18,7 +19,7 @@ val AuthModule = module {
 
     singleOf(::SendOtp)
 
-    singleOf(::VerifyOtpHttpClient)
+    single<VerifyOtpClient> { VerifyOtpHttpClient(client = get()) }
 
     singleOf(::VerifyOtp)
 

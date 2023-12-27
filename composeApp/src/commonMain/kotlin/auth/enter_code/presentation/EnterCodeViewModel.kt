@@ -6,6 +6,7 @@ import core.domain.util.CommonStateFlow
 import core.domain.util.Resource
 import core.domain.util.toCommonStateFlow
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -76,13 +77,13 @@ class EnterCodeViewModel(
         when (result) {
             is Resource.Success -> _state.update { screenState ->
                 saveTokenIfExist(result.data?.token)
-
-//                val navigation = if (result.data?.user == null) {
-//                    EnterCodeNavigation.REGISTER
-//                } else {
-//                    EnterCodeNavigation.NEXT
-//                }
-                val navigation = EnterCodeNavigation.NEXT
+                val user = result.data?.user
+                val navigation = if (user == null) {
+                    EnterCodeNavigation.REGISTER
+                } else {
+                    setIsUserExist(user = user)
+                    EnterCodeNavigation.NEXT
+                }
                 screenState.copy(
                     isLoading = false,
                     error = null,
@@ -99,11 +100,11 @@ class EnterCodeViewModel(
         }
     }
 
-    private suspend fun setIsUserExist(user: User?) = withContext(Dispatchers.Default) {
+    private suspend fun setIsUserExist(user: User?) = withContext(Dispatchers.IO) {
         userInteractor.setIsUserExist(user != null)
     }
 
-    private suspend fun saveTokenIfExist(token: String?) = withContext(Dispatchers.Default) {
+    private suspend fun saveTokenIfExist(token: String?) = withContext(Dispatchers.IO) {
         token?.let { token ->
             userInteractor.saveToken(token)
         }

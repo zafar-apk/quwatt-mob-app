@@ -6,6 +6,7 @@ import moe.tlaster.precompose.koin.koinViewModel
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.RouteBuilder
 import register.licence.presentation.RegisterUserLicenceEvent
+import register.licence.presentation.RegisterUserLicenceViewModel
 
 internal const val registerLicenceRoute: String = "register-licence-route"
 
@@ -14,7 +15,7 @@ internal fun RouteBuilder.addToGraphRegisterLicenceScreen(
     onGoNext: () -> Unit
 ) {
     scene(route = registerLicenceRoute) {
-        val viewModel = koinViewModel(RegisterLicenceAndroidViewModel::class)
+        val viewModel = koinViewModel(RegisterUserLicenceViewModel::class)
         val state by viewModel.state.collectAsState()
         RegisterLicenceScreen(
             state = state,

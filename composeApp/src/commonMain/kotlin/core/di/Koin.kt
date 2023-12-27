@@ -10,6 +10,7 @@ import ui.di.CreateTripModule
 import ui.di.NetworkModule
 import ui.di.UserModule
 import ui.edit.licence.di.EditLicenceModule
+import ui.register.register_driver.licence.di.RegisterLicenceModule
 import ui.root.RootModule
 import ui.trips.all.di.AllTripsModule
 import ui.trips.detailed_booking_trip.di.DetailedBookedTripModule
@@ -40,7 +41,8 @@ fun initKoin(appDeclaration: KoinAppDeclaration) {
             DetailedBookedTripModule,
             EditLicenceModule,
             MyTripsModule,
-            platformDataStoreModule
+            platformDataStoreModule,
+            RegisterLicenceModule
         )
     }
 }

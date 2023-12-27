@@ -7,5 +7,6 @@ data class RegisterUserLicenceScreenState(
     val error: Throwable? = null,
     val isLoading: Boolean = false,
     val isLicenceNumberIsNotEntered: Boolean = false,
-    val isExpirationDateIsNotEntered: Boolean = false
+    val isExpirationDateIsNotEntered: Boolean = false,
+    val isPickingDocumentDate: Boolean = false
 )

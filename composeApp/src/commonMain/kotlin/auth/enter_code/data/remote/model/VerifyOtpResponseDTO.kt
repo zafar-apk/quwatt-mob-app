@@ -14,5 +14,7 @@ data class VerifyOtpResultDTO(
     @SerialName("access_token")
     val token: String,
     @SerialName("token_type")
-    val tokenType: String?
+    val tokenType: String?,
+    @SerialName("user")
+    val user: UserDTO?
 )

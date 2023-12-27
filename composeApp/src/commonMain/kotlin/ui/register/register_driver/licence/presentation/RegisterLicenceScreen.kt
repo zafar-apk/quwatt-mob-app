@@ -20,6 +20,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,11 +33,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
+import core.presentation.DatePickerDialog
+import core.presentation.Toast
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
 import register.licence.presentation.RegisterUserLicenceEvent
 import register.licence.presentation.RegisterUserLicenceScreenState
 import tj.ham_safar.app.android.core.presentation.components.TopBar
+import tj.yakroh.yakrohapp.SharedRes
+import trips.filter.presentation.TripFilterScreenEvent
 import ui.theme.GrayGainsboro
 import ui.theme.Red
 import ui.theme.TextBlack
@@ -47,13 +55,18 @@ fun RegisterLicenceScreen(
     state: RegisterUserLicenceScreenState
 ) {
     val keyboardManager = LocalSoftwareKeyboardController.current
-//    val context = LocalContext.current
+
+    val toastMessage: MutableState<String?> = remember {
+        mutableStateOf(null)
+    }
+    Toast(messageState = toastMessage)
+
     LaunchedEffect(
         key1 = state.isLicenceRegistered,
         key2 = state.error,
         block = {
-            state.error?.message?.let {
-//                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            state.error?.message?.let { message ->
+                toastMessage.value = message
             }
             if (state.isLicenceRegistered) {
                 onEvent(RegisterUserLicenceEvent.NavigateToRegisterTransport)
@@ -61,26 +74,23 @@ fun RegisterLicenceScreen(
             onEvent(RegisterUserLicenceEvent.ResetState)
         }
     )
-//    val dateDialogState = rememberMaterialDialogState()
-//    MaterialDialog(
-//        dialogState = dateDialogState,
-//        buttons = {
-//            positiveButton(text = stringResource(id = "ok)) { /* TODO */ }
-//            negativeButton(text = stringResource(id = "cancel))
-//        }
-//    ) {
-//        datepicker(
-//            title = stringResource("pick_date_time)
-//        ) {
-//            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-//            onEvent(RegisterUserLicenceEvent.OnExpirationDateChanged(it.format(formatter)))
-//        }
-//    }
+
+
+    if (state.isPickingDocumentDate) {
+        DatePickerDialog(
+            onDismissRequest = {
+                onEvent(RegisterUserLicenceEvent.DismissDocumentDatePicker)
+            },
+            onDateSelected = { selectedDate ->
+            onEvent(RegisterUserLicenceEvent.OnExpirationDateChanged(selectedDate))
+            }
+        )
+    }
 
     Scaffold(
         topBar = {
             TopBar(
-                text = stringResource(id = "driver_licence"),
+                text = stringResource(id = SharedRes.strings.driver_licence),
                 onBackButtonClick = { onEvent(RegisterUserLicenceEvent.GoBack) }
             )
         }
@@ -98,20 +108,20 @@ fun RegisterLicenceScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(100.dp),
-                painter = painterResource("illustration_driving_license@1x.png"),
-                contentDescription = stringResource(id = "illustration_driver_licence")
+                painter = painterResource("illustration_driving_license.png"), // todo or return @1x.png
+                contentDescription = stringResource(SharedRes.strings.illustration_driver_licence)
             )
 
             Text(
                 modifier = Modifier.padding(top = 16.dp),
-                text = stringResource(id = "enter_driving_licence_data"),
+                text = stringResource(SharedRes.strings.enter_driving_licence_data),
                 style = MaterialTheme.typography.h2,
                 textAlign = TextAlign.Center
             )
 
             Text(
                 modifier = Modifier.padding(top = 24.dp),
-                text = stringResource(id = "serial_number"),
+                text = stringResource(SharedRes.strings.serial_number),
                 style = MaterialTheme.typography.subtitle1
             )
 
@@ -133,25 +143,24 @@ fun RegisterLicenceScreen(
 
             Text(
                 modifier = Modifier.padding(top = 16.dp),
-                text = stringResource(id = "expiration_date"),
+                text = stringResource(SharedRes.strings.expiration_date),
                 style = MaterialTheme.typography.subtitle1
             )
 
-            DatePicker(
+            PickDateTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp),
                 hint = "12/12/1234",
                 text = state.expirationDate,
-                onClick = {},
-//                dateDialogState::show,
+                onClick = { onEvent(RegisterUserLicenceEvent.OpenDocumentExpirationDatePicker)},
                 isError = state.isExpirationDateIsNotEntered
             )
 
             Spacer(modifier = Modifier.weight(1F))
 
             MainButton(
-                labelRes = "next",
+                labelResource = SharedRes.strings.next,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 28.dp)
@@ -163,7 +172,7 @@ fun RegisterLicenceScreen(
 }
 
 @Composable
-private fun DatePicker(
+private fun PickDateTextField(
     modifier: Modifier = Modifier,
     hint: String = "",
     text: String = "",

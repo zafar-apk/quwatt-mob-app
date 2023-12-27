@@ -8,18 +8,18 @@ import profile.domain.User
 data class UserDTO(
     @SerialName("id")
     val id: Int,
-    @SerialName("phone")
+    @SerialName("phone_number")
     val phone: String,
-    @SerialName("name")
-    val name: String,
-    @SerialName("surname")
-    val surname: String,
+    @SerialName("first_name")
+    val name: String?,
+    @SerialName("last_name")
+    val surname: String?,
     @SerialName("patronymic")
     val patronymic: String?,
-    @SerialName("dateOfBirth")
-    val dateOfBirth: String,
+    @SerialName("date_of_birth")
+    val dateOfBirth: String?,
     @SerialName("isDriver")
-    val isDriver: Boolean,
+    val isDriver: Boolean = false,
     @SerialName("transport")
     val transport: TransportDTO? = null,
     @SerialName("licenceNumber")
@@ -28,7 +28,7 @@ data class UserDTO(
     val licenceExpiration: String? = null,
     @SerialName("passportNumber")
     val passportNumber: String? = null,
-    @SerialName("photo")
+    @SerialName("avatar")
     val photo: String? = null,
     @SerialName("rating")
     val rating: Double = 0.0
@@ -37,10 +37,10 @@ data class UserDTO(
 fun UserDTO.toUser() = User(
     id = id,
     phone = phone,
-    name = name,
-    surname = surname,
+    name = name.orEmpty(),
+    surname = surname.orEmpty(),
     patronymic = patronymic,
-    dateOfBirth = dateOfBirth,
+    dateOfBirth = dateOfBirth.orEmpty(),
     isDriver = isDriver,
     transport = transport?.toTransport(),
     licenceNumber = licenceNumber,

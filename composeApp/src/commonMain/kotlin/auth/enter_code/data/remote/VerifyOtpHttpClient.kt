@@ -24,12 +24,11 @@ class VerifyOtpHttpClient(
         map = mapper::mapVerifyResultDto,
         call = {
             client.post {
-                url("${AppConstants.BASE_URL}/auth/user-registers/2") {
-                    parameter("user_register_id", registerId)
-                    parameter("sms_code", otp)
-                    parameter("fcm_token", fcmToken)
-                }
+                url("${AppConstants.BASE_URL}/auth/user-registers/2")
                 contentType(ContentType.Application.Json)
+                parameter("user_register_id", registerId)
+                parameter("sms_code", otp)
+                parameter("fcm_token", fcmToken)
             }
         }
     )

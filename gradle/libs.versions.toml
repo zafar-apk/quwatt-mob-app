@@ -73,6 +73,7 @@ compressor = { module = "id.zelory:compressor", version.ref = "compressor" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "crashlytics" }
 kmpNotifier = { module = "io.github.mirzemehdi:kmpnotifier", version.ref = "kmpNotifier" }
 
 [plugins]
