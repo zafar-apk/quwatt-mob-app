@@ -9,6 +9,6 @@ interface RegisterUserClient {
         surname: String,
         patronymic: String,
         dateOfBirth: String,
-        photo: ImageFile?
+        photo: ByteArray?
     ): Resource<Boolean>
 }

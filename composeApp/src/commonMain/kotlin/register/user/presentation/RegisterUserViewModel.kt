@@ -1,26 +1,24 @@
 package register.user.presentation
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import core.domain.Strings
+import core.domain.util.Resource
+import core.domain.util.toCommonStateFlow
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import core.domain.Strings
-import core.domain.util.Resource
-import core.domain.util.toCommonStateFlow
+import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
 import register.user.domain.RegisterUser
 import user.domain.UserInteractor
 
 class RegisterUserViewModel(
     private val registerUser: RegisterUser,
     private val userInteractor: UserInteractor,
-    private val coroutineScope: CoroutineScope?
-) {
+) : ViewModel() {
 
-    private val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
     private val _state = MutableStateFlow(RegisterUserScreenState())
     val state = _state.stateIn(
         viewModelScope,
@@ -30,6 +28,12 @@ class RegisterUserViewModel(
 
     fun onEvent(event: RegisterUserScreenEvent) {
         when (event) {
+            is RegisterUserScreenEvent.ChangeDateOfBirthDatePickerState -> _state.update {
+                it.copy(
+                    isPickingDateOfBirth = event.isVisible
+                )
+            }
+
             is RegisterUserScreenEvent.OnDateOfBirthPicked -> {
                 _state.update { it.copy(dateOfBirth = event.dateOfBirth) }
             }

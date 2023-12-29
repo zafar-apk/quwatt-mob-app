@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RegisterLicenceQuery(
-    @SerialName("licenceNumber")
-    val licenceNumber: String,
-    @SerialName("expirationDate")
-    val expirationDate: String
+    @SerialName("serial_number")
+    val serialNumber: String,
+    @SerialName("valid_until")
+    val validUntil: String
 )

@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +22,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,16 +31,23 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.preat.peekaboo.image.picker.ImagePickerLauncher
+import com.preat.peekaboo.image.picker.ResizeOptions
+import com.preat.peekaboo.image.picker.SelectionMode
+import com.preat.peekaboo.image.picker.rememberImagePickerLauncher
+import com.preat.peekaboo.image.picker.toImageBitmap
 import core.domain.util.stringResource
+import core.presentation.DatePickerDialog
+import dev.icerock.moko.resources.compose.painterResource
 import register.user.presentation.RegisterUserScreenEvent
 import register.user.presentation.RegisterUserScreenState
-import ui.core.presentation.components.BackButton
 import tj.ham_safar.app.android.register.user.presentation.user.components.LineTextField
+import tj.yakroh.yakrohapp.SharedRes
+import ui.core.presentation.components.BackButton
+import ui.core.presentation.components.MainButton
 import ui.theme.Blue
 import ui.theme.Gray
 import ui.theme.LightGray
-import ui.core.presentation.components.MainButton
-import ui.core.presentation.getImagePainterOrPlaceHolder
 
 @Composable
 fun RegisterUserScreen(
@@ -46,16 +55,16 @@ fun RegisterUserScreen(
     state: RegisterUserScreenState
 ) {
     val focusManager = LocalFocusManager.current
-//    val context = LocalContext.current
-//    val launcher = rememberLauncherForActivityResult(
-//        contract = (ActivityResultContracts.GetContent()),
-//        onResult = { uri ->
-//            uri?.let { ImageFile(uri, context.contentResolver) }
-//                ?.let(RegisterUserScreenEvent::OnUserPhotoPicked)
-//                ?.let(onEvent)
-//        }
-//    )
-//    val dateDialogState = rememberMaterialDialogState()
+    val scope = rememberCoroutineScope()
+
+    val launcher = rememberImagePickerLauncher(
+        selectionMode = SelectionMode.Single,
+        scope = scope,
+        resizeOptions = ResizeOptions(width = 1200, height = 1200),
+        onResult = { byteArrays ->
+            byteArrays.firstOrNull()?.let { RegisterUserScreenEvent.OnUserPhotoPicked(it) }
+        }
+    )
 
     LaunchedEffect(
         key1 = state.registrationCompleted,
@@ -66,20 +75,17 @@ fun RegisterUserScreen(
         }
     )
 
-//    MaterialDialog(
-//        dialogState = dateDialogState,
-//        buttons = {
-//            positiveButton(text = stringResource(id = "ok)) { /* TODO */ }
-//            negativeButton(text = stringResource(id = "cancel))
-//        }
-//    ) {
-//        datepicker(
-//            title = stringResource("pick_date_time)
-//        ) {
-//            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-//            onEvent(RegisterUserScreenEvent.OnDateOfBirthPicked(it.format(formatter)))
-//        }
-//    }
+    if (state.isPickingDateOfBirth) {
+        DatePickerDialog(
+            onDismissRequest = {
+                onEvent(RegisterUserScreenEvent.ChangeDateOfBirthDatePickerState(isVisible = false))
+            },
+            onDateSelected = {
+                onEvent(RegisterUserScreenEvent.OnDateOfBirthPicked(it))
+            }
+        )
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             item {
@@ -92,7 +98,7 @@ fun RegisterUserScreen(
                     BackButton { onEvent(RegisterUserScreenEvent.GoBack) }
                     Text(
                         modifier = Modifier.align(Alignment.Center),
-                        text = stringResource(id = "personal_info"),
+                        text = stringResource(SharedRes.strings.personal_info),
                         style = MaterialTheme.typography.h6,
                         textAlign = TextAlign.Center
                     )
@@ -112,36 +118,31 @@ fun RegisterUserScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
-                        Image(
-                            modifier = Modifier
-                                .padding(top = 14.dp)
-                                .align(Alignment.CenterHorizontally)
-                                .size(150.dp)
-                                .clip(CircleShape)
-                                .background(LightGray)
-                                .clickable {
-//                                    launcher.launch("image/jpeg")
-                                },
-                            contentDescription = stringResource(id = "user_photo"),
-                            painter = getImagePainterOrPlaceHolder(
-//                                photo = state.photo?.uri,
-                                photo = "ic_user.xml",
-                                placeholderResId = "ic_user.xml"
+                        if (state.photo == null) {
+                            Image(
+                                modifier = getUserImageModifier(launcher),
+                                contentDescription = stringResource(SharedRes.strings.user_photo),
+                                painter = painterResource(SharedRes.images.ic_user)
                             )
-                        )
+                        } else {
+                            Image(
+                                modifier = getUserImageModifier(launcher),
+                                contentDescription = stringResource(SharedRes.strings.user_photo),
+                                bitmap = state.photo.toImageBitmap()
+                            )
+                        }
+
                         TextButton(
                             modifier = Modifier.align(Alignment.CenterHorizontally),
-                            onClick = {
-//                                launcher.launch("image/jpeg")
-                            },
+                            onClick = launcher::launch,
                             colors = ButtonDefaults.textButtonColors(contentColor = Blue)
                         ) {
-                            Text(text = stringResource("add_photo"))
+                            Text(text = stringResource(SharedRes.strings.add_photo))
                         }
                         Spacer(modifier = Modifier.size(10.dp))
                         LineTextField(
                             modifier = Modifier.padding(horizontal = 27.dp),
-                            label = stringResource(id = "name_label"),
+                            label = stringResource(SharedRes.strings.name_label),
                             value = state.name,
                             onValueChange = { onEvent(RegisterUserScreenEvent.OnNameChanged(it)) },
                             imeAction = ImeAction.Next,
@@ -152,7 +153,7 @@ fun RegisterUserScreen(
                         Spacer(modifier = Modifier.size(14.dp))
                         LineTextField(
                             modifier = Modifier.padding(horizontal = 27.dp),
-                            label = stringResource(id = "sur_name_label"),
+                            label = stringResource(SharedRes.strings.sur_name_label),
                             value = state.surName,
                             onValueChange = { onEvent(RegisterUserScreenEvent.OnSurNameChanged(it)) },
                             imeAction = ImeAction.Next,
@@ -163,7 +164,7 @@ fun RegisterUserScreen(
                         Spacer(modifier = Modifier.size(14.dp))
                         LineTextField(
                             modifier = Modifier.padding(horizontal = 27.dp),
-                            label = stringResource(id = "patronymic_label"),
+                            label = stringResource(SharedRes.strings.patronymic_label),
                             value = state.patronymic,
                             onValueChange = { onEvent(RegisterUserScreenEvent.OnPatronymicChanged(it)) },
                             imeAction = ImeAction.Next,
@@ -175,7 +176,9 @@ fun RegisterUserScreen(
                         )
                         Spacer(modifier = Modifier.size(14.dp))
                         DateOfBirthField(dateOfBirth = state.dateOfBirth) {
-//                            dateDialogState.show()
+                            onEvent(
+                                RegisterUserScreenEvent.ChangeDateOfBirthDatePickerState(isVisible = true)
+                            )
                         }
                         Spacer(modifier = Modifier.size(24.dp))
                     }
@@ -190,12 +193,20 @@ fun RegisterUserScreen(
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .padding(horizontal = 21.dp, vertical = 28.dp),
-            labelRes = "save"
+            labelResource = SharedRes.strings.save
         ) {
             onEvent(RegisterUserScreenEvent.Register)
         }
     }
 }
+
+private fun ColumnScope.getUserImageModifier(launcher: ImagePickerLauncher) = Modifier
+    .padding(top = 14.dp)
+    .align(Alignment.CenterHorizontally)
+    .size(150.dp)
+    .clip(CircleShape)
+    .background(LightGray)
+    .clickable(onClick = launcher::launch)
 
 @Composable
 fun DateOfBirthField(
@@ -209,13 +220,13 @@ fun DateOfBirthField(
             .clickable(onClick = onClick)
     ) {
         Text(
-            text = stringResource(id = "date_of_birth_label"),
+            text = stringResource(SharedRes.strings.date_of_birth_label),
             style = MaterialTheme.typography.subtitle1,
             color = Gray
         )
         Spacer(modifier = Modifier.size(2.dp))
         Text(
-            text = dateOfBirth.ifEmpty { stringResource("select_date_of_birth") },
+            text = dateOfBirth.ifEmpty { stringResource(SharedRes.strings.select_date_of_birth) },
             style = MaterialTheme.typography.subtitle1,
             color = Blue
         )

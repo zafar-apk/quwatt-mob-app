@@ -6,10 +6,10 @@ data class User(
     val id: Int,
     val phone: String,
     val photo: String?,
-    val name: String,
+    val name: String?,
     val surname: String,
     val patronymic: String?,
-    val dateOfBirth: String,
+    val dateOfBirth: String?,
     val isDriver: Boolean,
     val transport: Transport?,
     val licenceNumber: String?,
@@ -18,4 +18,6 @@ data class User(
     val rating: Double,
 ) {
     fun getFullName(): String = "$name $surname $patronymic"
+
+    fun isRegistered(): Boolean = !name.isNullOrEmpty() && !dateOfBirth.isNullOrEmpty()
 }

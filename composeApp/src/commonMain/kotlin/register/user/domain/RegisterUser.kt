@@ -1,6 +1,5 @@
 package register.user.domain
 
-import core.domain.util.ImageFile
 import core.domain.util.Resource
 import register.user.data.remote.RegisterUserClient
 
@@ -10,7 +9,7 @@ class RegisterUser(private val registerUserClient: RegisterUserClient) {
         surname: String,
         patronymic: String,
         dateOfBirth: String,
-        photo: ImageFile?
+        photo: ByteArray?
     ): Resource<Boolean> = registerUserClient.register(
         name = name,
         surname = surname,

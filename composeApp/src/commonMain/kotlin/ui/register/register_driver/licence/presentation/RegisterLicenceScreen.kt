@@ -23,7 +23,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,18 +34,19 @@ import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import core.presentation.DatePickerDialog
 import core.presentation.Toast
+import dev.icerock.moko.resources.compose.painterResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import ui.core.presentation.painterResource
 import register.licence.presentation.RegisterUserLicenceEvent
 import register.licence.presentation.RegisterUserLicenceScreenState
 import tj.ham_safar.app.android.core.presentation.components.TopBar
 import tj.yakroh.yakrohapp.SharedRes
-import trips.filter.presentation.TripFilterScreenEvent
+import ui.auth.presentation.components.BigStyleTextField
+import ui.core.presentation.components.MainButton
 import ui.theme.GrayGainsboro
 import ui.theme.Red
 import ui.theme.TextBlack
-import ui.auth.presentation.components.BigStyleTextField
-import ui.core.presentation.components.MainButton
+
+private const val API_TYPE_DATE_SEPARATOR = "-"
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalResourceApi::class)
 @Composable
@@ -82,8 +82,9 @@ fun RegisterLicenceScreen(
                 onEvent(RegisterUserLicenceEvent.DismissDocumentDatePicker)
             },
             onDateSelected = { selectedDate ->
-            onEvent(RegisterUserLicenceEvent.OnExpirationDateChanged(selectedDate))
-            }
+                onEvent(RegisterUserLicenceEvent.OnExpirationDateChanged(selectedDate))
+            },
+            dateSeparator = API_TYPE_DATE_SEPARATOR
         )
     }
 
@@ -108,7 +109,7 @@ fun RegisterLicenceScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(100.dp),
-                painter = painterResource("illustration_driving_license.png"), // todo or return @1x.png
+                painter = painterResource(SharedRes.images.illustration_driving_license),
                 contentDescription = stringResource(SharedRes.strings.illustration_driver_licence)
             )
 

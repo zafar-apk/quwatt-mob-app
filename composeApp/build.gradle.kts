@@ -21,16 +21,16 @@ kotlin {
     }
 
     listOf(
-        iosArm64(),
+//        iosArm64(),
         // take too long to build so commented for debugging
 //        iosX64(),
-//        iosSimulatorArm64()
+        iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
+            export(libs.kmpNotifier)
+            export(libs.moko.resources)
             baseName = "ComposeApp"
             isStatic = true
-            export("dev.icerock.moko:resources:${libs.versions.moko.res}")
-            export("io.github.mirzemehdi:kmpnotifier:${libs.versions.kmpNotifier}")
             freeCompilerArgs += "-Xbinary=bundleId=tj.yakroh.yakrohapp"
         }
     }

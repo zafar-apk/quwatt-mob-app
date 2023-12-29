@@ -15,7 +15,7 @@
     <string name="phone_prefix">+992</string>
     <string name="back_button">Кнопка назад</string>
     <string name="enter_phone_number">Введите ваш номер телефона</string>
-    <string name="enter_code">На номер \n%s\nотправлен смс с кодом \nподтверждения\nвведите его</string>
+    <string name="enter_code">На номер %s отправлен смс с кодом подтверждения. Введите его</string>
     <string name="code">Код</string>
     <string name="passed_wrong_password">Введён неправильный номер телефона</string>
     <string name="trips">Поездки</string>

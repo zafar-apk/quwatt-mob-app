@@ -34,6 +34,8 @@ import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.PopUpTo
 import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.rememberNavigator
+import register.user.presentation.RegisterUserScreenEvent
+import register.user.presentation.RegisterUserViewModel
 import tj.ham_safar.app.android.core.presentation.Routes
 import tj.ham_safar.app.trips.create.CompleteAction
 import ui.auth.presentation.enter_code.EnterCode
@@ -44,6 +46,7 @@ import ui.passengers.all.presentation.allPassengersRoute
 import ui.presentation.OnBoarding
 import ui.register.register_driver.addRegisterDriverGraph
 import ui.register.register_driver.navigateToRegisterDriverGraph
+import ui.register.user.presentation.user.RegisterUserScreen
 import ui.root.Arguments.PhoneNumber
 import ui.root.Arguments.TripId
 import ui.trips.all.presentation.addToGraphAllTripsScreen
@@ -171,25 +174,24 @@ private fun AppNavigation(
                 }
             )
         }
-//
-//        scene(route = Routes.REGISTER_USER) {
-//            val viewModel: RegisterUserAndroidViewModel =
-//                koinViewModel(RegisterUserAndroidViewModel::class)
-//            val state by viewModel.state.collectAsState()
-//            RegisterUserScreen(
-//                state = state,
-//                onEvent = { event ->
-//                    when (event) {
-//                        RegisterUserScreenEvent.GoBack -> navController.goBack()
-//                        RegisterUserScreenEvent.CompleteRegistration ->
-//                            navController.goBack()
-//
-//                        else -> viewModel.onEvent(event)
-//                    }
-//                }
-//            )
-//        }
-//
+
+        scene(route = Routes.REGISTER_USER) {
+            val viewModel: RegisterUserViewModel = koinViewModel(RegisterUserViewModel::class)
+            val state by viewModel.state.collectAsState()
+            RegisterUserScreen(
+                state = state,
+                onEvent = { event ->
+                    when (event) {
+                        RegisterUserScreenEvent.GoBack -> navController.goBack()
+                        RegisterUserScreenEvent.CompleteRegistration ->
+                            navController.goBack()
+
+                        else -> viewModel.onEvent(event)
+                    }
+                }
+            )
+        }
+
 //        scene(route = Routes.DETAILED_PASSENGER) { backStackEntry ->
 //            val viewModel = koinViewModel(DetailedPassengerScreenAndroidViewModel::class)
 //            LaunchedEffect(false) {

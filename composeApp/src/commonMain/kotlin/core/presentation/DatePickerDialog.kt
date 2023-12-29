@@ -53,7 +53,8 @@ private const val SHAKE_ANIMATION_DURATION = 250
 @Composable
 fun DatePickerDialog(
     onDismissRequest: () -> Unit,
-    onDateSelected: (String) -> Unit
+    onDateSelected: (String) -> Unit,
+    dateSeparator: String = "."
 ) {
     val coroutineScope = rememberCoroutineScope()
     val hapticFeedback = LocalHapticFeedback.current
@@ -152,7 +153,7 @@ fun DatePickerDialog(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         modifier = Modifier.padding(start = 8.dp),
-                        text = selectedDate?.toYYYYmmDD().orEmpty(),
+                        text = selectedDate?.toYYYYmmDD(separator = dateSeparator).orEmpty(),
                         style = MaterialTheme.typography.subtitle2,
                     )
 
@@ -160,7 +161,7 @@ fun DatePickerDialog(
 
                     TextButton(
                         onClick = {
-                            onDateSelected(selectedDate?.toYYYYmmDD().orEmpty())
+                            onDateSelected(selectedDate?.toYYYYmmDD(dateSeparator).orEmpty())
                             onDismissRequest()
                         }
                     ) {

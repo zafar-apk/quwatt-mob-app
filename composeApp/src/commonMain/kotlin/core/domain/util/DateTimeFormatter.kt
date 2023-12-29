@@ -14,12 +14,16 @@ import kotlinx.datetime.*
  */
 fun getCurrentDateTime(): LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
 
-fun LocalDate.toYYYYmmDD() = buildString {
+fun LocalDate.toYYYYmmDD(separator: String = ".") = buildString {
     append(year)
-    append(".")
-    append(monthNumber)
-    append(".")
-    append(dayOfMonth.takeIf { it > 9 } ?: "0$dayOfMonth")
+    append(separator)
+    append(monthNumber.makeDatePartToHaveTwoSymbols())
+    append(separator)
+    append(dayOfMonth.makeDatePartToHaveTwoSymbols())
+}
+
+private fun Int.makeDatePartToHaveTwoSymbols(): String {
+    return takeIf { it > 9 }?.toString() ?: "0$this"
 }
 
 class DateTimeFormatter {

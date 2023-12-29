@@ -25,7 +25,7 @@ class RegisterLicenceHttpClient(
         },
         call = {
             client.post {
-                url("${AppConstants.BASE_URL}/register/licence")
+                url("${AppConstants.BASE_URL}/driver-document/create-or-update")
                 contentType(ContentType.Application.Json)
                 setBody(RegisterLicenceQuery(licenceNumber, expirationDate))
             }

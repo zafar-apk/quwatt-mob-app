@@ -103,7 +103,7 @@ fun PassengersScreen(
                                 passengersCount = passenger.count,
                                 rating = passenger.rating,
                                 avatar = passenger.user.photo,
-                                name = passenger.user.name,
+                                name = passenger.user.name.orEmpty(),
                                 onClick = {
                                     onEvent(
                                         PassengersScreenEvent.RequestToOpenPassengerDetails(

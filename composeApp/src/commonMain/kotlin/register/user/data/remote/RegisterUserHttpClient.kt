@@ -22,10 +22,10 @@ class RegisterUserHttpClient(
         surname: String,
         patronymic: String,
         dateOfBirth: String,
-        photo: ImageFile?
+        photo: ByteArray?
     ): Resource<Boolean> = runCatching {
         client.submitFormWithBinaryData(
-            url = "${AppConstants.BASE_URL}/register",
+            url = "${AppConstants.BASE_URL}/register", // todo add new api integration
             formData = createFormData(
                 name = name,
                 surname = surname,
@@ -49,7 +49,7 @@ class RegisterUserHttpClient(
         surname: String,
         patronymic: String,
         dateOfBirth: String,
-        photo: ImageFile?
+        photo: ByteArray?
     ): List<PartData> = formData {
         append("name", name)
         append("surname", surname)
@@ -60,13 +60,13 @@ class RegisterUserHttpClient(
         }
     }
 
-    private fun FormBuilder.appendPhoto(imageFile: ImageFile) {
+    private fun FormBuilder.appendPhoto(imageFile: ByteArray) {
         append(
             key = "photo",
-            value = imageFile.toByteArray(),
+            value = imageFile,
             headers = Headers.build {
                 append(HttpHeaders.ContentType, "image/jpeg")
-                append(HttpHeaders.ContentDisposition, "filename=image.png")
+                append(HttpHeaders.ContentDisposition, "filename=image.jpeg")
             }
         )
     }

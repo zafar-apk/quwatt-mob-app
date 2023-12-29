@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -58,7 +59,7 @@ fun EnterCode(
         }
     }
     val keyboardManger = LocalSoftwareKeyboardController.current
-    Column(modifier = Modifier.fillMaxSize()) {
+    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         BackButton(
             onClick = { onEvent(EnterCodeScreenEvent.GoBack) },
             modifier = Modifier.padding(
@@ -66,45 +67,49 @@ fun EnterCode(
                 top = 16.dp
             )
         )
-        Spacer(modifier = Modifier.weight(0.5F))
-        Column(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                text = stringResource(id = SharedRes.strings.enter_code, listOf(state.phone)),
-                style = MaterialTheme.typography.h2
-            )
-            Spacer(modifier = Modifier.size(16.dp))
-            CodeTextField(
+    }) { paddingValues ->
+        Column(modifier = Modifier.fillMaxSize().imePadding().padding(paddingValues)) {
+            Spacer(modifier = Modifier.weight(0.5F))
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    text = stringResource(id = SharedRes.strings.enter_code, listOf(state.phone)),
+                    style = MaterialTheme.typography.h2
+                )
+                Spacer(modifier = Modifier.size(16.dp))
+                CodeTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 21.dp),
+                    value = state.code,
+                    onValueChanged = {
+                        onEvent(EnterCodeScreenEvent.OnCodeChanged(it))
+                    },
+                    onDone = { keyboardManger?.hide() }
+                )
+                if (state.error != null) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        text = state.error,
+                        color = Color.Red,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.weight(1F))
+            MainButton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 21.dp),
-                value = state.code,
-                onValueChanged = {
-                    onEvent(EnterCodeScreenEvent.OnCodeChanged(it))
-                },
-                onDone = { keyboardManger?.hide() }
+                labelResource = SharedRes.strings.next,
+                onClick = { onEvent(EnterCodeScreenEvent.Continue) }
             )
-            if (state.error != null) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    text = state.error,
-                    color = Color.Red,
-                    textAlign = TextAlign.Center
-                )
-            }
+            Spacer(modifier = Modifier.size(34.dp))
         }
-        Spacer(modifier = Modifier.weight(1F))
-        MainButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 21.dp),
-            labelResource = SharedRes.strings.next,
-            onClick = { onEvent(EnterCodeScreenEvent.Continue) }
-        )
-        Spacer(modifier = Modifier.size(34.dp))
+
     }
     AnimatedVisibility(visible = state.isLoading) {
         Loader()

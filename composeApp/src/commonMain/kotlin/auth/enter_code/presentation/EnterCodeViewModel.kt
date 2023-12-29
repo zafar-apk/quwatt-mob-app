@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
-import profile.domain.User
 import user.domain.UserInteractor
 
 class EnterCodeViewModel(
@@ -78,11 +77,11 @@ class EnterCodeViewModel(
             is Resource.Success -> _state.update { screenState ->
                 saveTokenIfExist(result.data?.token)
                 val user = result.data?.user
-                val navigation = if (user == null) {
-                    EnterCodeNavigation.REGISTER
-                } else {
-                    setIsUserExist(user = user)
+                val navigation = if (user?.isRegistered() == true) {
+                    setUserExist()
                     EnterCodeNavigation.NEXT
+                } else {
+                    EnterCodeNavigation.REGISTER
                 }
                 screenState.copy(
                     isLoading = false,
@@ -100,8 +99,8 @@ class EnterCodeViewModel(
         }
     }
 
-    private suspend fun setIsUserExist(user: User?) = withContext(Dispatchers.IO) {
-        userInteractor.setIsUserExist(user != null)
+    private suspend fun setUserExist() = withContext(Dispatchers.IO) {
+        userInteractor.setIsUserExist(true)
     }
 
     private suspend fun saveTokenIfExist(token: String?) = withContext(Dispatchers.IO) {
