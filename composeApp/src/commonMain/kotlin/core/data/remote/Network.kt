@@ -43,11 +43,9 @@ suspend inline fun <reified T, R> networkCall(
     }
 }
 
-fun HttpRequestBuilder.authorization(token: String) = header("Bearer", token)
-
 fun HttpClient.addAuthorizationPlugin(tokenProvider: suspend () -> String) {
     plugin(HttpSend).intercept { request ->
-        request.headers.append("Bearer", tokenProvider())
+        request.headers.append("Authorization", tokenProvider())
         execute(request)
     }
 }

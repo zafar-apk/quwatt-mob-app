@@ -18,37 +18,32 @@ class SetUserPhotoHttpClient(
     private val client: HttpClient
 ) : SetUserPhotoClient {
 
-    private fun mapUser(dto: UserDTO): User = dto.toUser()
-
-    override suspend fun setUserPhoto(photo: ImageFile): Resource<User> = runCatching {
+    override suspend fun setUserPhoto(photo: ByteArray): Resource<Boolean> = runCatching {
         val response = client.submitFormWithBinaryData(
-            url = "${AppConstants.BASE_URL}/user/set-photo",
+            url = "${AppConstants.BASE_URL}/users/avatar/upload",
             formData = createFormData(photo = photo)
         ) {
             onUpload { bytesSentTotal, contentLength ->
                 println("Sent $bytesSentTotal bytes from $contentLength")
             }
         }
-        val userDto = response.body<UserDTO>()
-        Resource.Success(mapUser(userDto))
+        Resource.Success(response.status.isSuccess())
     }.getOrElse {
         it.printStackTrace()
         Resource.Error(it)
     }
 
-    private fun createFormData(photo: ImageFile?): List<PartData> = formData {
-        photo?.let { imageFile ->
-            appendPhoto(imageFile)
-        }
+    private fun createFormData(photo: ByteArray): List<PartData> = formData {
+            appendPhoto(photo)
     }
 
-    private fun FormBuilder.appendPhoto(imageFile: ImageFile) {
+    private fun FormBuilder.appendPhoto(imageFile: ByteArray) {
         append(
-            key = "photo",
-            value = imageFile.toByteArray(),
+            key = "avatar",
+            value = imageFile,
             headers = Headers.build {
                 append(HttpHeaders.ContentType, "image/jpeg")
-                append(HttpHeaders.ContentDisposition, "filename=image.png")
+                append(HttpHeaders.ContentDisposition, "filename=image.jpeg")
             }
         )
     }

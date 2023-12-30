@@ -11,12 +11,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
+import profile.data.remote.setphoto.SetUserPhoto
 import register.user.domain.RegisterUser
 import user.domain.UserInteractor
 
 class RegisterUserViewModel(
     private val registerUser: RegisterUser,
     private val userInteractor: UserInteractor,
+    private val setUserPhoto: SetUserPhoto
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(RegisterUserScreenState())
@@ -50,13 +52,35 @@ class RegisterUserViewModel(
                 it.copy(surName = event.surname)
             }
 
-            is RegisterUserScreenEvent.OnUserPhotoPicked -> _state.update {
-                it.copy(photo = event.imageFile)
+            is RegisterUserScreenEvent.OnUserPhotoPicked -> {
+                uploadUserPhoto(event.imageFile)
+                _state.update {
+                    it.copy(
+                        photo = event.imageFile,
+                        isLoading = true
+                    )
+                }
             }
 
             RegisterUserScreenEvent.Register -> register()
 
             else -> Unit
+        }
+    }
+
+    private fun uploadUserPhoto(photo: ByteArray) {
+        viewModelScope.launch {
+            val response = setUserPhoto.execute(photo)
+            _state.update {
+                if (response is Resource.Success && response.data == true) {
+                    it.copy(isLoading = false)
+                } else {
+                    it.copy(
+                        isLoading = false,
+                        error = response.throwable ?: RuntimeException(Strings.unknownError)
+                    )
+                }
+            }
         }
     }
 
@@ -68,18 +92,24 @@ class RegisterUserViewModel(
                 surname = surName,
                 patronymic = patronymic,
                 dateOfBirth = dateOfBirth,
-                photo = photo
             )
             when (result) {
                 is Resource.Success -> {
-                    userInteractor.setIsUserExist(true)
+                    val isRegistered = result.data ?: false
+                    userInteractor.setIsUserExist(isRegistered)
                     _state.update {
-                        it.copy(registrationCompleted = result.data ?: false)
+                        it.copy(
+                            registrationCompleted = isRegistered,
+                            isLoading = false
+                        )
                     }
                 }
 
                 is Resource.Error -> _state.update {
-                    it.copy(error = result.throwable)
+                    it.copy(
+                        error = result.throwable,
+                        isLoading = false
+                    )
                 }
             }
         }

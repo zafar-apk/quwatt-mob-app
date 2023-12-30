@@ -27,6 +27,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.IntOffset
@@ -36,6 +37,7 @@ import core.domain.util.getCurrentDateTime
 import core.domain.util.stringResource
 import core.domain.util.toYYYYmmDD
 import dev.icerock.moko.resources.StringResource
+import epicarchitect.calendar.compose.basis.EpicMonth
 import epicarchitect.calendar.compose.basis.config.rememberMutableBasisEpicCalendarConfig
 import epicarchitect.calendar.compose.datepicker.EpicDatePicker
 import epicarchitect.calendar.compose.datepicker.config.rememberEpicDatePickerConfig
@@ -43,10 +45,12 @@ import epicarchitect.calendar.compose.datepicker.state.rememberEpicDatePickerSta
 import epicarchitect.calendar.compose.pager.config.rememberEpicCalendarPagerConfig
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
+import tj.yakroh.yakrohapp.SharedRes
 import ui.theme.BackgroundGray
 import ui.theme.Blue
-import tj.yakroh.yakrohapp.SharedRes
+import ui.trips.filter.presentation.components.TextDropDown
 
 private const val SHAKE_ANIMATION_DURATION = 250
 
@@ -54,7 +58,10 @@ private const val SHAKE_ANIMATION_DURATION = 250
 fun DatePickerDialog(
     onDismissRequest: () -> Unit,
     onDateSelected: (String) -> Unit,
-    dateSeparator: String = "."
+    dateSeparator: String = ".",
+    validateDate: (LocalDate?) -> Boolean = {
+        it == null || it >= getCurrentDateTime().date
+    }
 ) {
     val coroutineScope = rememberCoroutineScope()
     val hapticFeedback = LocalHapticFeedback.current
@@ -73,8 +80,12 @@ fun DatePickerDialog(
     val currentDate = remember {
         getCurrentDateTime().date
     }
+    val displayYear = state.pagerState.currentMonth.year
     val selectedDate = state.selectedDates.firstOrNull()
-    val isSelectedDateValid = selectedDate == null || selectedDate >= currentDate
+
+    var isYearDropDownOpened by remember {
+        mutableStateOf(false)
+    }
 
     var shakeEffect by remember { mutableStateOf(false) }
     val infiniteTransition = rememberInfiniteTransition()
@@ -93,8 +104,8 @@ fun DatePickerDialog(
         }
     }
 
-    LaunchedEffect(isSelectedDateValid) {
-        if (!isSelectedDateValid) {
+    LaunchedEffect(validateDate(selectedDate)) {
+        if (!validateDate(selectedDate)) {
             hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
             selectedDate?.let(state::toggleDateSelection)
             shakeEffect = true
@@ -113,6 +124,56 @@ fun DatePickerDialog(
                 },
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextDropDown(
+                    selectedText = displayYear.toString(),
+                    onSelectOption = { selectedYearString ->
+                        isYearDropDownOpened = false
+                        coroutineScope.launch {
+                            state.pagerState.scrollToMonth(
+                                EpicMonth(
+                                    selectedYearString.toInt(),
+                                    state.pagerState.currentMonth.month
+                                )
+                            )
+                        }
+                    },
+                    options = ((currentDate.year - 100)..currentDate.year).map { it.toString() },
+                    isDropDownOpened = isYearDropDownOpened,
+                    onOpenDropDown = {
+                        isYearDropDownOpened = true
+                    },
+                    onDismiss = {
+                        isYearDropDownOpened = false
+                    },
+                    hint = "",
+                    elevation = 0.dp,
+                    modifier = Modifier.background(color = Color.Transparent)
+                )
+
+                Spacer(Modifier.weight(1F))
+
+                TextButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            state.pagerState.scrollYears(-1)
+                        }
+                    }
+                ) {
+                    Text("<", style = MaterialTheme.typography.subtitle2)
+                }
+
+                TextButton(onClick = {
+                    coroutineScope.launch {
+                        state.pagerState.scrollYears(1)
+                    }
+                }) {
+                    Text(">", style = MaterialTheme.typography.subtitle2)
+                }
+            }
+
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -149,7 +210,7 @@ fun DatePickerDialog(
                 state = state
             )
 
-            AnimatedVisibility(visible = selectedDate != null && isSelectedDateValid) {
+            AnimatedVisibility(visible = selectedDate != null && validateDate(selectedDate)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         modifier = Modifier.padding(start = 8.dp),

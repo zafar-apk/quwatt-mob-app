@@ -105,22 +105,19 @@ private const val MAX_STAGE = 3
 fun getIllustrationDescriptionResByStage(stage: Int): String = when (stage) {
     1 -> "waiting_illustration"
     2 -> "search_illustration"
-    3 -> "security_illustration"
-    else -> throw IllegalArgumentException("Unknown stage passed as a parameter")
+    else -> "security_illustration"
 }
 
 fun getIllustrationVectorResByStage(stage: Int): String = when (stage) {
     1 -> "illustration_waiting.xml"
     2 -> "illustration_search.xml"
-    3 -> "illustration_security.xml"
-    else -> throw IllegalArgumentException("Unknown stage passed as a parameter")
+    else -> "illustration_security.xml"
 }
 
 private fun getOnBoardingTitleResByStage(stage: Int): String = when (stage) {
     1 -> "onboarding_1_text"
     2 -> "onboarding_2_text"
-    3 -> "onboarding_3_text"
-    else -> throw IllegalArgumentException("Unknown stage passed as a parameter")
+    else  -> "onboarding_3_text"
 }
 
 //@Preview

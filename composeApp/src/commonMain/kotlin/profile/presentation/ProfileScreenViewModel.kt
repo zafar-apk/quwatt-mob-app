@@ -79,29 +79,29 @@ class ProfileScreenViewModel(
         }
         withContext(Dispatchers.Default) {
             val compressedImage = imageCompressor.compressImage(photo)
-            when (val result = compressedImage?.let { setUserPhoto.execute(it) }) {
-                is Resource.Error -> _state.update {
-                    it.copy(
-                        isLoading = false,
-                        error = result.throwable?.message
-                    )
-                }
-
-                is Resource.Success -> {
-                    _state.update {
-                        it.copy(
-                            error = null,
-                            isLoading = false,
-                            user = result.data,
-                        )
-                    }
-                }
-                else -> {
-                    _state.update {
-                        it.copy(compressedImageNull = true, isLoading = false)
-                    }
-                }
-            }
+//            when (val result = compressedImage?.let { setUserPhoto.execute(it) }) {
+//                is Resource.Error -> _state.update {
+//                    it.copy(
+//                        isLoading = false,
+//                        error = result.throwable?.message
+//                    )
+//                }
+//
+//                is Resource.Success -> {
+//                    _state.update {
+//                        it.copy(
+//                            error = null,
+//                            isLoading = false,
+//                            user = result.data,
+//                        )
+//                    }
+//                }
+//                else -> {
+//                    _state.update {
+//                        it.copy(compressedImageNull = true, isLoading = false)
+//                    }
+//                }
+//            }
         }
     }
 

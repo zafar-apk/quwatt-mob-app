@@ -14,7 +14,7 @@ val NetworkModule = module {
         val dataSource: UserLocalDataSource = get()
         val factory: HttpClientFactory = get()
         factory.create().configureForProject {
-            dataSource.getToken().orEmpty()
+            "Bearer ${dataSource.getToken().orEmpty()}"
         }
     }
 }

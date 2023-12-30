@@ -1,21 +1,21 @@
 package ui.profile.di
 
-//@Module
-//@InstallIn(SingletonComponent::class)
-//object ProfileModule {
-//
-//    @Provides
-//    fun provideGetUser(client: GetUserClient): GetUser = GetUser(client)
-//
-//    @Provides
-//    fun provideGetUserClient(httpClient: HttpClient): GetUserClient =
-//        GetUserHttpClient(httpClient)
-//
-//    @Provides
-//    fun provideSetUserPhoto(setUserPhotoClient: SetUserPhotoClient): SetUserPhoto =
-//        SetUserPhoto(setUserPhotoClient)
-//
-//    @Provides
-//    fun provideSetUserPhotoClient(httpClient: HttpClient): SetUserPhotoClient =
-//        SetUserPhotoHttpClient(httpClient)
-//}
+import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.module
+import profile.data.remote.getuser.GetUser
+import profile.data.remote.getuser.GetUserClient
+import profile.data.remote.getuser.GetUserHttpClient
+import profile.data.remote.setphoto.SetUserPhoto
+import profile.data.remote.setphoto.SetUserPhotoClient
+import profile.data.remote.setphoto.SetUserPhotoHttpClient
+
+val ProfileModule = module {
+
+    factoryOf(::GetUser)
+
+    factory<GetUserClient> { GetUserHttpClient(get()) }
+
+    factoryOf(::SetUserPhoto)
+
+    factory<SetUserPhotoClient> { SetUserPhotoHttpClient(get()) }
+}

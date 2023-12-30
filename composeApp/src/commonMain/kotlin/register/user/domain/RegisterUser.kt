@@ -9,12 +9,10 @@ class RegisterUser(private val registerUserClient: RegisterUserClient) {
         surname: String,
         patronymic: String,
         dateOfBirth: String,
-        photo: ByteArray?
     ): Resource<Boolean> = registerUserClient.register(
         name = name,
         surname = surname,
         patronymic = patronymic,
         dateOfBirth = dateOfBirth,
-        photo = photo
     )
 }
