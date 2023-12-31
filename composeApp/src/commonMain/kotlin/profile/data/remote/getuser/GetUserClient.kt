@@ -4,5 +4,5 @@ import core.domain.util.Resource
 import profile.domain.User
 
 interface GetUserClient {
-    suspend fun getUser(): Resource<User>
+    suspend fun getUser(): Resource<User?>
 }

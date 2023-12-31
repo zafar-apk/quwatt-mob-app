@@ -6,7 +6,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
@@ -36,9 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
@@ -72,7 +69,6 @@ fun RegisterUserScreen(
     state: RegisterUserScreenState
 ) {
     val keyboardManager = LocalSoftwareKeyboardController.current
-    val focusManager = LocalFocusManager.current
     val scope = rememberCoroutineScope()
     val errorMessageMutableState: MutableState<String?> = remember {
         mutableStateOf(null)
@@ -125,15 +121,14 @@ fun RegisterUserScreen(
         modifier = Modifier.fillMaxSize()
             .hideKeyboardOnClick(keyboardManager),
         topBar = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 21.dp)
-                    .padding(vertical = 12.dp)
-            ) {
-                BackButton { onEvent(RegisterUserScreenEvent.GoBack) }
+            Column(modifier = Modifier.fillMaxWidth()) {
+                BackButton(
+                    modifier = Modifier.padding(horizontal = 21.dp)
+                        .padding(vertical = 12.dp)
+                ) { onEvent(RegisterUserScreenEvent.GoBack) }
+
                 Text(
-                    modifier = Modifier.align(Alignment.Center),
+                    modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = 16.dp),
                     text = stringResource(SharedRes.strings.personal_info),
                     style = MaterialTheme.typography.h6,
                     textAlign = TextAlign.Center
@@ -183,7 +178,7 @@ fun RegisterUserScreen(
                     onValueChange = { onEvent(RegisterUserScreenEvent.OnNameChanged(it)) },
                     imeAction = ImeAction.Next,
                     keyboardActions = KeyboardActions(onNext = {
-                        focusManager.moveFocus(FocusDirection.Down)
+                        keyboardManager?.hide()
                     })
                 )
                 Spacer(modifier = Modifier.size(14.dp))
@@ -194,7 +189,7 @@ fun RegisterUserScreen(
                     onValueChange = { onEvent(RegisterUserScreenEvent.OnSurNameChanged(it)) },
                     imeAction = ImeAction.Next,
                     keyboardActions = KeyboardActions(onNext = {
-                        focusManager.moveFocus(FocusDirection.Down)
+                        keyboardManager?.hide()
                     })
                 )
                 Spacer(modifier = Modifier.size(14.dp))
@@ -206,12 +201,13 @@ fun RegisterUserScreen(
                     imeAction = ImeAction.Next,
                     keyboardActions = KeyboardActions(
                         onNext = {
-                            focusManager.clearFocus(force = true)
+                            keyboardManager?.hide()
                         }
                     )
                 )
                 Spacer(modifier = Modifier.size(14.dp))
                 DateOfBirthField(dateOfBirth = state.dateOfBirth) {
+                    keyboardManager?.hide()
                     onEvent(
                         RegisterUserScreenEvent.ChangeDateOfBirthDatePickerState(isVisible = true)
                     )

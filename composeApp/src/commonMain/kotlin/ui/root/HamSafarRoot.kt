@@ -1,29 +1,19 @@
 package ui.root
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.Scaffold
-import androidx.compose.material.SelectableChipColors
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import auth.enter_code.presentation.EnterCodeScreenEvent
 import auth.enter_code.presentation.EnterCodeViewModel
 import com.mmk.kmpnotifier.notification.NotifierManager
-import core.presentation.Toast
 import hamsafar_root.HamsafarRootEvent
 import hamsafar_root.HamsafarRootViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
@@ -34,6 +24,9 @@ import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.PopUpTo
 import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.rememberNavigator
+import profile.presentation.ProfileScreenEvent
+import profile.presentation.ProfileScreenState
+import profile.presentation.ProfileScreenViewModel
 import register.user.presentation.RegisterUserScreenEvent
 import register.user.presentation.RegisterUserViewModel
 import tj.ham_safar.app.android.core.presentation.Routes
@@ -43,7 +36,9 @@ import ui.auth.presentation.enter_phone.EnterPhone
 import ui.core.presentation.changePlaceHoldersToArgs
 import ui.core.presentation.components.HamsafarBottomNavigation
 import ui.passengers.all.presentation.allPassengersRoute
+import ui.passengers.my_requests.presentation.navigateToMyRequestsScreen
 import ui.presentation.OnBoarding
+import ui.profile.presentation.ProfileScreen
 import ui.register.register_driver.addRegisterDriverGraph
 import ui.register.register_driver.navigateToRegisterDriverGraph
 import ui.register.user.presentation.user.RegisterUserScreen
@@ -261,46 +256,35 @@ private fun AppNavigation(
 //            )
 //        }
 //
-//        scene(route = Routes.PROFILE) {
-//            val viewModel = koinViewModel(ProfileScreenAndroidViewModel::class)
-//            val state by viewModel.state.collectAsState(ProfileScreenState())
-//            ProfileScreen(
-//                state = state,
-//                onEvent = { event ->
-//                    when (event) {
-//                        ProfileScreenEvent.NavigateToRegisterUser ->
-//                            navController.navigate(
-//                                route = Routes.REGISTER_USER,
-//                                options = NavOptions(
-//                                    popUpTo = PopUpTo(
-//                                        route = Routes.PROFILE,
-//                                        inclusive = true
-//                                    )
-//                                )
-//                            )
-//
-//                        ProfileScreenEvent.OnLogin ->
-//                            navController.navigate(
-//                                route = Routes.ENTER_PHONE,
-//                                options = NavOptions(
-//                                    popUpTo = PopUpTo(
-//                                        route = Routes.PROFILE,
-//                                        inclusive = true
-//                                    )
-//                                )
-//                            )
-//
-//                        ProfileScreenEvent.NavigateToRegisterLicence -> navController.navigateToRegisterDriverGraph()
-//                        ProfileScreenEvent.NavigateToRegisterTransport -> navController.navigateToRegisterDriverGraph()
-//                        ProfileScreenEvent.NavigateToMyRequests -> navController.navigateToMyRequestsScreen()
+        scene(route = Routes.PROFILE) {
+            val viewModel = koinViewModel(ProfileScreenViewModel::class)
+            val state by viewModel.state.collectAsState(ProfileScreenState())
+            ProfileScreen(
+                state = state,
+                onEvent = { event ->
+                    when (event) {
+                          ProfileScreenEvent.OnLogin ->
+                            navController.navigate(
+                                route = Routes.ENTER_PHONE,
+                                options = NavOptions(
+                                    popUpTo = PopUpTo(
+                                        route = Routes.PROFILE,
+                                        inclusive = true
+                                    )
+                                )
+                            )
+
+                        ProfileScreenEvent.NavigateToRegisterLicence -> navController.navigateToRegisterDriverGraph()
+                        ProfileScreenEvent.NavigateToRegisterTransport -> navController.navigateToRegisterDriverGraph()
+                        ProfileScreenEvent.NavigateToMyRequests -> navController.navigateToMyRequestsScreen()
 //                        ProfileScreenEvent.NavigateToMyTrips -> navController.navigateToMyTripsScreen()
 //                        ProfileScreenEvent.NavigateToTransport -> navController.navigateToEditTransportScreen()
 //                        ProfileScreenEvent.NavigateToLicence -> navController.navigateToEditLicenceScreen()
-//                        else -> viewModel.onEvent(event)
-//                    }
-//                }
-//            )
-//        }
+                        else -> viewModel.onEvent(event)
+                    }
+                }
+            )
+        }
 //
 //
 //        scene(route = Routes.CREATE_TRIP_LOCATION) { backStackEntry ->

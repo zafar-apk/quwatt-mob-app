@@ -1,10 +1,8 @@
 package profile.presentation
 
-import core.domain.util.ImageFile
-
 sealed class ProfileScreenEvent {
 
-    data class ChangeProfilePhoto(val photo: ImageFile) : ProfileScreenEvent()
+    data class ChangeProfilePhoto(val photo: ByteArray) : ProfileScreenEvent()
     object OpenTransport : ProfileScreenEvent()
     object OpenLicence : ProfileScreenEvent()
     object OpenMyRequests : ProfileScreenEvent()
@@ -17,7 +15,6 @@ sealed class ProfileScreenEvent {
     object LoadUser : ProfileScreenEvent()
     object OnLogin : ProfileScreenEvent()
     object ResetState : ProfileScreenEvent()
-    object NavigateToRegisterUser : ProfileScreenEvent()
     object NavigateToMyRequests : ProfileScreenEvent()
     object NavigateToMyTrips : ProfileScreenEvent()
 }

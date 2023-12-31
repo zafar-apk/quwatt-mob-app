@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ButtonColors
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextButton
 import androidx.compose.material3.Text
@@ -50,6 +52,8 @@ import kotlinx.datetime.Month
 import tj.yakroh.yakrohapp.SharedRes
 import ui.theme.BackgroundGray
 import ui.theme.Blue
+import ui.theme.GrayAlt
+import ui.theme.GrayDuoTone
 import ui.trips.filter.presentation.components.TextDropDown
 
 private const val SHAKE_ANIMATION_DURATION = 250
@@ -210,28 +214,29 @@ fun DatePickerDialog(
                 state = state
             )
 
-            AnimatedVisibility(visible = selectedDate != null && validateDate(selectedDate)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                AnimatedVisibility(visible = selectedDate != null && validateDate(selectedDate)) {
                     Text(
                         modifier = Modifier.padding(start = 8.dp),
                         text = selectedDate?.toYYYYmmDD(separator = dateSeparator).orEmpty(),
                         style = MaterialTheme.typography.subtitle2,
                     )
+                }
 
-                    Spacer(Modifier.weight(1F))
+                Spacer(Modifier.weight(1F))
 
-                    TextButton(
-                        onClick = {
-                            onDateSelected(selectedDate?.toYYYYmmDD(dateSeparator).orEmpty())
-                            onDismissRequest()
-                        }
-                    ) {
-                        Text(
-                            text = stringResource(SharedRes.strings.select),
-                            style = MaterialTheme.typography.subtitle2,
-                            color = Blue
-                        )
-                    }
+                TextButton(
+                    onClick = {
+                        onDateSelected(selectedDate?.toYYYYmmDD(dateSeparator).orEmpty())
+                        onDismissRequest()
+                    },
+                    enabled = selectedDate != null && validateDate(selectedDate)
+                ) {
+                    Text(
+                        text = stringResource(SharedRes.strings.select),
+                        style = MaterialTheme.typography.subtitle2,
+                        color = if (selectedDate != null && validateDate(selectedDate)) Blue else GrayAlt
+                    )
                 }
             }
         }

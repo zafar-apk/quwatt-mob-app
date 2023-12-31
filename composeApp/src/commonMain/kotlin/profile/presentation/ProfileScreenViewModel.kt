@@ -1,15 +1,17 @@
 package profile.presentation
 
-import core.domain.util.ImageCompressor
-import core.domain.util.ImageFile
 import core.domain.util.Resource
 import core.domain.util.toCommonFlow
-import io.ktor.http.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
 import profile.data.remote.getuser.GetUser
 import profile.data.remote.setphoto.SetUserPhoto
 import user.domain.UserInteractor
@@ -17,11 +19,8 @@ import user.domain.UserInteractor
 class ProfileScreenViewModel(
     private val getUser: GetUser,
     private val setUserPhoto: SetUserPhoto,
-    private val userInteractor: UserInteractor,
-    private val imageCompressor: ImageCompressor,
-    private val coroutineScope: CoroutineScope?
-) {
-    private val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
+    private val userInteractor: UserInteractor
+): ViewModel() {
 
     private val _state = MutableStateFlow(ProfileScreenState())
     val state = _state.stateIn(
@@ -47,11 +46,9 @@ class ProfileScreenViewModel(
                     shouldOpenTransport = false,
                     shouldOpenLicence = false,
                     shouldRegisterLicence = false,
-                    shouldRegisterUser = false,
                     shouldRegisterTransport = false,
                     shouldOpenMyRequests = false,
                     shouldOpenMyTrips = false,
-                    compressedImageNull = false
                 )
             }
 
@@ -73,35 +70,27 @@ class ProfileScreenViewModel(
         }
     }
 
-    private fun setUserPhoto(photo: ImageFile) = viewModelScope.launch {
+    private fun setUserPhoto(photo: ByteArray) = viewModelScope.launch {
         _state.update {
             it.copy(isLoading = true)
         }
-        withContext(Dispatchers.Default) {
-            val compressedImage = imageCompressor.compressImage(photo)
-//            when (val result = compressedImage?.let { setUserPhoto.execute(it) }) {
-//                is Resource.Error -> _state.update {
-//                    it.copy(
-//                        isLoading = false,
-//                        error = result.throwable?.message
-//                    )
-//                }
-//
-//                is Resource.Success -> {
-//                    _state.update {
-//                        it.copy(
-//                            error = null,
-//                            isLoading = false,
-//                            user = result.data,
-//                        )
-//                    }
-//                }
-//                else -> {
-//                    _state.update {
-//                        it.copy(compressedImageNull = true, isLoading = false)
-//                    }
-//                }
-//            }
+
+        when (val result = setUserPhoto.execute(photo)) {
+            is Resource.Error -> _state.update {
+                it.copy(
+                    isLoading = false,
+                    error = result.throwable?.message
+                )
+            }
+
+            is Resource.Success -> {
+                _state.update {
+                    it.copy(
+                        error = null,
+                        isLoading = false
+                    )
+                }
+            }
         }
     }
 
@@ -139,7 +128,7 @@ class ProfileScreenViewModel(
                 is Resource.Success -> {
                     _state.update {
                         it.copy(
-                            user = result.data!!,
+                            user = result.data,
                             isLoading = false,
                             error = null
                         )
@@ -148,17 +137,10 @@ class ProfileScreenViewModel(
 
                 is Resource.Error -> {
                     _state.update {
-                        if (result withCode HttpStatusCode.NotFound) {
-                            it.copy(
-                                isLoading = false,
-                                shouldRegisterUser = true
-                            )
-                        } else {
-                            it.copy(
-                                error = result.throwable?.message.toString(),
-                                isLoading = false
-                            )
-                        }
+                        it.copy(
+                            error = result.throwable?.message.toString(),
+                            isLoading = false
+                        )
                     }
                 }
             }

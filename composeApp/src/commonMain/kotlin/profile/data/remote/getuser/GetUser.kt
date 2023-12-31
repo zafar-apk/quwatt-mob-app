@@ -7,5 +7,5 @@ class GetUser(
     private val client: GetUserClient
 ) {
 
-    suspend fun execute(): Resource<User> = client.getUser()
+    suspend fun execute(): Resource<User?> = client.getUser()
 }

@@ -4,48 +4,67 @@ package ui.profile.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.preat.peekaboo.image.picker.ImagePickerLauncher
+import com.preat.peekaboo.image.picker.ResizeOptions
+import com.preat.peekaboo.image.picker.SelectionMode
+import com.preat.peekaboo.image.picker.rememberImagePickerLauncher
+import com.preat.peekaboo.image.picker.toImageBitmap
 import core.domain.util.stringResource
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import ui.core.presentation.painterResource
+import dev.icerock.moko.resources.compose.painterResource
+import io.kamel.core.getOrNull
+import io.kamel.image.asyncPainterResource
 import profile.domain.User
 import profile.presentation.ProfileScreenEvent
 import profile.presentation.ProfileScreenState
 import tj.ham_safar.app.android.core.presentation.components.Loader
 import tj.ham_safar.app.android.core.presentation.components.TopBar
-import ui.register.user.presentation.user.DateOfBirthField
 import tj.ham_safar.app.android.register.user.presentation.user.components.LineTextField
-import ui.theme.LightGray
+import tj.yakroh.yakrohapp.SharedRes
 import ui.core.presentation.components.ErrorView
 import ui.core.presentation.components.LoginView
-import ui.core.presentation.getImagePainterOrPlaceHolder
+import ui.register.user.presentation.user.DateOfBirthField
+import ui.theme.LightGray
 import ui.trips.components.ActionItem
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ProfileScreen(
     state: ProfileScreenState,
     onEvent: (ProfileScreenEvent) -> Unit
 ) {
-//    val context = LocalContext.current
     LaunchedEffect(key1 = state) {
         with(state) {
             when {
-                shouldRegisterUser -> onEvent(ProfileScreenEvent.NavigateToRegisterUser)
                 shouldRegisterLicence -> onEvent(ProfileScreenEvent.NavigateToRegisterLicence)
                 shouldRegisterTransport -> onEvent(ProfileScreenEvent.NavigateToRegisterTransport)
                 shouldOpenTransport -> onEvent(
@@ -58,9 +77,6 @@ fun ProfileScreen(
 
                 shouldOpenMyRequests -> onEvent(ProfileScreenEvent.NavigateToMyRequests)
                 shouldOpenMyTrips -> onEvent(ProfileScreenEvent.NavigateToMyTrips)
-                compressedImageNull -> {
-//                    Toast.makeText(context, "compressedImageNull, Toast.LENGTH_SHORT).show()
-                }
             }
             if (shouldReset) {
                 onEvent(ProfileScreenEvent.ResetState)
@@ -71,7 +87,7 @@ fun ProfileScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopBar(
-                text = stringResource(id = "profile"),
+                text = stringResource(SharedRes.strings.profile),
                 backButtonEnabled = false,
                 onBackButtonClick = { /* no-op */ }
             )
@@ -97,33 +113,33 @@ fun ProfileScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 14.dp),
-                        actionName = stringResource(id = "transport"),
-                        actionIcon = painterResource("ic_arrow_thin.xml"),
-                        actionIconContentDescription = stringResource(id = "arrow_right"),
+                        actionName = stringResource(SharedRes.strings.transport),
+                        actionIcon = painterResource(SharedRes.images.ic_arrow_thin),
+                        actionIconContentDescription = stringResource(SharedRes.strings.arrow_right),
                         onAction = { onEvent(ProfileScreenEvent.OpenTransport) }
                     )
                 }
 
                 item {
-                    if (state.user?.transport != null) ActionItem(
+                    if (state.user.transport != null) ActionItem(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 14.dp),
-                        actionName = stringResource(id = "driver_licence"),
-                        actionIcon = painterResource("ic_arrow_thin.xml"),
-                        actionIconContentDescription = stringResource(id = "arrow_right"),
+                        actionName = stringResource(SharedRes.strings.driver_licence),
+                        actionIcon = painterResource(SharedRes.images.ic_arrow_thin),
+                        actionIconContentDescription = stringResource(SharedRes.strings.arrow_right),
                         onAction = { onEvent(ProfileScreenEvent.OpenLicence) }
                     )
                 }
 
-                if (state.user?.isDriver == true) item {
+                if (state.user.isDriver) item {
                     ActionItem(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 14.dp),
-                        actionName = stringResource(id = "my_trips"),
-                        actionIcon = painterResource("ic_list_item.xml"),
-                        actionIconContentDescription = stringResource(id = "my_trips"),
+                        actionName = stringResource(SharedRes.strings.my_trips),
+                        actionIcon = painterResource(SharedRes.images.ic_list_item),
+                        actionIconContentDescription = stringResource(SharedRes.strings.my_trips),
                         onAction = { onEvent(ProfileScreenEvent.OpenMyTrips) }
                     )
                 }
@@ -133,9 +149,9 @@ fun ProfileScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 14.dp),
-                        actionName = stringResource(id = "my_requests"),
-                        actionIcon = painterResource("ic_people.xml"),
-                        actionIconContentDescription = stringResource(id = "my_requests"),
+                        actionName = stringResource(SharedRes.strings.my_requests),
+                        actionIcon = painterResource(SharedRes.images.ic_people),
+                        actionIconContentDescription = stringResource(SharedRes.strings.my_requests),
                         onAction = { onEvent(ProfileScreenEvent.OpenMyRequests) }
                     )
                 }
@@ -154,7 +170,7 @@ fun ProfileScreen(
                         ) {
                             Text(
                                 modifier = Modifier.align(Center),
-                                text = stringResource(id = "logout"),
+                                text = stringResource(SharedRes.strings.logout),
                                 style = MaterialTheme.typography.h3
                             )
                         }
@@ -185,21 +201,26 @@ fun ProfileScreen(
     }
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun UserInfo(
     user: User?,
     onEvent: (ProfileScreenEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-//    val context = LocalContext.current
-//    val launcher = rememberLauncherForActivityResult(
-//        contract = (ActivityResultContracts.GetContent()),
-//        onResult = { uri ->
-//            uri?.let { ImageFile(uri, context.contentResolver) }
-//                ?.let { onEvent(ProfileScreenEvent.ChangeProfilePhoto(it)) }
-//        }
-//    )
+    var preview: ByteArray? by remember {
+        mutableStateOf(null)
+    }
+    val scope = rememberCoroutineScope()
+    val launcher = rememberImagePickerLauncher(
+        selectionMode = SelectionMode.Single,
+        scope = scope,
+        resizeOptions = ResizeOptions(width = 800, height = 800),
+        onResult = { byteArrays ->
+            byteArrays.firstOrNull()
+                ?.let(ProfileScreenEvent::ChangeProfilePhoto)
+                ?.let(onEvent)
+        }
+    )
 
     Card(
         modifier = modifier,
@@ -209,28 +230,34 @@ private fun UserInfo(
             Spacer(modifier = Modifier.size(12.dp))
 
             Box(modifier = Modifier.align(CenterHorizontally)) {
-                Image(
-                    modifier = Modifier
-                        .size(150.dp)
-                        .clip(CircleShape)
-                        .background(LightGray),
-                    painter = getImagePainterOrPlaceHolder(
-                        photo = user?.photo,
-                        placeholderResId = "ic_user.xml"
-                    ),
-                    contentScale = ContentScale.Crop,
-                    contentDescription = stringResource(id = "user_photo")
-                )
+                when {
+                    preview != null -> {
+                        Image(
+                            modifier = getUserImageModifier(launcher),
+                            contentDescription = stringResource(SharedRes.strings.user_photo),
+                            bitmap = (preview ?: byteArrayOf()).toImageBitmap()
+                        )
+                    }
+
+                    else -> {
+                        Image(
+                            modifier = getUserImageModifier(launcher),
+                            contentDescription = stringResource(SharedRes.strings.user_photo),
+                            painter = user?.photo?.let { asyncPainterResource(it) }?.getOrNull()
+                                ?: painterResource(SharedRes.images.ic_user)
+                        )
+                    }
+                }
 
                 Image(
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
                         .padding(8.dp)
                         .clickable {
-//                            launcher.launch("image/jpeg")
+                            launcher.launch()
                         },
-                    painter = painterResource("ic_edit.xml"),
-                    contentDescription = stringResource(id = "edit")
+                    painter = painterResource(SharedRes.images.ic_edit),
+                    contentDescription = stringResource(SharedRes.strings.edit)
                 )
             }
 
@@ -238,7 +265,7 @@ private fun UserInfo(
 
             LineTextField(
                 modifier = Modifier.padding(horizontal = 27.dp),
-                label = stringResource(id = "name_label"),
+                label = stringResource(SharedRes.strings.name_label),
                 value = user?.name.orEmpty(),
                 onValueChange = { /* no-op */ },
                 imeAction = ImeAction.Next,
@@ -250,7 +277,7 @@ private fun UserInfo(
 
             LineTextField(
                 modifier = Modifier.padding(horizontal = 27.dp),
-                label = stringResource(id = "sur_name_label"),
+                label = stringResource(SharedRes.strings.sur_name_label),
                 value = user?.surname.orEmpty(),
                 onValueChange = { /* no-op */ },
                 imeAction = ImeAction.Next,
@@ -262,7 +289,7 @@ private fun UserInfo(
 
             LineTextField(
                 modifier = Modifier.padding(horizontal = 27.dp),
-                label = stringResource(id = "patronymic_label"),
+                label = stringResource(SharedRes.strings.patronymic_label),
                 value = user?.patronymic.orEmpty(),
                 onValueChange = { /* no-op */ },
                 imeAction = ImeAction.Next,
@@ -280,6 +307,11 @@ private fun UserInfo(
         }
     }
 }
+
+private fun getUserImageModifier(launcher: ImagePickerLauncher) = Modifier
+    .size(150.dp)
+    .clip(CircleShape)
+    .background(LightGray)
 
 //@Preview
 //@Composable

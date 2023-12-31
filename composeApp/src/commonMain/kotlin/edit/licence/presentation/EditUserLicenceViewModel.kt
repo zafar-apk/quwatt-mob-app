@@ -1,5 +1,9 @@
 package edit.licence.presentation
 
+import core.domain.Strings
+import core.domain.util.Resource
+import core.domain.util.toCommonStateFlow
+import edit.licence.domain.EditLicenceUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -8,10 +12,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import core.domain.Strings
-import core.domain.util.Resource
-import core.domain.util.toCommonStateFlow
-import edit.licence.domain.EditLicenceUseCase
 import profile.data.remote.getuser.GetUser
 
 class EditUserLicenceViewModel(
@@ -125,8 +125,7 @@ class EditUserLicenceViewModel(
     private fun loadUserLicence() = viewModelScope.launch {
         _state.update { it.copy(isLoading = true, error = null) }
 
-        val result = getUser.execute()
-        when (result) {
+        when (val result = getUser.execute()) {
             is Resource.Success -> {
                 val licence = result.data
                 _state.update {

@@ -5,6 +5,12 @@ import kotlinx.serialization.Serializable
 import profile.domain.User
 
 @Serializable
+data class ProfileDTO(
+    @SerialName("result")
+    val result: UserDTO?
+)
+
+@Serializable
 data class UserDTO(
     @SerialName("id")
     val id: Int,

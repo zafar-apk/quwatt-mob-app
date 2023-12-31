@@ -8,6 +8,7 @@ import profile.data.remote.getuser.GetUserHttpClient
 import profile.data.remote.setphoto.SetUserPhoto
 import profile.data.remote.setphoto.SetUserPhotoClient
 import profile.data.remote.setphoto.SetUserPhotoHttpClient
+import profile.presentation.ProfileScreenViewModel
 
 val ProfileModule = module {
 
@@ -18,4 +19,6 @@ val ProfileModule = module {
     factoryOf(::SetUserPhoto)
 
     factory<SetUserPhotoClient> { SetUserPhotoHttpClient(get()) }
+
+    factoryOf(::ProfileScreenViewModel)
 }
