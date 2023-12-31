@@ -11,8 +11,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,11 +24,9 @@ import auth.enter_code.presentation.EnterCodeNavigation
 import auth.enter_code.presentation.EnterCodeScreenEvent
 import auth.enter_code.presentation.EnterCodeScreenState
 import core.domain.util.stringResource
-import moe.tlaster.precompose.koin.koinViewModel
 import ui.auth.presentation.components.BigStyleTextField
-import tj.ham_safar.app.android.core.presentation.Routes
 import ui.core.presentation.components.BackButton
-import tj.ham_safar.app.android.core.presentation.components.Loader
+import ui.core.presentation.components.Loader
 import tj.yakroh.yakrohapp.SharedRes
 import ui.core.presentation.components.MainButton
 

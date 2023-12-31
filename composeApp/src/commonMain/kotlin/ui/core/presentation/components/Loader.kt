@@ -1,4 +1,4 @@
-package tj.ham_safar.app.android.core.presentation.components
+package ui.core.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

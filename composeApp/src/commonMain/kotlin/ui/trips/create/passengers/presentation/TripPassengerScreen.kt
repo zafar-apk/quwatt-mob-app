@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import core.domain.util.stringResource
 import tj.ham_safar.app.android.core.presentation.Routes
 import ui.core.presentation.components.BackButton
-import tj.ham_safar.app.android.core.presentation.components.Loader
+import ui.core.presentation.components.Loader
 import ui.core.presentation.components.MainButton
 import ui.trips.components.CounterButton
 import ui.trips.components.CounterIcon

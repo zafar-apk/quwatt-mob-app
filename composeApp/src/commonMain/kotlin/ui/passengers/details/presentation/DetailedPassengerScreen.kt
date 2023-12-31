@@ -18,7 +18,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
 import passengers.detail.presentation.DetailedPassengerScreenEvent
 import passengers.detail.presentation.DetailedPassengerScreenState
-import tj.ham_safar.app.android.core.presentation.components.Loader
+import ui.core.presentation.components.Loader
 import tj.ham_safar.app.android.core.presentation.components.TopBar
 import ui.passengers.details.presentation.components.DriverRequest
 import tj.ham_safar.app.android.trips.components.LabelRating

@@ -6,6 +6,7 @@ import moe.tlaster.precompose.koin.koinViewModel
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.RouteBuilder
 import register.transport.presentation.RegisterTransportEvent
+import register.transport.presentation.RegisterTransportViewModel
 
 private const val registerTransportRoute: String = "register-transport-route"
 
@@ -14,7 +15,7 @@ internal fun RouteBuilder.addToGraphRegisterTransportScreen(
     onTransportRegistered: () -> Unit
 ) {
     scene(route = registerTransportRoute) {
-        val viewModel = koinViewModel(RegisterTransportAndroidViewModel::class)
+        val viewModel = koinViewModel(RegisterTransportViewModel::class)
         val state by viewModel.state.collectAsState()
         RegisterTransportScreen(
             state = state,

@@ -1,22 +1,20 @@
 package register.transport.presentation
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import core.domain.util.Resource
+import core.domain.util.toCommonStateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import core.domain.util.Resource
-import core.domain.util.toCommonStateFlow
+import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
 import register.transport.domain.RegisterTransport
 
 class RegisterTransportViewModel(
     private val registerTransport: RegisterTransport,
-    private val coroutineScope: CoroutineScope?
-) {
+): ViewModel() {
 
-    private val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
     private val _state = MutableStateFlow(RegisterTransportScreenState())
     val state = _state.stateIn(
         viewModelScope,

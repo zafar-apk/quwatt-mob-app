@@ -113,13 +113,11 @@ class ProfileScreenViewModel(
     }
 
     private fun getUser() = viewModelScope.launch {
-        _state.update { it.copy(isLoading = true, error = null) }
-
         _state.update {
             it.copy(
-                isLoading = false,
+                isLoading = true,
                 error = null,
-                isNotAuthorized = userInteractor.isAuthorized().not()
+                isNotAuthorized = !userInteractor.isAuthorized()
             )
         }
 

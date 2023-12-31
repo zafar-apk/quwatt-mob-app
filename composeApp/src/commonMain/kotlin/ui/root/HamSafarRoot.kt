@@ -14,7 +14,8 @@ import auth.enter_code.presentation.EnterCodeViewModel
 import com.mmk.kmpnotifier.notification.NotifierManager
 import hamsafar_root.HamsafarRootEvent
 import hamsafar_root.HamsafarRootViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.koin.koinViewModel
@@ -88,8 +89,20 @@ fun HamSafarRoot() {
 @Composable
 fun AppContent() {
     val navigator = rememberNavigator()
-    val navBackStackEntry by navigator.currentEntry.collectAsState(null)
-    val currentDestination = navBackStackEntry?.route?.route
+    val scope = rememberCoroutineScope()
+    val currentDestination by navigator.currentEntry.mapNotNull { it?.route?.route }.collectAsState(null)
+    val popupTo: (String, Boolean) -> Unit = { route, inclusive ->
+        scope.launch {
+            while (currentDestination != route) {
+                navigator.goBack()
+                delay(500)
+            }
+            if (inclusive) {
+                delay(500)
+                navigator.goBack()
+            }
+        }
+    }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
@@ -100,7 +113,8 @@ fun AppContent() {
     ) { paddingValues ->
         AppNavigation(
             modifier = Modifier.padding(paddingValues),
-            navController = navigator
+            navController = navigator,
+            popupTo = popupTo
         )
     }
 }
@@ -123,7 +137,8 @@ fun AppContent() {
 @Composable
 private fun AppNavigation(
     navController: Navigator,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    popupTo: (String, Boolean) -> Unit
 ) {
     NavHost(
         modifier = modifier,
@@ -131,7 +146,7 @@ private fun AppNavigation(
         initialRoute = allTripsRoute
     ) {
         addRegisterDriverGraph(navController)
-//
+
         scene(route = Routes.ENTER_PHONE) {
             EnterPhone(
                 navigateToEnterCode = { navController.navigate("${Routes.ENTER_CODE}/$it") },
@@ -140,7 +155,6 @@ private fun AppNavigation(
         }
 
         scene(route = "${Routes.ENTER_CODE}/{$PhoneNumber}") { backStackEntry ->
-            val scope = rememberCoroutineScope()
             val viewModel = koinViewModel(EnterCodeViewModel::class)
             val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -163,9 +177,7 @@ private fun AppNavigation(
                     navController.navigate(Routes.REGISTER_USER)
                 },
                 onSuccessfullyAuthorized = {
-                    scope.launch {
-                        navController.popUpTo(route = Routes.ENTER_PHONE, inclusive = true)
-                    }
+                    popupTo(Routes.ENTER_PHONE, true)
                 }
             )
         }
@@ -453,17 +465,5 @@ private fun AppNavigation(
 //        addToGraphEditLicenceScreen(
 //            onGoBack = { navController.goBack() }
 //        )
-    }
-}
-
-private suspend fun Navigator.popUpTo(route: String, inclusive: Boolean) {
-    currentEntry.collectLatest {
-        val currentRoute = it?.route?.route
-        while (currentRoute != route) {
-           goBack()
-        }
-        if (currentRoute == route && inclusive) {
-            goBack()
-        }
     }
 }

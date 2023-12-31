@@ -46,11 +46,11 @@ import io.kamel.image.asyncPainterResource
 import profile.domain.User
 import profile.presentation.ProfileScreenEvent
 import profile.presentation.ProfileScreenState
-import tj.ham_safar.app.android.core.presentation.components.Loader
 import tj.ham_safar.app.android.core.presentation.components.TopBar
 import tj.ham_safar.app.android.register.user.presentation.user.components.LineTextField
 import tj.yakroh.yakrohapp.SharedRes
 import ui.core.presentation.components.ErrorView
+import ui.core.presentation.components.Loader
 import ui.core.presentation.components.LoginView
 import ui.register.user.presentation.user.DateOfBirthField
 import ui.theme.LightGray
