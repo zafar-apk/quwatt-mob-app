@@ -1,5 +1,7 @@
 package tj.ham_safar.app.trips.create.driver.presentation
 
+import core.domain.Strings
+import core.domain.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -7,14 +9,12 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import core.domain.Strings
-import core.domain.util.Resource
-import trips.all.domain.models.Seat
-import trips.core.create_trip.domain.errors.TripCreationError
 import tj.ham_safar.app.trips.core.create_trip.domain.models.TripPricing
 import tj.ham_safar.app.trips.core.create_trip.domain.usecases.CreateTripUseCase
 import tj.ham_safar.app.trips.core.create_trip.domain.usecases.GetTripPricingUseCase
 import tj.ham_safar.app.trips.core.create_trip.domain.usecases.SetTripPricingUseCase
+import trips.all.domain.models.Seat
+import trips.core.create_trip.domain.errors.TripCreationError
 
 class TripDriverViewModel(
     private val getTripPricingUseCase: GetTripPricingUseCase,
@@ -121,8 +121,8 @@ class TripDriverViewModel(
                 Seat(
                     id = index,
                     position = "FRONT",
-                    userId = null,
-                    price = state.price
+                    price = state.price,
+                    isAvailable = true
                 )
             }
         }

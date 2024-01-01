@@ -9,11 +9,17 @@ import kotlinx.coroutines.flow.StateFlow
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
 
-abstract class MoleculeViewModel<Event, Model> : ViewModel() {
+abstract class MoleculeViewModel<Event, Model>(
+    initialEvent: Event?
+) : ViewModel() {
 
     // Events have a capacity large enough to handle simultaneous UI events, but
     // small enough to surface issues if they get backed up for some reason.
-    private val events = MutableSharedFlow<Event>(extraBufferCapacity = 20)
+    private val events = MutableSharedFlow<Event>(extraBufferCapacity = 20, replay = 1)
+
+    init {
+        initialEvent?.let(::take)
+    }
 
     val models: StateFlow<Model> by lazy(LazyThreadSafetyMode.NONE) {
         viewModelScope.launchMolecule(mode = RecompositionMode.Immediate) {

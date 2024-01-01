@@ -17,7 +17,9 @@ import user.domain.UserInteractor
 class TripsScreenViewModel(
     private val getAllTrips: GetAllTrips,
     private val userInteractor: UserInteractor,
-) : MoleculeViewModel<TripsScreenEvent, TripsScreenState>() {
+) : MoleculeViewModel<TripsScreenEvent, TripsScreenState>(
+    initialEvent = TripsScreenEvent.LoadTrips
+) {
 
     @Composable
     override fun getState(events: Flow<TripsScreenEvent>): TripsScreenState {
@@ -141,9 +143,8 @@ private suspend fun getAllTrips(
         is Resource.Success -> {
             state.value = state.value.copy(
                 trips = result.data?.trips.orEmpty(),
-                bookedTrips = result.data?.bookedTrips.orEmpty(),
                 isLoading = false,
-                isDriver = result.data?.isDriver
+//                isDriver = result.data?.isDriver
             )
         }
 
@@ -151,7 +152,6 @@ private suspend fun getAllTrips(
             state.value = state.value.copy(
                 error = result.throwable?.message.toString(),
                 isLoading = false,
-                bookedTrips = emptyList(),
                 trips = emptyList()
             )
         }

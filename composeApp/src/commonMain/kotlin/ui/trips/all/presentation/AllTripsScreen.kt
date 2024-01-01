@@ -35,14 +35,12 @@ import core.domain.util.stringResource
 import kotlinx.coroutines.launch
 import tj.ham_safar.app.android.core.presentation.components.ActionButton
 import tj.yakroh.yakrohapp.SharedRes
-import trips.all.domain.models.BookedTrip
 import trips.all.domain.models.Trip
 import trips.all.presentation.TripsScreenEvent
 import trips.all.presentation.TripsScreenState
 import ui.core.presentation.components.ErrorView
 import ui.core.presentation.components.MainButton
 import ui.core.presentation.dialogs.RequestAuthorizationDialog
-import ui.trips.components.BookedTripItem
 import ui.trips.components.TripItem
 import ui.trips.core.models.TripsFilter
 
@@ -97,7 +95,6 @@ fun AllTripsScreen(
         )
     }
 
-
     Scaffold(
         topBar = {
             TripsTopBar(
@@ -125,35 +122,6 @@ fun AllTripsScreen(
                             .fillMaxSize()
                             .pullRefresh(pullRefreshState)
                     ) {
-
-                        item {
-                            if (state.bookedTrips.isNotEmpty()) {
-                                Text(
-                                    text = stringResource(id = SharedRes.strings.booked_trips),
-                                    style = MaterialTheme.typography.subtitle1,
-                                    fontSize = 18.sp
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                            }
-                        }
-
-                        items(state.bookedTrips, key = BookedTrip::id) { trip ->
-                            BookedTripItem(
-                                fromAddress = trip.addressFrom,
-                                fromCity = trip.cityFrom.name,
-                                tripTime = trip.time,
-                                tripDate = trip.date,
-                                toCity = trip.cityTo.name,
-                                toAddress = trip.addressTo,
-                                price = trip.price,
-                                seatAmount = trip.driver.transport?.capacity ?: 1,
-                                availableSeats = trip.availableSeatsCount,
-                                rating = trip.rating,
-                                onClick = { onEvent(TripsScreenEvent.RequestOpenBookedTripItem(trip.id)) },
-                            )
-                            Spacer(modifier = Modifier.height(8.dp))
-                        }
-
                         item {
                             if (state.trips.isNotEmpty()) {
                                 Text(

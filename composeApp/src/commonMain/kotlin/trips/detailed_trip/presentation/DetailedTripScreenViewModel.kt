@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import core.domain.util.Resource
 import core.domain.util.toCommonStateFlow
 import tj.ham_safar.app.trips.detailed_trip.domain.use_case.GetTripById
+import trips.detailed_trip.presentation.DetailedTripScreenState
 
 class DetailedTripScreenViewModel(
     private val coroutineScope: CoroutineScope?,

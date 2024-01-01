@@ -2,7 +2,6 @@ package ui.trips.detailed_trip.presentation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -32,13 +30,11 @@ import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import tj.ham_safar.app.android.core.presentation.components.TopBar
-import tj.ham_safar.app.android.trips.components.LabelRating
 import tj.ham_safar.app.android.trips.components.LabelText
-import tj.ham_safar.app.android.trips.components.PassengersCount
 import tj.ham_safar.app.android.trips.components.TripDestinationPath
 import tj.ham_safar.app.trips.detailed_trip.presentation.DetailedTripScreenEvent
-import tj.ham_safar.app.trips.detailed_trip.presentation.DetailedTripScreenState
 import trips.all.domain.models.Trip
+import trips.detailed_trip.presentation.DetailedTripScreenState
 import ui.core.presentation.components.ErrorView
 import ui.core.presentation.components.Loader
 import ui.core.presentation.components.MainButton
@@ -124,7 +120,7 @@ fun DetailedTripScreen(
                                         style = labelText,
                                     )
                                     Text(
-                                        text = "${trip.cityFrom.name}, ${trip.addressFrom}",
+                                        text = "${trip.cityFrom}, ${trip.addressFrom}",
                                         style = propertyText,
                                     )
                                 }
@@ -141,7 +137,7 @@ fun DetailedTripScreen(
                                             style = labelText
                                         )
                                         Text(
-                                            text = "${trip.cityTo.name}, ${trip.addressTo}",
+                                            text = "${trip.cityTo}, ${trip.addressTo}",
                                             style = propertyText
                                         )
                                     }
@@ -174,14 +170,14 @@ fun DetailedTripScreen(
                         )
                     }
 
-                    item {
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        LabelRating(
-                            label = stringResource(id = "rating"),
-                            rating = trip.rating
-                        )
-                    }
+//                    item {
+//                        Spacer(modifier = Modifier.height(12.dp))
+//
+//                        LabelRating(
+//                            label = stringResource(id = "rating"),
+//                            rating = trip.rating
+//                        )
+//                    }
 
                     item {
                         Spacer(modifier = Modifier.height(12.dp))
@@ -192,17 +188,17 @@ fun DetailedTripScreen(
                         )
                     }
 
-                    item {
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            TripExtraOptions(trip)
-                            TripPassengersProgress(trip)
-                        }
-                    }
+//                    item {
+//                        Spacer(modifier = Modifier.height(12.dp))
+//
+//                        Row(
+//                            modifier = Modifier.fillMaxWidth(),
+//                            horizontalArrangement = Arrangement.SpaceBetween
+//                        ) {
+//                            TripExtraOptions(trip)
+//                            TripPassengersProgress(trip)
+//                        }
+//                    }
 
                     item {
                         Spacer(modifier = Modifier.height(12.dp))
@@ -221,27 +217,27 @@ fun DetailedTripScreen(
                         )
                     }
 
-                    item {
-                        if (trip.passengers.isNotEmpty()) {
-                            Text(
-                                modifier = Modifier.padding(vertical = 12.dp),
-                                text = stringResource(id = "passengers"),
-                                style = labelText
-                            )
-                        }
-                    }
-
-                    items(trip.passengers) { passenger ->
-                        ProfileRatingItem(
-                            name = passenger.getFullName(),
-                            rating = passenger.rating,
-                            profilePainter = getImagePainterOrPlaceHolder(
-                                photo = passenger.photo,
-                                placeholderResId = "ic_user.xml"
-                            )
-                        )
-                        Spacer(modifier = Modifier.height(12.dp))
-                    }
+//                    item {
+//                        if (trip.passengers.isNotEmpty()) {
+//                            Text(
+//                                modifier = Modifier.padding(vertical = 12.dp),
+//                                text = stringResource(id = "passengers"),
+//                                style = labelText
+//                            )
+//                        }
+//                    }
+//
+//                    items(trip.passengers) { passenger ->
+//                        ProfileRatingItem(
+//                            name = passenger.getFullName(),
+//                            rating = passenger.rating,
+//                            profilePainter = getImagePainterOrPlaceHolder(
+//                                photo = passenger.photo,
+//                                placeholderResId = "ic_user.xml"
+//                            )
+//                        )
+//                        Spacer(modifier = Modifier.height(12.dp))
+//                    }
                 }
             }
             state.error?.let { error ->
@@ -290,10 +286,10 @@ private fun TripPassengersProgress(trip: Trip) {
 //    val resources = LocalContext.current.resources
 
     Column(horizontalAlignment = Alignment.End) {
-        PassengersCount(
-            progress = calculateTripPassengersProgress(trip),
-            text = getTripPassengersCountText(trip)
-        )
+//        PassengersCount(
+//            progress = calculateTripPassengersProgress(trip),
+//            text = getTripPassengersCountText(trip)
+//        )
 
         Text(
             text = "oops someone was lazy and put some fake text here ))"
@@ -309,16 +305,16 @@ private fun TripPassengersProgress(trip: Trip) {
     }
 }
 
-@Composable
-private fun getTripPassengersCountText(trip: Trip) = with(trip) {
-    "${(seats.size) + (passengers.size) - availableSeatsCount}/${((seats.size) + (passengers.size))}"
-}
-
-@Composable
-private fun calculateTripPassengersProgress(trip: Trip) = with(trip) {
-    (((seats.size) + (passengers.size) - availableSeatsCount).toFloat() / ((seats.size) + (passengers.size)).toFloat())
-        .coerceAtLeast(MIN_PROGRESS)
-}
+//@Composable
+//private fun getTripPassengersCountText(trip: Trip) = with(trip) {
+//    "${(seats.size) + (passengers.size) - availableSeatsCount}/${((seats.size) + (passengers.size))}"
+//}
+//
+//@Composable
+//private fun calculateTripPassengersProgress(trip: Trip) = with(trip) {
+//    (((seats.size) + (passengers.size) - availableSeatsCount).toFloat() / ((seats.size) + (passengers.size)).toFloat())
+//        .coerceAtLeast(MIN_PROGRESS)
+//}
 
 @Composable
 private fun TripExtraOptions(trip: Trip) {

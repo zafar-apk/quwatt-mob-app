@@ -15,8 +15,7 @@ import trips.all.data.remote.model.toSeat
 class TripsMapper {
 
     fun createTrips(dto: TripsDTO): Trips = Trips(
-        isDriver = dto.isDriver,
-        bookedTrips = dto.bookedTrips.map(::createBookedTrip),
+//        isDriver = dto.isDriver,
         trips = dto.trips.map(::createTrip)
     )
 
@@ -25,41 +24,41 @@ class TripsMapper {
             id = id,
             addressFrom = fromAddress,
             addressTo = toAddress,
-            cityFrom = cityFrom.toCity(),
-            cityTo = cityTo.toCity(),
+            cityFrom = cityFrom,
+            cityTo = cityTo,
             date = date,
             time = time,
             driver = driver.toUser(),
             status = status,
             seats = seats.map { it.toSeat() },
-            passengers = passengers.map { it.toUser() },
-            minPrice = minPrice,
-            maxPrice = maxPrice,
-            availableSeatsCount = availableSeatsCount,
-            rating = rating,
+//            passengers = passengers.map { it.toUser() },
+//            minPrice = minPrice,
+//            maxPrice = maxPrice,
+//            availableSeatsCount = availableSeatsCount,
+//            rating = rating,
         )
 
     }
 
-    fun createBookedTrip(dto: BookedTripDTO): BookedTrip = with(dto) {
-        BookedTrip(
-            id = id,
-            addressFrom = fromAddress,
-            addressTo = toAddress,
-            cityFrom = cityFrom.toCity(),
-            cityTo = cityTo.toCity(),
-            date = date,
-            time = time,
-            driver = driver.toUser(),
-            status = status,
-            seats = seats.map { it.toSeat() },
-            passengers = passengers.map { it.toUser() },
-            price = price,
-            availableSeatsCount = availableSeatsCount,
-            rating = rating,
-        )
-
-    }
+//    fun createBookedTrip(dto: BookedTripDTO): BookedTrip = with(dto) {
+//        BookedTrip(
+//            id = id,
+//            addressFrom = fromAddress,
+//            addressTo = toAddress,
+//            cityFrom = cityFrom.toCity(),
+//            cityTo = cityTo.toCity(),
+//            date = date,
+//            time = time,
+//            driver = driver.toUser(),
+//            status = status,
+//            seats = seats.map { it.toSeat() },
+//            passengers = passengers.map { it.toUser() },
+//            price = price,
+//            availableSeatsCount = availableSeatsCount,
+//            rating = rating,
+//        )
+//
+//    }
 
     fun createTripFilterBody(query: TripsFilter): TripFilterBody = TripFilterBody(
         autoType = query.autoType,

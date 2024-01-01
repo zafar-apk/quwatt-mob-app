@@ -1,4 +1,4 @@
-package tj.ham_safar.app.trips.detailed_trip.presentation
+package trips.detailed_trip.presentation
 
 import trips.all.domain.models.Trip
 
@@ -10,7 +10,7 @@ data class DetailedTripScreenState(
 ) {
     val seatsIds: List<Int>
         get() = trip?.seats
-            ?.filter { it.userId == null }
+            ?.filter { it.isAvailable }
             ?.map { it.id }
             .orEmpty()
 }

@@ -1,5 +1,6 @@
 package trips.all.data.remote.model
 
+import core.domain.util.toBoolean
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import trips.all.domain.models.Seat
@@ -8,12 +9,10 @@ import trips.all.domain.models.Seat
 data class SeatDTO(
     @SerialName("id")
     val id: Int,
-    @SerialName("position")
+    @SerialName("seat_number")
     val position: String,
-    @SerialName("userId")
-    val userId: Int?,
-    @SerialName("isAvailable")
-    val isAvailable: Boolean,
+    @SerialName("is_free")
+    val isAvailable: Int,
     @SerialName("price")
     val price: Int
 )
@@ -21,6 +20,6 @@ data class SeatDTO(
 fun SeatDTO.toSeat() = Seat(
     id = id,
     position = position,
-    userId = userId,
     price = price,
+    isAvailable = isAvailable.toBoolean()
 )

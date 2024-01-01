@@ -1,11 +1,9 @@
 package trips.all.presentation
 
-import trips.all.domain.models.BookedTrip
 import trips.all.domain.models.Trip
 import ui.trips.core.models.TripsFilter
 
 data class TripsScreenState(
-    val bookedTrips: List<BookedTrip> = emptyList(),
     val trips: List<Trip> = emptyList(),
     val city: String? = null,
     val isLoading: Boolean = false,

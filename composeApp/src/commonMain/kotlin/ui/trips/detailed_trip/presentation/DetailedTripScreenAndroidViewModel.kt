@@ -5,7 +5,7 @@ import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
 import tj.ham_safar.app.trips.detailed_trip.domain.use_case.GetTripById
 import tj.ham_safar.app.trips.detailed_trip.presentation.DetailedTripScreenEvent
-import tj.ham_safar.app.trips.detailed_trip.presentation.DetailedTripScreenState
+import trips.detailed_trip.presentation.DetailedTripScreenState
 import tj.ham_safar.app.trips.detailed_trip.presentation.DetailedTripScreenViewModel
 
 class DetailedTripScreenAndroidViewModel(
