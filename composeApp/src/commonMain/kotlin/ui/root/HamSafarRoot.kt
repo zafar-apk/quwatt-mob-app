@@ -90,7 +90,8 @@ fun HamSafarRoot() {
 fun AppContent() {
     val navigator = rememberNavigator()
     val scope = rememberCoroutineScope()
-    val currentDestination by navigator.currentEntry.mapNotNull { it?.route?.route }.collectAsState(null)
+    val currentDestination by navigator.currentEntry.mapNotNull { it?.route?.route }
+        .collectAsState(null)
     val popupTo: (String, Boolean) -> Unit = { route, inclusive ->
         scope.launch {
             while (currentDestination != route) {
@@ -177,7 +178,15 @@ private fun AppNavigation(
                     navController.navigate(Routes.REGISTER_USER)
                 },
                 onSuccessfullyAuthorized = {
-                    popupTo(Routes.ENTER_PHONE, true)
+                    navController.navigate(
+                        Routes.PROFILE,
+                        options = NavOptions(
+                            popUpTo = PopUpTo.Route(
+                                route = Routes.ENTER_PHONE,
+                                inclusive = true
+                            )
+                        )
+                    )
                 }
             )
         }
@@ -275,7 +284,7 @@ private fun AppNavigation(
                 state = state,
                 onEvent = { event ->
                     when (event) {
-                          ProfileScreenEvent.OnLogin ->
+                        ProfileScreenEvent.OnLogin ->
                             navController.navigate(
                                 route = Routes.ENTER_PHONE,
                                 options = NavOptions(
