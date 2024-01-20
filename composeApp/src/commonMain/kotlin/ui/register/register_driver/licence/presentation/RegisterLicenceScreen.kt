@@ -31,15 +31,15 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import core.domain.util.stringResource
 import core.presentation.DatePickerDialog
 import core.presentation.Toast
 import dev.icerock.moko.resources.compose.painterResource
+import dev.icerock.moko.resources.compose.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import register.licence.presentation.RegisterUserLicenceEvent
 import register.licence.presentation.RegisterUserLicenceScreenState
 import tj.ham_safar.app.android.core.presentation.components.TopBar
-import tj.yakroh.yakrohapp.SharedRes
+import tj.quwatt.quwattapp.SharedRes
 import ui.auth.presentation.components.BigStyleTextField
 import ui.core.presentation.components.MainButton
 import ui.theme.GrayGainsboro
@@ -91,7 +91,7 @@ fun RegisterLicenceScreen(
     Scaffold(
         topBar = {
             TopBar(
-                text = stringResource(id = SharedRes.strings.driver_licence),
+                text = stringResource(SharedRes.strings.driver_licence),
                 onBackButtonClick = { onEvent(RegisterUserLicenceEvent.GoBack) }
             )
         }
@@ -154,7 +154,7 @@ fun RegisterLicenceScreen(
                     .padding(top = 8.dp),
                 hint = "12/12/1234",
                 text = state.expirationDate,
-                onClick = { onEvent(RegisterUserLicenceEvent.OpenDocumentExpirationDatePicker)},
+                onClick = { onEvent(RegisterUserLicenceEvent.OpenDocumentExpirationDatePicker) },
                 isError = state.isExpirationDateIsNotEntered
             )
 

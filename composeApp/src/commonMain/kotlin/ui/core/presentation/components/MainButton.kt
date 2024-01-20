@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import dev.icerock.moko.resources.StringResource
+import dev.icerock.moko.resources.compose.stringResource
 import ui.theme.Yellow
 
 @Deprecated("Use moko resources instead. Label is not gonna work otherwise")

@@ -22,11 +22,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import core.domain.util.stringResource
+import dev.icerock.moko.resources.compose.stringResource
+import tj.quwatt.quwattapp.SharedRes
 import ui.theme.BackgroundGray
-import ui.theme.Blue
 import ui.theme.LightGray
-import tj.yakroh.yakrohapp.SharedRes
 
 @Composable
 fun TimePickerDialog(

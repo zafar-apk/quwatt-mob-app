@@ -1,4 +1,4 @@
-rootProject.name = "Yakroh"
+rootProject.name = "QuWatt"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

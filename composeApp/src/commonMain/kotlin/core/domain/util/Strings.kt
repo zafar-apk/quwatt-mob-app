@@ -20,12 +20,6 @@ fun stringResource(id: String, args: List<Any> = emptyList(), quantity: Int? = n
     }
 }
 
-@Composable
-expect fun stringResource(id: StringResource, vararg args: Any): String
-
-@Composable
-expect fun stringResource(id: PluralsResource, count: Int, vararg args: Any): String
-
 expect object DeprecatedStrings {
     fun get(id: String, quantity: Int): String
     fun get(id: String): String

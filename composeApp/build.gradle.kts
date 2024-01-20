@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.Packaging
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
@@ -31,7 +30,7 @@ kotlin {
             export(libs.moko.resources)
             baseName = "ComposeApp"
             isStatic = true
-            freeCompilerArgs += "-Xbinary=bundleId=tj.yakroh.yakrohapp"
+            freeCompilerArgs += "-Xbinary=bundleId=tj.quwatt.quwattapp"
         }
     }
 
@@ -133,6 +132,6 @@ android {
 }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "tj.yakroh.yakrohapp"
+    multiplatformResourcesPackage = "tj.quwatt.quwattapp"
     multiplatformResourcesClassName = "SharedRes"
 }

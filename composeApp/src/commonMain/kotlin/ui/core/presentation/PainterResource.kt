@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.getImageByFileName
-import tj.yakroh.yakrohapp.SharedRes
+import tj.quwatt.quwattapp.SharedRes
 
 @Composable
 fun painterResource(resName: String): Painter {

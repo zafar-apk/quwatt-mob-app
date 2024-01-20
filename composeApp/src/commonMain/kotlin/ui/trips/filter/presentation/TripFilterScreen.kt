@@ -20,10 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import core.domain.util.stringResource
 import core.presentation.DatePickerDialog
+import dev.icerock.moko.resources.compose.stringResource
 import tj.ham_safar.app.android.core.presentation.components.ActionButton
-import tj.yakroh.yakrohapp.SharedRes
+import tj.quwatt.quwattapp.SharedRes
 import trips.filter.presentation.TripFilterScreenEvent
 import trips.filter.presentation.TripFilterScreenState
 import ui.core.presentation.components.BackButton
@@ -60,7 +60,8 @@ fun TripFilterScreen(
             },
             onDateSelected = { selectedDate ->
                 onEvent(TripFilterScreenEvent.ChangeTripDate(selectedDate))
-            }
+            },
+            dateSeparator = "-"
         )
     }
 
@@ -99,7 +100,7 @@ fun TripFilterScreen(
                     ActionButton(
                         icon = Icons.Default.Refresh,
                         onClick = { onEvent(TripFilterScreenEvent.ResetFilter) },
-                        contentDescription = stringResource(id = SharedRes.strings.reset)
+                        contentDescription = stringResource(SharedRes.strings.reset)
                     )
                 }
             }
@@ -123,25 +124,25 @@ fun TripFilterScreen(
                 )
             }
 
-            item {
-                Spacer(modifier = Modifier.height(12.dp))
-
-                TextDropDown(
-                    modifier = Modifier.fillMaxWidth(),
-                    hint = stringResource(SharedRes.strings.auto_model),
-                    selectedText = state.selectedState.selectedAutoModel
-                        ?: stringResource(SharedRes.strings.any),
-                    isDropDownOpened = state.choosingState.isChoosingAutoModel,
-                    options = state.autoModels,
-                    onOpenDropDown = { onEvent(TripFilterScreenEvent.OpenAutoModelDropDown) },
-                    onSelectOption = {
-                        onEvent(TripFilterScreenEvent.ChangeAutoModel(it))
-                    },
-                    onDismiss = {
-                        onEvent(TripFilterScreenEvent.DismissAllChoosing)
-                    }
-                )
-            }
+//            item {
+//                Spacer(modifier = Modifier.height(12.dp))
+//
+//                TextDropDown(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    hint = stringResource(SharedRes.strings.auto_model),
+//                    selectedText = state.selectedState.selectedAutoModel
+//                        ?: stringResource(SharedRes.strings.any),
+//                    isDropDownOpened = state.choosingState.isChoosingAutoModel,
+//                    options = state.autoModels,
+//                    onOpenDropDown = { onEvent(TripFilterScreenEvent.OpenAutoModelDropDown) },
+//                    onSelectOption = {
+//                        onEvent(TripFilterScreenEvent.ChangeAutoModel(it))
+//                    },
+//                    onDismiss = {
+//                        onEvent(TripFilterScreenEvent.DismissAllChoosing)
+//                    }
+//                )
+//            }
 
             item {
                 Spacer(modifier = Modifier.height(12.dp))
@@ -149,10 +150,12 @@ fun TripFilterScreen(
                 RangePicker(
                     text = stringResource(SharedRes.strings.trip_fee),
                     reset = state.resetPriceValues,
-                    lowerBound = state.selectedState.selectedFromPriceTrip,
-                    upperBound = state.selectedState.selectedToPriceTrip,
-                    onLowerBoundChange = { onEvent(TripFilterScreenEvent.ChangePriceFrom(it)) },
-                    onUpperBoundChange = { onEvent(TripFilterScreenEvent.ChangePriceTo(it)) }
+                    bounds = 1F..500F,
+                    value = state.selectedState.selectedFromPriceTrip..state.selectedState.selectedToPriceTrip,
+                    onValueChange = {
+                        onEvent(TripFilterScreenEvent.ChangePriceFrom(it.start))
+                        onEvent(TripFilterScreenEvent.ChangePriceTo(it.endInclusive))
+                    }
                 )
             }
 

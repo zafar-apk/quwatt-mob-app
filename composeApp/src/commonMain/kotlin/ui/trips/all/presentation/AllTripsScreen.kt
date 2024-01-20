@@ -31,10 +31,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import core.domain.util.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.launch
 import tj.ham_safar.app.android.core.presentation.components.ActionButton
-import tj.yakroh.yakrohapp.SharedRes
+import tj.quwatt.quwattapp.SharedRes
 import trips.all.domain.models.Trip
 import trips.all.presentation.TripsScreenEvent
 import trips.all.presentation.TripsScreenState
@@ -126,7 +126,7 @@ fun AllTripsScreen(
                             if (state.trips.isNotEmpty()) {
                                 Text(
                                     modifier = Modifier.padding(top = 8.dp),
-                                    text = stringResource(id = SharedRes.strings.all_trips),
+                                    text = stringResource(SharedRes.strings.all_trips),
                                     style = MaterialTheme.typography.subtitle1,
                                     fontSize = 18.sp
                                 )
@@ -210,7 +210,7 @@ fun TripsTopBar(
         ActionButton(
             icon = Icons.Default.Tune,
             onClick = { onOpenFilters() },
-            contentDescription = stringResource(id = SharedRes.strings.filters)
+            contentDescription = stringResource(SharedRes.strings.filters)
         )
     }
 }

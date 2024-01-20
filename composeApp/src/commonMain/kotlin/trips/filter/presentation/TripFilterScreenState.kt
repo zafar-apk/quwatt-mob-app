@@ -20,8 +20,8 @@ data class TripFilterScreenState(
 data class TripFilterSelectedState(
     val selectedAutoType: String? = null,
     val selectedAutoModel: String? = null,
-    val selectedFromPriceTrip: Int = 0,
-    val selectedToPriceTrip: Int = 500,
+    val selectedFromPriceTrip: Float = 0F,
+    val selectedToPriceTrip: Float = 500F,
     val selectedFromCity: City? = null,
     val selectedToCity: City? = null,
     val selectedTripDate: String? = null,

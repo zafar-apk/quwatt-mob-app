@@ -3,7 +3,13 @@
 package ui.auth.presentation.enter_code
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
@@ -23,11 +29,11 @@ import androidx.compose.ui.unit.sp
 import auth.enter_code.presentation.EnterCodeNavigation
 import auth.enter_code.presentation.EnterCodeScreenEvent
 import auth.enter_code.presentation.EnterCodeScreenState
-import core.domain.util.stringResource
+import dev.icerock.moko.resources.compose.stringResource
+import tj.quwatt.quwattapp.SharedRes
 import ui.auth.presentation.components.BigStyleTextField
 import ui.core.presentation.components.BackButton
 import ui.core.presentation.components.Loader
-import tj.yakroh.yakrohapp.SharedRes
 import ui.core.presentation.components.MainButton
 
 private const val OTP_CODE_MAX_LENGTH = 4
@@ -70,7 +76,7 @@ fun EnterCode(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
-                    text = stringResource(id = SharedRes.strings.enter_code, listOf(state.phone)),
+                    text = stringResource(SharedRes.strings.enter_code, state.phone),
                     style = MaterialTheme.typography.h2
                 )
                 Spacer(modifier = Modifier.size(16.dp))
@@ -124,7 +130,7 @@ private fun CodeTextField(
         value = value,
         fontSize = 18.sp,
         onValueChanged = onValueChanged,
-        label = stringResource(id = SharedRes.strings.code),
+        label = stringResource(SharedRes.strings.code),
         maxLength = OTP_CODE_MAX_LENGTH,
         textAlignment = TextAlign.Center,
         keyboardOptions = KeyboardOptions(

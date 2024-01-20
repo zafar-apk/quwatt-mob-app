@@ -7,16 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import auth.enter_code.presentation.EnterCodeScreenEvent
 import auth.enter_code.presentation.EnterCodeViewModel
 import com.mmk.kmpnotifier.notification.NotifierManager
 import hamsafar_root.HamsafarRootEvent
 import hamsafar_root.HamsafarRootViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.mapNotNull
-import kotlinx.coroutines.launch
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.koin.koinViewModel
 import moe.tlaster.precompose.navigation.NavHost
@@ -53,7 +50,6 @@ import ui.trips.filter.presentation.navigateToTripFilterScreen
 
 object Arguments {
     const val passengerId = "passengerId"
-    const val Stage = "stage"
     const val PhoneNumber = "phoneNumber"
     const val TripId = "tripId"
     const val CompleteAction = "complete-action"
@@ -89,21 +85,9 @@ fun HamSafarRoot() {
 @Composable
 fun AppContent() {
     val navigator = rememberNavigator()
-    val scope = rememberCoroutineScope()
     val currentDestination by navigator.currentEntry.mapNotNull { it?.route?.route }
         .collectAsState(null)
-    val popupTo: (String, Boolean) -> Unit = { route, inclusive ->
-        scope.launch {
-            while (currentDestination != route) {
-                navigator.goBack()
-                delay(500)
-            }
-            if (inclusive) {
-                delay(500)
-                navigator.goBack()
-            }
-        }
-    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
@@ -115,7 +99,6 @@ fun AppContent() {
         AppNavigation(
             modifier = Modifier.padding(paddingValues),
             navController = navigator,
-            popupTo = popupTo
         )
     }
 }
@@ -139,7 +122,6 @@ fun AppContent() {
 private fun AppNavigation(
     navController: Navigator,
     modifier: Modifier = Modifier,
-    popupTo: (String, Boolean) -> Unit
 ) {
     NavHost(
         modifier = modifier,
@@ -201,7 +183,6 @@ private fun AppNavigation(
                         RegisterUserScreenEvent.GoBack -> navController.goBack()
                         RegisterUserScreenEvent.CompleteRegistration ->
                             navController.goBack()
-
                         else -> viewModel.onEvent(event)
                     }
                 }

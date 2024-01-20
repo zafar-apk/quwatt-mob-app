@@ -158,9 +158,8 @@ class TripFilterScreenViewModel(
     }
 
     private fun getCities() = viewModelScope.launch {
-        val result = getCities.execute()
-        when (result) {
-            is Resource.Success -> _state.update { it.copy(cities = result.data!!) }
+        when (val result = getCities.execute()) {
+            is Resource.Success -> _state.update { it.copy(cities = result.data.orEmpty()) }
             is Resource.Error -> _state.update { it.copy(error = result.throwable?.message.toString()) }
         }
     }

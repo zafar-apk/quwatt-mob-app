@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextButton
 import androidx.compose.material3.Text
@@ -36,9 +34,9 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import core.domain.util.getCurrentDateTime
-import core.domain.util.stringResource
 import core.domain.util.toYYYYmmDD
 import dev.icerock.moko.resources.StringResource
+import dev.icerock.moko.resources.compose.stringResource
 import epicarchitect.calendar.compose.basis.EpicMonth
 import epicarchitect.calendar.compose.basis.config.rememberMutableBasisEpicCalendarConfig
 import epicarchitect.calendar.compose.datepicker.EpicDatePicker
@@ -49,11 +47,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
-import tj.yakroh.yakrohapp.SharedRes
+import tj.quwatt.quwattapp.SharedRes
 import ui.theme.BackgroundGray
 import ui.theme.Blue
 import ui.theme.GrayAlt
-import ui.theme.GrayDuoTone
 import ui.trips.filter.presentation.components.TextDropDown
 
 private const val SHAKE_ANIMATION_DURATION = 250

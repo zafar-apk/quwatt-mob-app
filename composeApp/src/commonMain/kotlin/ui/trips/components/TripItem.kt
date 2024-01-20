@@ -21,10 +21,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
-import core.domain.util.stringResource
 import dev.icerock.moko.resources.compose.painterResource
+import dev.icerock.moko.resources.compose.stringResource
 import tj.ham_safar.app.android.trips.components.DashLine
-import tj.yakroh.yakrohapp.SharedRes
+import tj.quwatt.quwattapp.SharedRes
 import trips.all.domain.models.Trip
 import ui.theme.TextBlack
 import ui.theme.Yellow

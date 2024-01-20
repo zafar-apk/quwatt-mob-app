@@ -25,12 +25,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import auth.enter_phone.presentation.EnterPhoneScreenEvent
 import auth.enter_phone.presentation.EnterPhoneViewModel
-import core.domain.util.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 import moe.tlaster.precompose.koin.koinViewModel
 import tj.ham_safar.app.android.core.presentation.components.CustomTextField
-import ui.core.presentation.components.Loader
-import tj.yakroh.yakrohapp.SharedRes
+import tj.quwatt.quwattapp.SharedRes
 import ui.core.presentation.components.BackButton
+import ui.core.presentation.components.Loader
 import ui.core.presentation.components.MainButton
 
 @Composable
@@ -63,7 +63,7 @@ fun EnterPhone(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
-                    text = stringResource(id = SharedRes.strings.enter_phone_number),
+                    text = stringResource(SharedRes.strings.enter_phone_number),
                     style = MaterialTheme.typography.h2
                 )
                 Spacer(modifier = Modifier.size(16.dp))
@@ -72,7 +72,7 @@ fun EnterPhone(
                         .fillMaxWidth()
                         .padding(horizontal = 21.dp),
                     onTextChanged = { viewModel.onEvent(EnterPhoneScreenEvent.OnPhoneTextChanged(it)) },
-                    placeholderText = stringResource(id = SharedRes.strings.phone_prefix),
+                    placeholderText = stringResource(SharedRes.strings.phone_prefix),
                     maxCount = 9,
                     keyboardActions = KeyboardActions(),
                     keyboardOptions = KeyboardOptions(

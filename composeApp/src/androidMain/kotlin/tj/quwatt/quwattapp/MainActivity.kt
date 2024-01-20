@@ -1,10 +1,8 @@
-package tj.yakroh.yakrohapp
+package tj.quwatt.quwattapp
 
 import App
 import MainView
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.mmk.kmpnotifier.permission.permissionUtil

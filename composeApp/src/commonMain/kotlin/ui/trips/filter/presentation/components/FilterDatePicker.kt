@@ -2,7 +2,12 @@ package ui.trips.filter.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -14,11 +19,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import core.domain.util.getCurrentDateTime
-import core.domain.util.stringResource
 import core.domain.util.toYYYYmmDD
-import kotlinx.datetime.*
+import dev.icerock.moko.resources.compose.stringResource
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.plus
+import tj.quwatt.quwattapp.SharedRes
 import ui.theme.Gray
-import tj.yakroh.yakrohapp.SharedRes
 
 @Composable
 fun FilterDatePicker(
@@ -64,7 +70,7 @@ fun FilterDatePicker(
                     text = stringResource(SharedRes.strings.today),
                     onClick = {
                         val current = getCurrentDateTime()
-                        onDateSelected(current.date.toYYYYmmDD())
+                        onDateSelected(current.date.toYYYYmmDD(separator = "-"))
                     },
                     textColor = Color(0xff0171CE)
                 )
@@ -73,7 +79,7 @@ fun FilterDatePicker(
                     onClick = {
                         val current = getCurrentDateTime()
                         val tomorrow = current.date.plus(1, DateTimeUnit.DAY)
-                        onDateSelected(tomorrow.toYYYYmmDD())
+                        onDateSelected(tomorrow.toYYYYmmDD(separator = "-"))
                     },
                     textColor = Color(0xff0171CE)
                 )

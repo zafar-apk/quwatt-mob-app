@@ -21,11 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import core.domain.util.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 import passengers.filter.presentation.PassengerFilterScreenEvent
 import passengers.filter.presentation.PassengerFilterScreenState
 import tj.ham_safar.app.android.core.presentation.components.ActionButton
-import tj.yakroh.yakrohapp.SharedRes
+import tj.quwatt.quwattapp.SharedRes
 import ui.core.presentation.components.BackButton
 import ui.core.presentation.components.MainButton
 import ui.passengers.core.shared_trip_filter.PassengerTripsFilterParcelize
@@ -33,7 +33,6 @@ import ui.passengers.core.shared_trip_filter.toPassengerTripsFilter
 import ui.passengers.core.shared_trip_filter.toTripsFilterParcelize
 import ui.trips.filter.presentation.components.FilterDatePicker
 import ui.trips.filter.presentation.components.FilterTimePicker
-import ui.trips.filter.presentation.components.RangePicker
 import ui.trips.filter.presentation.components.TextDropDown
 
 @Composable
@@ -91,7 +90,7 @@ fun PassengerFilterScreen(
                     ActionButton(
                         icon = Icons.Default.Refresh,
                         onClick = { onEvent(PassengerFilterScreenEvent.ResetFilter) },
-                        contentDescription = stringResource(id = SharedRes.strings.rating)
+                        contentDescription = stringResource(SharedRes.strings.rating)
                     )
                 }
             }
@@ -99,13 +98,13 @@ fun PassengerFilterScreen(
             item {
                 Spacer(modifier = Modifier.height(12.dp))
 
-                RangePicker(
-                    text = stringResource(SharedRes.strings.trip_fee),
-                    reset = state.resetPriceValues,
-                    lowerBound = state.selectedState.selectedFromPriceTrip,
-                    upperBound = state.selectedState.selectedToPriceTrip,
-                    onLowerBoundChange = { onEvent(PassengerFilterScreenEvent.ChangePriceFrom(it)) },
-                    onUpperBoundChange = { onEvent(PassengerFilterScreenEvent.ChangePriceTo(it)) })
+//                RangePicker(
+//                    text = stringResource(SharedRes.strings.trip_fee),
+//                    reset = state.resetPriceValues,
+//                    lowerBound = state.selectedState.selectedFromPriceTrip,
+//                    upperBound = state.selectedState.selectedToPriceTrip,
+//                    onLowerBoundChange = { onEvent(PassengerFilterScreenEvent.ChangePriceFrom(it)) },
+//                    onUpperBoundChange = { onEvent(PassengerFilterScreenEvent.ChangePriceTo(it)) })
             }
 
             item {

@@ -1,6 +1,6 @@
 package core.di
 
-import core.data.local.AndroidDataStore
+import tj.quwatt.quwattapp.core.data.local.AndroidDataStore
 import org.koin.core.module.Module
 import org.koin.dsl.module
 

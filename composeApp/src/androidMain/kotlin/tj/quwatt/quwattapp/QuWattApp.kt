@@ -1,13 +1,14 @@
-package tj.yakroh.yakrohapp
+package tj.quwatt.quwattapp
 
 import android.app.Application
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.configuration.NotificationPlatformConfiguration
-import core.domain.util.DeprecatedStrings
 import core.di.initKoin
+import core.domain.util.DeprecatedStrings
 import org.koin.android.ext.koin.androidContext
+import tj.yakroh.yakrohapp.R
 
-class YakrohApp : Application() {
+class QuWattApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -19,7 +20,7 @@ class YakrohApp : Application() {
         )
         DeprecatedStrings.context = this
         initKoin {
-            androidContext(this@YakrohApp)
+            androidContext(this@QuWattApp)
         }
     }
 }

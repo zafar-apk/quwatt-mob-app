@@ -39,8 +39,8 @@ import com.preat.peekaboo.image.picker.ResizeOptions
 import com.preat.peekaboo.image.picker.SelectionMode
 import com.preat.peekaboo.image.picker.rememberImagePickerLauncher
 import com.preat.peekaboo.image.picker.toImageBitmap
-import core.domain.util.stringResource
 import dev.icerock.moko.resources.compose.painterResource
+import dev.icerock.moko.resources.compose.stringResource
 import io.kamel.core.getOrNull
 import io.kamel.image.asyncPainterResource
 import profile.domain.User
@@ -48,7 +48,7 @@ import profile.presentation.ProfileScreenEvent
 import profile.presentation.ProfileScreenState
 import tj.ham_safar.app.android.core.presentation.components.TopBar
 import tj.ham_safar.app.android.register.user.presentation.user.components.LineTextField
-import tj.yakroh.yakrohapp.SharedRes
+import tj.quwatt.quwattapp.SharedRes
 import ui.core.presentation.components.ErrorView
 import ui.core.presentation.components.Loader
 import ui.core.presentation.components.LoginView
