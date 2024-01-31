@@ -51,7 +51,7 @@ import tj.quwatt.quwattapp.SharedRes
 import ui.theme.BackgroundGray
 import ui.theme.Blue
 import ui.theme.GrayAlt
-import ui.trips.filter.presentation.components.TextDropDown
+import ui.stations.filter.presentation.components.TextDropDown
 
 private const val SHAKE_ANIMATION_DURATION = 250
 

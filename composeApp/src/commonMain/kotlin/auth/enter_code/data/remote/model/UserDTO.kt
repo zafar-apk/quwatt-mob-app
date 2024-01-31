@@ -5,39 +5,25 @@ import kotlinx.serialization.Serializable
 import profile.domain.User
 
 @Serializable
-data class ProfileDTO(
-    @SerialName("result")
-    val result: UserDTO?
-)
-
-@Serializable
 data class UserDTO(
     @SerialName("id")
     val id: Int,
-    @SerialName("phone_number")
+    @SerialName("phone")
     val phone: String,
-    @SerialName("first_name")
+    @SerialName("name")
     val name: String?,
-    @SerialName("last_name")
+    @SerialName("surname")
     val surname: String?,
     @SerialName("patronymic")
     val patronymic: String?,
-    @SerialName("date_of_birth")
+    @SerialName("dateOfBirth")
     val dateOfBirth: String?,
-    @SerialName("isDriver")
-    val isDriver: Boolean = false,
-    @SerialName("transport")
-    val transport: TransportDTO? = null,
-    @SerialName("licenceNumber")
-    val licenceNumber: String? = null,
-    @SerialName("licenceExpiration")
-    val licenceExpiration: String? = null,
-    @SerialName("passportNumber")
-    val passportNumber: String? = null,
-    @SerialName("avatar")
+    @SerialName("photo")
     val photo: String? = null,
-    @SerialName("rating")
-    val rating: Double = 0.0
+    @SerialName("email")
+    val email: String? = null,
+    @SerialName("balance")
+    val balance: Double? = null
 )
 
 fun UserDTO.toUser() = User(
@@ -47,11 +33,7 @@ fun UserDTO.toUser() = User(
     surname = surname.orEmpty(),
     patronymic = patronymic,
     dateOfBirth = dateOfBirth.orEmpty(),
-    isDriver = isDriver,
-    transport = transport?.toTransport(),
-    licenceNumber = licenceNumber,
-    licenceExpiration = licenceExpiration,
-    passportNumber = passportNumber,
     photo = photo,
-    rating = rating
+    email = email,
+    balance = balance
 )

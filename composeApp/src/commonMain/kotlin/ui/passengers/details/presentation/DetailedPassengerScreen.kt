@@ -28,10 +28,10 @@ import ui.core.presentation.components.ErrorView
 import ui.core.presentation.components.MainButton
 import ui.core.presentation.getImagePainterOrPlaceHolder
 import ui.theme.PrimaryGray
-import ui.theme.Yellow
+import ui.theme.Primary
 import ui.theme.labelText
 import ui.theme.propertyText
-import ui.trips.detailed_trip.presentation.components.ProfileRatingItem
+import ui.stations.detailed_trip.presentation.components.ProfileRatingItem
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -80,7 +80,7 @@ fun DetailedPassengerScreen(
                                 Icon(
                                     modifier = Modifier.size(24.dp),
                                     painter = painterResource("ic_location.xml"),
-                                    tint = Yellow,
+                                    tint = Primary,
                                     contentDescription = stringResource("location_from_icon")
                                 )
                                 Column {

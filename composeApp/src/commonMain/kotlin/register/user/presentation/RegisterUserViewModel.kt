@@ -11,14 +11,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
-import profile.data.remote.setphoto.SetUserPhoto
 import register.user.domain.RegisterUser
 import user.domain.UserInteractor
 
 class RegisterUserViewModel(
     private val registerUser: RegisterUser,
     private val userInteractor: UserInteractor,
-    private val setUserPhoto: SetUserPhoto
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(RegisterUserScreenState())
@@ -53,34 +51,14 @@ class RegisterUserViewModel(
             }
 
             is RegisterUserScreenEvent.OnUserPhotoPicked -> {
-                uploadUserPhoto(event.imageFile)
                 _state.update {
-                    it.copy(
-                        photo = event.imageFile,
-                        isLoading = true
-                    )
+                    it.copy(photo = event.imageFile)
                 }
             }
 
             RegisterUserScreenEvent.Register -> register()
 
             else -> Unit
-        }
-    }
-
-    private fun uploadUserPhoto(photo: ByteArray) {
-        viewModelScope.launch {
-            val response = setUserPhoto.execute(photo)
-            _state.update {
-                if (response is Resource.Success && response.data == true) {
-                    it.copy(isLoading = false)
-                } else {
-                    it.copy(
-                        isLoading = false,
-                        error = response.throwable ?: RuntimeException(Strings.unknownError)
-                    )
-                }
-            }
         }
     }
 
@@ -92,6 +70,7 @@ class RegisterUserViewModel(
                 surname = surName,
                 patronymic = patronymic,
                 dateOfBirth = dateOfBirth,
+                photo = photo
             )
             when (result) {
                 is Resource.Success -> {

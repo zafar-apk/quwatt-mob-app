@@ -6,7 +6,6 @@ import com.mmk.kmpnotifier.notification.configuration.NotificationPlatformConfig
 import core.di.initKoin
 import core.domain.util.DeprecatedStrings
 import org.koin.android.ext.koin.androidContext
-import tj.yakroh.yakrohapp.R
 
 class QuWattApp : Application() {
 

@@ -58,13 +58,13 @@ class ProfileScreenViewModel(
 
     private fun onOpenTransport() = _state.update { screenState ->
         when {
-            _state.value.user?.licenceNumber.isNullOrEmpty() -> screenState.copy(
-                shouldRegisterLicence = true
-            )
-
-            _state.value.user?.transport == null -> screenState.copy(
-                shouldRegisterTransport = true
-            )
+//            _state.value.user?.licenceNumber.isNullOrEmpty() -> screenState.copy(
+//                shouldRegisterLicence = true
+//            )
+//
+//            _state.value.user?.transport == null -> screenState.copy(
+//                shouldRegisterTransport = true
+//            )
 
             else -> screenState.copy(shouldOpenTransport = true)
         }

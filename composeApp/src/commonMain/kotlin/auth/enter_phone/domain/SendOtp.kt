@@ -8,5 +8,5 @@ class SendOtp(
 ) {
     suspend fun execute(
         phone: String
-    ): Resource<SendOtpResult> = sendOtpClient.sendOtp(phone = "992$phone")
+    ): Resource<Boolean> = sendOtpClient.sendOtp(phone = "992$phone")
 }

@@ -16,13 +16,13 @@ import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
-import ui.trips.components.AddressRow
+import ui.stations.components.AddressRow
 import tj.ham_safar.app.android.trips.components.DashLine
 import ui.theme.Gray
 import ui.theme.LightGray
 import ui.theme.TextBlack
-import ui.theme.Yellow
-import ui.trips.components.RatingBar
+import ui.theme.Primary
+import ui.stations.components.RatingBar
 
 @Composable
 fun PassengerItem(
@@ -51,7 +51,7 @@ fun PassengerItem(
             Column {
                 AddressRow(
                     modifier = Modifier.padding(start = 11.dp),
-                    iconColor = Yellow,
+                    iconColor = Primary,
                     text = "${fromCity}, $fromAddress"
                 )
                 Row(
@@ -179,7 +179,7 @@ private fun PriceRange(
         ),
         modifier = modifier
             .background(
-                color = Yellow,
+                color = Primary,
                 MaterialTheme.shapes.medium
             )
             .padding(horizontal = 5.dp, vertical = 2.dp)

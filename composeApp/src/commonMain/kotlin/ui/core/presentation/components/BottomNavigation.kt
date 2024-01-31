@@ -18,9 +18,9 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
 import tj.ham_safar.app.android.core.presentation.Routes
 import ui.theme.Gray
-import ui.theme.Yellow
+import ui.theme.Primary
 import ui.passengers.all.presentation.allPassengersRoute
-import ui.trips.all.presentation.allTripsRoute
+import ui.stations.all.presentation.allTripsRoute
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -49,7 +49,7 @@ fun HamsafarBottomNavigation(navController: Navigator) {
                         fontSize = 12.sp
                     )
                 },
-                selectedContentColor = Yellow,
+                selectedContentColor = Primary,
                 unselectedContentColor = Gray,
                 selected = currentDestination == screen.route,
 //                currentDestination?.any { it.route == screen.route } == true,
@@ -84,7 +84,7 @@ fun HamsafarBottomNavigation(navController: Navigator) {
 //}
 
 sealed class Screen(val route: String, val labelId: String, val iconRes: String) {
-    object Trips : Screen(allTripsRoute, "trips", "ic_orders.xml")
+    object Trips : Screen(allTripsRoute, "stations", "ic_orders.xml")
     object Passengers : Screen(allPassengersRoute, "passengers", "ic_profile.xml")
     object Messages : Screen(Routes.MESSAGES, "messages", "ic_chat.xml")
     object Profile : Screen(Routes.PROFILE, "profile", "ic_profile.xml")

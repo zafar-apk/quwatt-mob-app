@@ -26,10 +26,6 @@ class UserRepositoryImpl(
 
     override suspend fun saveToken(token: String) = userLocalDataSource.insertToken(token)
 
-    override suspend fun getRegisterId(): String? = userLocalDataSource.getRegisterId()
-
-    override suspend fun saveRegisterId(id: String) = userLocalDataSource.insertRegisterId(id)
-
     override suspend fun getNotificationToken(): String? {
         return NotifierManager.getPushNotifier().getToken()
             ?: userLocalDataSource.getNotificationToken()

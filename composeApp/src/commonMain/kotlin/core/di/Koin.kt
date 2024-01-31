@@ -15,11 +15,11 @@ import ui.register.register_driver.licence.di.RegisterLicenceModule
 import ui.register.register_driver.transport.di.RegisterTransportModule
 import ui.register.user.di.RegisterUserModule
 import ui.root.RootModule
-import ui.trips.all.di.AllTripsModule
-import ui.trips.detailed_booking_trip.di.DetailedBookedTripModule
-import ui.trips.detailed_trip.di.DetailedTripModule
-import ui.trips.filter.di.TripFilterModule
-import ui.trips.my_trips.di.MyTripsModule
+import ui.stations.all.di.AllTripsModule
+import ui.stations.detailed_booking_trip.di.DetailedBookedTripModule
+import ui.stations.detailed_trip.di.DetailedTripModule
+import ui.stations.filter.di.TripFilterModule
+import ui.stations.my_trips.di.MyTripsModule
 
 fun startKoin() {
     initKoin {

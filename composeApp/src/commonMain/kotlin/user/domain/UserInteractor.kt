@@ -12,6 +12,4 @@ class UserInteractor (
     suspend fun saveToken(token: String) = repository.saveToken(token)
     suspend fun getNotificationToken(): String? = repository.getNotificationToken()
     suspend fun saveNotificationToken(token: String) = repository.saveNotificationToken(token)
-    suspend fun getRegisterId(): String? = repository.getRegisterId()
-    suspend fun saveRegisterId(id: String) = repository.saveRegisterId(id)
 }

@@ -6,8 +6,8 @@ import core.data.remote.networkCall
 import core.domain.util.AppConstants
 import core.domain.util.Resource
 import io.ktor.client.HttpClient
-import io.ktor.client.request.parameter
 import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
@@ -16,19 +16,24 @@ class VerifyOtpHttpClient(
     private val client: HttpClient,
     private val mapper: VerifyOtpMapper = VerifyOtpMapper()
 ) : VerifyOtpClient {
+
     override suspend fun verifyOtp(
         otp: String,
-        registerId: String,
-        fcmToken: String
+        phone: String,
     ): Resource<VerifyOtpResult> = networkCall(
         map = mapper::mapVerifyResultDto,
         call = {
             client.post {
-                url("${AppConstants.BASE_URL}/auth/user-registers/2")
+                url("${AppConstants.BASE_URL}/otp/verify")
                 contentType(ContentType.Application.Json)
-                parameter("user_register_id", registerId)
-                parameter("sms_code", otp)
-                parameter("fcm_token", fcmToken)
+                setBody(
+                    """
+                    {
+                        "otp": "$otp",
+                        "phone": "$phone"
+                    }
+                    """.trimIndent()
+                )
             }
         }
     )

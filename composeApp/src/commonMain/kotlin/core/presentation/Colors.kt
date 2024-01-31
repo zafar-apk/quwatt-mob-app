@@ -2,8 +2,8 @@ package core.presentation
 
 object Colors {
     const val BackgroundGray = 0XFFEBEBEB
-    const val Yellow = 0XFFFCB61A
-    const val Blue = 0XFF0171CE
+    const val Primary = 0XFF0A3C5C
+    const val Secondary = 0XFF1C1C1E
     const val DarkBlue = 0XFF373E4E
     const val Red = 0XFFFF0006
     const val Gray = 0XFF707070

@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import core.domain.util.stringResource
 import kotlinx.coroutines.delay
 import presentatition.SplashScreenEvent
-import ui.theme.Yellow
+import ui.theme.Primary
 
 private const val SPLASH_SCREEN_DELAY = 1500L
 
@@ -29,7 +29,7 @@ fun SplashScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Yellow),
+            .background(color = Primary),
         contentAlignment = Alignment.Center
     ) {
         Text(

@@ -13,13 +13,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import core.domain.util.stringResource
-import ui.theme.Blue
-import ui.theme.Gray
+import dev.icerock.moko.resources.compose.stringResource
+import tj.quwatt.quwattapp.SharedRes
 import ui.core.presentation.painterResource
+import ui.theme.Gray
 
 @Composable
 fun ErrorView(
@@ -38,12 +37,12 @@ fun ErrorView(
 
         Image(
             painter = painterResource("ic_sad.xml"),
-            contentDescription = stringResource(id = "sad_icon")
+            contentDescription = stringResource(SharedRes.strings.sad_icon)
         )
 
         Text(
             modifier = Modifier.padding(top = 24.dp),
-            text = stringResource(id = "error"),
+            text = stringResource(SharedRes.strings.error),
             style = MaterialTheme.typography.h2
         )
 
@@ -57,19 +56,17 @@ fun ErrorView(
         Spacer(modifier = Modifier.weight(1F))
 
         Text(
-            text = stringResource(id = "descriptioin_troubleshooting"),
+            text = stringResource(SharedRes.strings.descriptioin_troubleshooting),
             style = MaterialTheme.typography.body1,
             textAlign = TextAlign.Center,
             color = Gray
         )
 
         MainButton(
-            labelRes = "retry",
+            labelResource = SharedRes.strings.retry,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 28.dp),
-            backgroundColor = Blue,
-            contentColor = Color.White,
             onClick = { onRetry?.invoke() }
         )
 

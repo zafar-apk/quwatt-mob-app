@@ -71,13 +71,14 @@ class EnterCodeViewModel(
 
     private fun verifyOtp(): Job = viewModelScope.launch {
         val result = verifyOtp.execute(
-            otp = state.value.code
+            otp = state.value.code,
+            phone = state.value.phone
         )
         when (result) {
             is Resource.Success -> _state.update { screenState ->
                 saveTokenIfExist(result.data?.token)
                 val user = result.data?.user
-                val navigation = if (user?.isRegistered() == true) {
+                val navigation = if (user != null) {
                     setUserExist()
                     EnterCodeNavigation.NEXT
                 } else {

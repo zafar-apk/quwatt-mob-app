@@ -41,7 +41,7 @@ import ui.theme.Blue
 import ui.theme.Gray
 import ui.theme.GrayGainsboro
 import ui.theme.Red
-import ui.trips.filter.presentation.components.TextDropDown
+import ui.stations.filter.presentation.components.TextDropDown
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import tj.ham_safar.app.android.core.presentation.withIf
 import ui.theme.GrayGainsboro
-import ui.theme.Yellow
+import ui.theme.Primary
 import ui.core.presentation.painterResource
 
 
@@ -91,7 +91,7 @@ fun CustomTextField(
             }
         },
         singleLine = true,
-        cursorBrush = SolidColor(Yellow),
+        cursorBrush = SolidColor(Primary),
         textStyle = textStyle,
         keyboardActions = keyboardActions,
         keyboardOptions = keyboardOptions,

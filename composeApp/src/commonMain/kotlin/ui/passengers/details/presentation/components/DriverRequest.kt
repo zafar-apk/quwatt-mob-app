@@ -1,21 +1,30 @@
 package ui.passengers.details.presentation.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import ui.core.presentation.painterResource
 import profile.domain.User
+import ui.core.presentation.getImagePainterOrPlaceHolder
+import ui.core.presentation.painterResource
 import ui.theme.Blue
 import ui.theme.PrimaryGray
 import ui.theme.propertyText
-import ui.trips.components.RatingBar
-import ui.core.presentation.getImagePainterOrPlaceHolder
 
 @Composable
 fun DriverRequest(
@@ -39,7 +48,8 @@ fun DriverRequest(
                 Image(
                     modifier = Modifier.size(width = 112.dp, height = 70.dp),
                     painter = getImagePainterOrPlaceHolder(
-                        photo = user.transport?.photo,
+//                        photo = user.transport?.photo,
+                        photo = "",
                         placeholderResId = "car_placeholder@1x.png"
                     ),
                     contentDescription = stringResource(id = "transport_photo")
@@ -52,7 +62,7 @@ fun DriverRequest(
 
                     Spacer(modifier = Modifier.size(8.dp))
 
-                    RatingBar(rating = user.rating)
+//                    RatingBar(rating = user.rating)
                 }
             }
 

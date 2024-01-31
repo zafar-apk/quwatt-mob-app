@@ -10,7 +10,8 @@ class GetTransportUseCase(
     suspend operator fun invoke(): Resource<Transport> {
         val result = client.getUser()
         return if (result is Resource.Success) {
-            Resource.Success(result.data!!.transport!!)
+            TODO()
+//            Resource.Success(result.data!!.transport!!)
         } else {
             Resource.Error(Throwable(result.throwable))
         }

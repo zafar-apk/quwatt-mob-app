@@ -53,8 +53,8 @@ import ui.core.presentation.components.ErrorView
 import ui.core.presentation.components.Loader
 import ui.core.presentation.components.LoginView
 import ui.register.user.presentation.user.DateOfBirthField
+import ui.stations.components.ActionItem
 import ui.theme.LightGray
-import ui.trips.components.ActionItem
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -119,30 +119,30 @@ fun ProfileScreen(
                         onAction = { onEvent(ProfileScreenEvent.OpenTransport) }
                     )
                 }
-
-                item {
-                    if (state.user.transport != null) ActionItem(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 14.dp),
-                        actionName = stringResource(SharedRes.strings.driver_licence),
-                        actionIcon = painterResource(SharedRes.images.ic_arrow_thin),
-                        actionIconContentDescription = stringResource(SharedRes.strings.arrow_right),
-                        onAction = { onEvent(ProfileScreenEvent.OpenLicence) }
-                    )
-                }
-
-                if (state.user.isDriver) item {
-                    ActionItem(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 14.dp),
-                        actionName = stringResource(SharedRes.strings.my_trips),
-                        actionIcon = painterResource(SharedRes.images.ic_list_item),
-                        actionIconContentDescription = stringResource(SharedRes.strings.my_trips),
-                        onAction = { onEvent(ProfileScreenEvent.OpenMyTrips) }
-                    )
-                }
+//
+//                item {
+//                    if (state.user.transport != null) ActionItem(
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(top = 14.dp),
+//                        actionName = stringResource(SharedRes.strings.driver_licence),
+//                        actionIcon = painterResource(SharedRes.images.ic_arrow_thin),
+//                        actionIconContentDescription = stringResource(SharedRes.strings.arrow_right),
+//                        onAction = { onEvent(ProfileScreenEvent.OpenLicence) }
+//                    )
+//                }
+//
+//                if (state.user.isDriver) item {
+//                    ActionItem(
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(top = 14.dp),
+//                        actionName = stringResource(SharedRes.strings.my_trips),
+//                        actionIcon = painterResource(SharedRes.images.ic_list_item),
+//                        actionIconContentDescription = stringResource(SharedRes.strings.my_trips),
+//                        onAction = { onEvent(ProfileScreenEvent.OpenMyTrips) }
+//                    )
+//                }
 
                 item {
                     ActionItem(

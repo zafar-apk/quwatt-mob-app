@@ -31,9 +31,9 @@ import ui.core.presentation.components.MainButton
 import ui.passengers.core.shared_trip_filter.PassengerTripsFilterParcelize
 import ui.passengers.core.shared_trip_filter.toPassengerTripsFilter
 import ui.passengers.core.shared_trip_filter.toTripsFilterParcelize
-import ui.trips.filter.presentation.components.FilterDatePicker
-import ui.trips.filter.presentation.components.FilterTimePicker
-import ui.trips.filter.presentation.components.TextDropDown
+import ui.stations.filter.presentation.components.FilterDatePicker
+import ui.stations.filter.presentation.components.FilterTimePicker
+import ui.stations.filter.presentation.components.TextDropDown
 
 @Composable
 fun PassengerFilterScreen(

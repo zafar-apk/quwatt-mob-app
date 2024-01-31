@@ -20,7 +20,7 @@ import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
 import tj.ham_safar.app.android.on_boarding.presentation.components.OnBoardingProgressView
-import ui.theme.Yellow
+import ui.theme.Primary
 import ui.presentation.components.OnBoardingButton
 import ui.presentation.components.SkipButton
 
@@ -48,7 +48,7 @@ fun OnBoarding(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Yellow),
+                .background(color = Primary),
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

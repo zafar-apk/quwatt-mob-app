@@ -12,11 +12,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
-import user.domain.UserRepository
 
 class EnterPhoneViewModel(
-    private val sendOtp: SendOtp,
-    private val userRepository: UserRepository
+    private val sendOtp: SendOtp
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(EnterPhoneScreenState())
@@ -63,9 +61,7 @@ class EnterPhoneViewModel(
     private fun sendOtp(): Job = viewModelScope.launch {
         when (val result = sendOtp.execute(state.value.phone)) {
             is Resource.Success -> {
-                val registerId = result.data?.result?.registerId
-                if (registerId != null) {
-                    userRepository.saveRegisterId(registerId)
+                if (result.data == true) {
                     updateStateSuccessfullySentOtp()
                 } else {
                     updateStateWithError(Strings.unknownError)

@@ -130,8 +130,8 @@ class EditUserLicenceViewModel(
                 val licence = result.data
                 _state.update {
                     it.copy(
-                        licenceNumber = licence?.licenceNumber.orEmpty(),
-                        expirationDate = licence?.licenceExpiration.orEmpty(),
+//                        licenceNumber = licence?.licenceNumber.orEmpty(),
+//                        expirationDate = licence?.licenceExpiration.orEmpty(),
                         isLoading = false
                     )
                 }

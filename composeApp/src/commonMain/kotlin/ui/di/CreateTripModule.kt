@@ -12,11 +12,11 @@ import tj.ham_safar.app.trips.core.create_trip.domain.usecases.GetTripPricingUse
 import tj.ham_safar.app.trips.core.create_trip.domain.usecases.SetTripDateTimeUseCase
 import tj.ham_safar.app.trips.core.create_trip.domain.usecases.SetTripLocationUseCase
 import tj.ham_safar.app.trips.core.create_trip.domain.usecases.SetTripPricingUseCase
-import trips.core.create_trip.data.CreateTripRepositoryImpl
-import trips.core.create_trip.data.remote.CreateTripDriverClient
-import trips.core.create_trip.data.remote.CreateTripDriverHttpClient
-import trips.core.create_trip.data.remote.CreateTripPassengerClient
-import trips.core.create_trip.data.remote.CreateTripPassengerHttpClient
+import stations.core.create_trip.data.CreateTripRepositoryImpl
+import stations.core.create_trip.data.remote.CreateTripDriverClient
+import stations.core.create_trip.data.remote.CreateTripDriverHttpClient
+import stations.core.create_trip.data.remote.CreateTripPassengerClient
+import stations.core.create_trip.data.remote.CreateTripPassengerHttpClient
 
 val CreateTripModule = module {
 

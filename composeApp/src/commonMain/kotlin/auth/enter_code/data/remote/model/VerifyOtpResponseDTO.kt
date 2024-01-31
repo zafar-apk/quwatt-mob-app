@@ -5,16 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class VerifyOtpResponseDTO(
-    @SerialName("result")
-    val result: VerifyOtpResultDTO?
-)
-
-@Serializable
-data class VerifyOtpResultDTO(
-    @SerialName("access_token")
+    @SerialName("token")
     val token: String,
-    @SerialName("token_type")
-    val tokenType: String?,
     @SerialName("user")
-    val user: UserDTO?
+    val user: UserDTO? = null
 )

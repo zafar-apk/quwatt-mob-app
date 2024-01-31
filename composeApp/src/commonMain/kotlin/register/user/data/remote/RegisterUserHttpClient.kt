@@ -1,13 +1,15 @@
 package register.user.data.remote
 
-import core.data.remote.networkCall
-import core.domain.util.AppConstants.BASE_URL
+import core.domain.util.AppConstants
 import core.domain.util.Resource
 import io.ktor.client.HttpClient
-import io.ktor.client.request.parameter
-import io.ktor.client.request.post
-import io.ktor.client.statement.HttpResponse
-import io.ktor.http.isSuccess
+import io.ktor.client.plugins.onUpload
+import io.ktor.client.request.forms.FormBuilder
+import io.ktor.client.request.forms.formData
+import io.ktor.client.request.forms.submitFormWithBinaryData
+import io.ktor.http.Headers
+import io.ktor.http.HttpHeaders
+import io.ktor.http.content.PartData
 
 class RegisterUserHttpClient(
     private val client: HttpClient
@@ -18,17 +20,53 @@ class RegisterUserHttpClient(
         surname: String,
         patronymic: String,
         dateOfBirth: String,
-    ): Resource<Boolean> = networkCall(
-        call = {
-            client.post("$BASE_URL/users/profile/update") {
-                parameter("first_name", name)
-                parameter("last_name", surname)
-                parameter("patronymic", patronymic)
-                parameter("date_of_birth", dateOfBirth)
+        photo: ByteArray?
+    ): Resource<Boolean> = runCatching {
+        client.submitFormWithBinaryData(
+            url = "${AppConstants.BASE_URL}/register/ev-owner",
+            formData = createFormData(
+                name = name,
+                surname = surname,
+                patronymic = patronymic,
+                dateOfBirth = dateOfBirth,
+                photo = photo
+            )
+        ) {
+            onUpload { bytesSentTotal, contentLength ->
+                println("Sent $bytesSentTotal bytes from $contentLength")
             }
-        },
-        map = { httpResponse: HttpResponse ->
-            httpResponse.status.isSuccess()
         }
-    )
+        Resource.Success(true)
+    }.getOrElse {
+        it.printStackTrace()
+        Resource.Error(it)
+    }
+
+    private fun createFormData(
+        name: String,
+        surname: String,
+        patronymic: String,
+        dateOfBirth: String,
+        photo: ByteArray?
+    ): List<PartData> = formData {
+        append("name", name)
+        append("surname", surname)
+        append("patronymic", patronymic)
+        append("dateOfBirth", dateOfBirth)
+        append("email", "") // todo
+        photo?.let { imageFile ->
+            appendPhoto(imageFile)
+        }
+    }
+
+    private fun FormBuilder.appendPhoto(imageFile: ByteArray) {
+        append(
+            key = "photo",
+            value = imageFile,
+            headers = Headers.build {
+                append(HttpHeaders.ContentType, "image/jpeg")
+                append(HttpHeaders.ContentDisposition, "filename=image.jpeg")
+            }
+        )
+    }
 }

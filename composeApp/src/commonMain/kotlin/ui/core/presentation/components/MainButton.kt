@@ -15,14 +15,14 @@ import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.compose.stringResource
-import ui.theme.Yellow
+import ui.theme.Primary
 
 @Deprecated("Use moko resources instead. Label is not gonna work otherwise")
 @Composable
 fun MainButton(
     labelRes: String,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = Yellow,
+    backgroundColor: Color = Primary,
     contentColor: Color = Color.Black,
     onClick: () -> Unit
 ) {
@@ -39,8 +39,8 @@ fun MainButton(
 fun MainButton(
     labelResource: StringResource,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = Yellow,
-    contentColor: Color = Color.Black,
+    backgroundColor: Color = Primary,
+    contentColor: Color = Color.White,
     onClick: () -> Unit
 ) {
     MainButtonInternal(
@@ -58,8 +58,8 @@ fun MainButton(
 fun MainButtonInternal(
     label: String,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = Yellow,
-    contentColor: Color = Color.Black,
+    backgroundColor: Color = Primary,
+    contentColor: Color = Color.White,
     onClick: () -> Unit
 ) {
     Button(

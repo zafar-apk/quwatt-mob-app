@@ -1,11 +1,11 @@
 package ui.di
 
-import core.data.remote.HttpClientFactory
-import core.data.remote.configureForProject
 import io.ktor.client.HttpClient
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
+import tj.quwatt.quwattapp.core.data.remote.HttpClientFactory
+import tj.quwatt.quwattapp.core.data.remote.configureForProject
 import user.data.local.UserLocalDataSource
 
 @OptIn(ExperimentalSerializationApi::class)
@@ -26,7 +26,7 @@ val NetworkModule = module {
         val factory: HttpClientFactory = get()
         val json: Json = get()
         factory.create().configureForProject(json) {
-            "Bearer ${dataSource.getToken().orEmpty()}"
+            dataSource.getToken().orEmpty()
         }
     }
 }

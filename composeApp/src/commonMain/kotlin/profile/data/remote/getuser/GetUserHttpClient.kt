@@ -1,6 +1,5 @@
 package profile.data.remote.getuser
 
-import auth.enter_code.data.remote.model.ProfileDTO
 import auth.enter_code.data.remote.model.UserDTO
 import auth.enter_code.data.remote.model.toUser
 import core.data.remote.networkCall
@@ -17,13 +16,13 @@ class GetUserHttpClient(
     private val client: HttpClient
 ) : GetUserClient {
 
-    private fun mapUser(dto: ProfileDTO): User? = dto?.result?.toUser()
+    private fun mapUser(dto: UserDTO): User = dto.toUser()
 
     override suspend fun getUser(): Resource<User?> = networkCall(
         map = ::mapUser,
         call = {
             client.get {
-                url("${AppConstants.BASE_URL}/users/profile")
+                url("${AppConstants.BASE_URL}/user")
                 contentType(ContentType.Application.Json)
             }
         }

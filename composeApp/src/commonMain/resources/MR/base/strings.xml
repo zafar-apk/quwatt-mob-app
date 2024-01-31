@@ -48,7 +48,7 @@
     <string name="price_to">до %sс</string>
     <string name="price">%sс</string>
     <string name="reset">Сбросить</string>
-    <string name="app_name">Хамсафар</string>
+    <string name="app_name">QuWatt</string>
     <string name="history">История</string>
     <string name="from_price_to_price">от %sс до %sс</string>
     <string name="personal_info">Перcональная информация</string>
@@ -127,7 +127,6 @@
     <string name="not_registered">Вы не зарегистрированы\!</string>
     <string name="my_requests">Мои заявки</string>
     <string name="my_trips">Мои поездки</string>
-    <string name="trips_from">Поездки из %s</string>
     <string name="from_all_cities">всех городов</string>
     <string name="confirm">Подтвердить</string>
     <string name="are_you_sure_you_want_booking_trip">Вы действительно хотите забронировать эту поездку?</string>
@@ -147,4 +146,6 @@
     <string name="december">Декабрь</string>
     <string name="previous_month_button">Предыдущий месяц</string>
     <string name="next_month_button">Следующий месяц</string>
+    <string name="charging_stations">Станции зарядки</string>
+    <string name="somoni"> сомони</string>
 </resources>

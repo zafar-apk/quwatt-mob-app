@@ -1,7 +1,5 @@
 package profile.domain
 
-import profile.domain.transport.Transport
-
 data class User(
     val id: Int,
     val phone: String,
@@ -10,14 +8,8 @@ data class User(
     val surname: String,
     val patronymic: String?,
     val dateOfBirth: String?,
-    val isDriver: Boolean,
-    val transport: Transport?,
-    val licenceNumber: String?,
-    val licenceExpiration: String?,
-    val passportNumber: String?,
-    val rating: Double,
+    val email: String?,
+    val balance: Double?
 ) {
     fun getFullName(): String = "$name $surname $patronymic"
-
-    fun isRegistered(): Boolean = !name.isNullOrEmpty() && !dateOfBirth.isNullOrEmpty()
 }

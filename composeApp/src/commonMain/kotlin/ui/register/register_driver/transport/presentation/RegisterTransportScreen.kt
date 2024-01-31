@@ -48,7 +48,7 @@ import ui.theme.Red
 import ui.auth.presentation.components.BigStyleTextField
 import ui.core.presentation.components.MainButton
 import ui.core.presentation.getImagePainterOrPlaceHolder
-import ui.trips.filter.presentation.components.TextDropDown
+import ui.stations.filter.presentation.components.TextDropDown
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

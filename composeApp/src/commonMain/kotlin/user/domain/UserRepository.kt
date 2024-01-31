@@ -21,8 +21,4 @@ interface UserRepository {
     suspend fun saveNotificationToken(token: String)
 
     suspend fun saveToken(token: String)
-
-    suspend fun getRegisterId(): String?
-
-    suspend fun saveRegisterId(id: String)
 }

@@ -5,9 +5,9 @@ import androidx.compose.ui.graphics.Color
 import core.presentation.Colors
 
 val BackgroundGray = Color(Colors.BackgroundGray)
-val Yellow = Color(Colors.Yellow)
+val Primary = Color(Colors.Primary)
 val GrayDuoTone = Color(Colors.DuoToneGray)
-val Blue = Color(Colors.Blue)
+val Blue = Color(Colors.Secondary)
 val DarkBlue = Color(Colors.DarkBlue)
 val Red = Color(Colors.Red)
 val Gray = Color(Colors.Gray)
@@ -18,7 +18,7 @@ val LightGray = Color(Colors.LightGray)
 val TextBlack = Color.Black
 
 val lightColors = lightColors(
-    primary = Yellow,
+    primary = Primary,
     background = BackgroundGray,
     onPrimary = Color.White,
     onBackground = TextBlack,
@@ -27,7 +27,7 @@ val lightColors = lightColors(
     secondary = Blue
 )
 val lightColorScheme = lightColors(
-    primary = Yellow,
+    primary = Primary,
     background = BackgroundGray,
     onPrimary = Color.White,
     onBackground = TextBlack,

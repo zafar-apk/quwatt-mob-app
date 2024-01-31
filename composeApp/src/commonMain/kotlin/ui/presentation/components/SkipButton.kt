@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.core.presentation.painterResource
-import ui.theme.Yellow
+import ui.theme.Primary
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -38,7 +38,7 @@ fun SkipButton(
     ) {
         Text(
             text = stringResource(id = "skip"),
-            style = MaterialTheme.typography.body1.copy(color = Yellow)
+            style = MaterialTheme.typography.body1.copy(color = Primary)
         )
 
         Spacer(modifier = Modifier.size(6.dp))

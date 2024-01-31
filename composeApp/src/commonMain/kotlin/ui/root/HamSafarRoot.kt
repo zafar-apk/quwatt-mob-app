@@ -28,7 +28,6 @@ import profile.presentation.ProfileScreenViewModel
 import register.user.presentation.RegisterUserScreenEvent
 import register.user.presentation.RegisterUserViewModel
 import tj.ham_safar.app.android.core.presentation.Routes
-import tj.ham_safar.app.trips.create.CompleteAction
 import ui.auth.presentation.enter_code.EnterCode
 import ui.auth.presentation.enter_phone.EnterPhone
 import ui.core.presentation.changePlaceHoldersToArgs
@@ -42,11 +41,10 @@ import ui.register.register_driver.navigateToRegisterDriverGraph
 import ui.register.user.presentation.user.RegisterUserScreen
 import ui.root.Arguments.PhoneNumber
 import ui.root.Arguments.TripId
-import ui.trips.all.presentation.addToGraphAllTripsScreen
-import ui.trips.all.presentation.allTripsRoute
-import ui.trips.detailed_booking_trip.presentation.navigateToDetailedBookedTripScreen
-import ui.trips.filter.presentation.addToGraphTripFilterScreen
-import ui.trips.filter.presentation.navigateToTripFilterScreen
+import ui.stations.all.presentation.addToGraphAllTripsScreen
+import ui.stations.all.presentation.allTripsRoute
+import ui.stations.filter.presentation.addToGraphTripFilterScreen
+import ui.stations.filter.presentation.navigateToTripFilterScreen
 
 object Arguments {
     const val passengerId = "passengerId"
@@ -341,10 +339,7 @@ private fun AppNavigation(
 //        )
 //
         addToGraphAllTripsScreen(
-            onNavigateToCreateTrip = {
-                navController.navigate(Routes.createTripLocation(CompleteAction.ActionCreateTrip))
-            },
-            onNavigateToTripsFilterForResult = {
+            onNavigateToStationsFilterForResult = {
                 navController.navigateToTripFilterScreen()
             },
             onNavigateToTripItem = { tripItemId ->
@@ -352,15 +347,8 @@ private fun AppNavigation(
                     Routes.DETAILED_TRIP.changePlaceHoldersToArgs(TripId to tripItemId.toString())
                 )
             },
-            onNavigateToBookedTripItem = { bookedTripId ->
-                navController.navigateToDetailedBookedTripScreen(
-                    bookedTripId
-                )
-            },
             onNavigateToLogin = { navController.navigate(Routes.ENTER_PHONE) },
-            onNavigateToProfile = { navController.navigate(Routes.PROFILE) },
-            onNavigateToLicence = { navController.navigateToRegisterDriverGraph() },
-        )
+        ) { navController.navigate(Routes.PROFILE) }
 
         addToGraphTripFilterScreen(
             onGoBack = { navController.goBack() },

@@ -135,14 +135,14 @@ class RegisterUserLicenceViewModel(
         val result = getUser.execute()
         when (result) {
             is Resource.Success -> {
-                val hasLicence = result.data?.licenceNumber != null
-                if (hasLicence)
-                    _state.update {
-                        it.copy(
-                            isLicenceRegistered = hasLicence,
-                            isLoading = false
-                        )
-                    }
+//                val hasLicence = result.data?.licenceNumber != null
+//                if (hasLicence)
+//                    _state.update {
+//                        it.copy(
+//                            isLicenceRegistered = hasLicence,
+//                            isLoading = false
+//                        )
+//                    }
             }
 
             is Resource.Error -> _state.update {
