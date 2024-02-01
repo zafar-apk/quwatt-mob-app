@@ -4,7 +4,7 @@ import profile.domain.transport.TransportBrand
 import profile.domain.transport.TransportType
 import core.domain.cities.model.City
 
-data class TripsFilter(
+data class StationsFilter(
     val autoType: TransportType?,
     val autoModel: TransportBrand?,
     val fromPriceTrip: Int,

@@ -3,7 +3,7 @@ package ui.stations.core.mapper
 import core.domain.cities.model.City
 import profile.domain.transport.TransportBrand
 import profile.domain.transport.TransportType
-import stations.all.domain.models.TripsFilter
+import stations.all.domain.models.StationsFilter
 import stations.filter.presentation.TripFilterScreenState
 import ui.core.presentation.models.CityParcelize
 import ui.stations.core.models.StationsFilter as UiTripsFilter
@@ -20,7 +20,7 @@ fun TripFilterScreenState.toTripsFilterParcelize() = UiTripsFilter(
     tripRating = selectedState.selectedTripRating?.toDouble()
 )
 
-fun UiTripsFilter.toTripsFilter() = TripsFilter(
+fun UiTripsFilter.toTripsFilter() = StationsFilter(
     autoType = autoType?.let(TransportType::findByDisplayName),
     autoModel = autoModel?.let(TransportBrand::findByDisplayName),
     fromPriceTrip = fromPriceTrip,

@@ -9,7 +9,7 @@ import stations.all.presentation.StationsScreenEvent
 import stations.all.presentation.StationsScreenState
 import ui.stations.core.models.StationsFilter
 
-const val allTripsRoute = "stations"
+const val allStationsRoute = "stations"
 
 fun RouteBuilder.addToGraphAllTripsScreen(
     onNavigateToStationsFilterForResult: suspend () -> StationsFilter?,
@@ -17,7 +17,7 @@ fun RouteBuilder.addToGraphAllTripsScreen(
     onNavigateToLogin: () -> Unit,
     onNavigateToProfile: () -> Unit
 ) {
-    scene(route = allTripsRoute) {
+    scene(route = allStationsRoute) {
         val viewModel = koinViewModel(ChargingStationsScreenViewModel::class)
         val state by viewModel.models.collectAsStateWithLifecycle(StationsScreenState())
         AllStationsScreen(

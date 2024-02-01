@@ -8,17 +8,17 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
-import stations.all.data.remote.mapper.TripsMapper
-import stations.all.domain.models.Trips
-import stations.all.domain.models.TripsFilter
+import stations.all.data.remote.mapper.StationsMapper
+import stations.all.domain.models.Stations
+import stations.all.domain.models.StationsFilter
 
 class AllTripsHttpClient(
     private val client: HttpClient,
-    private val mapper: TripsMapper
+    private val mapper: StationsMapper
 ) : AllTripsClient {
 
-    override suspend fun getTrips(query: TripsFilter?): Resource<Trips> = networkCall(
-        map = mapper::createTrips,
+    override suspend fun getTrips(query: StationsFilter?): Resource<Stations> = networkCall(
+        map = mapper::createStations,
         call = {
             client.get("${AppConstants.BASE_URL}/trips") {
                 parameter("role", "DRIVER")

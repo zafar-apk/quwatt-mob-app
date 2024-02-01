@@ -2,7 +2,6 @@ package ui.stations.all.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
-import core.domain.util.asRemoteImage
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 import io.kamel.core.getOrNull
@@ -16,8 +15,9 @@ fun Station.getDisplayAddress(): String {
 
 @Composable
 fun getStationPainter(image: String): Painter {
-    return asyncPainterResource(image.asRemoteImage()).getOrNull()
-        ?: painterResource(SharedRes.images.car_placeholder)
+//    return asyncPainterResource(image.asRemoteImage()).getOrNull()
+    return asyncPainterResource(image).getOrNull()
+        ?: painterResource(SharedRes.images.placeholder)
 }
 
 @Composable

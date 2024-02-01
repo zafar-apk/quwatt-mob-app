@@ -1,6 +1,6 @@
 package stations.all.domain.models
 
-data class Trips(
+data class Stations(
 //    val isDriver: Boolean?,
     val stations: List<Station>,
 )

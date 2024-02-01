@@ -31,7 +31,7 @@ import tj.ham_safar.app.android.core.presentation.Routes
 import ui.auth.presentation.enter_code.EnterCode
 import ui.auth.presentation.enter_phone.EnterPhone
 import ui.core.presentation.changePlaceHoldersToArgs
-import ui.core.presentation.components.HamsafarBottomNavigation
+import ui.core.presentation.components.QuWattBottomNavigation
 import ui.passengers.all.presentation.allPassengersRoute
 import ui.passengers.my_requests.presentation.navigateToMyRequestsScreen
 import ui.presentation.OnBoarding
@@ -42,7 +42,7 @@ import ui.register.user.presentation.user.RegisterUserScreen
 import ui.root.Arguments.PhoneNumber
 import ui.root.Arguments.TripId
 import ui.stations.all.presentation.addToGraphAllTripsScreen
-import ui.stations.all.presentation.allTripsRoute
+import ui.stations.all.presentation.allStationsRoute
 import ui.stations.filter.presentation.addToGraphTripFilterScreen
 import ui.stations.filter.presentation.navigateToTripFilterScreen
 
@@ -54,7 +54,7 @@ object Arguments {
 }
 
 private val bottomNavigationRoutes = listOf(
-    allTripsRoute,
+    allStationsRoute,
     allPassengersRoute,
     Routes.MESSAGES,
     Routes.PROFILE
@@ -90,7 +90,7 @@ fun AppContent() {
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             if (bottomNavigationRoutes.contains(currentDestination)) {
-                HamsafarBottomNavigation(navController = navigator)
+                QuWattBottomNavigation(navController = navigator)
             }
         }
     ) { paddingValues ->
@@ -124,7 +124,7 @@ private fun AppNavigation(
     NavHost(
         modifier = modifier,
         navigator = navController,
-        initialRoute = allTripsRoute
+        initialRoute = allStationsRoute
     ) {
         addRegisterDriverGraph(navController)
 

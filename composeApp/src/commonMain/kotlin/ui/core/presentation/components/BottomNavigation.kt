@@ -12,23 +12,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import core.domain.util.stringResource
+import dev.icerock.moko.resources.ImageResource
+import dev.icerock.moko.resources.StringResource
+import dev.icerock.moko.resources.compose.painterResource
+import dev.icerock.moko.resources.compose.stringResource
 import moe.tlaster.precompose.navigation.Navigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import ui.core.presentation.painterResource
 import tj.ham_safar.app.android.core.presentation.Routes
+import tj.quwatt.quwattapp.SharedRes
+import ui.passengers.all.presentation.allPassengersRoute
+import ui.stations.all.presentation.allStationsRoute
 import ui.theme.Gray
 import ui.theme.Primary
-import ui.passengers.all.presentation.allPassengersRoute
-import ui.stations.all.presentation.allTripsRoute
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun HamsafarBottomNavigation(navController: Navigator) {
+fun QuWattBottomNavigation(navController: Navigator) {
     val items = listOf(
-        Screen.Trips,
-        Screen.Passengers,
-//        Screen.Messages,
+        Screen.Stations,
+        Screen.Favorites,
         Screen.Profile
     )
     BottomNavigation(backgroundColor = Color.White) {
@@ -39,13 +41,13 @@ fun HamsafarBottomNavigation(navController: Navigator) {
                 icon = {
                     Icon(
                         modifier = Modifier.size(32.dp),
-                        painter = painterResource(screen.iconRes),
+                        painter = painterResource(screen.iconResource),
                         contentDescription = null
                     )
                 },
                 label = {
                     Text(
-                        text = stringResource(screen.labelId),
+                        text = stringResource(screen.labelResource),
                         fontSize = 12.sp
                     )
                 },
@@ -75,17 +77,16 @@ fun HamsafarBottomNavigation(navController: Navigator) {
     }
 }
 
-//@Preview
-//@Composable
-//fun BottomNavPreview() {
-//    HamSafarTheme {
-//        HamsafarBottomNavigation(navController = rememberNavController())
-//    }
-//}
+sealed class Screen(
+    val route: String,
+    val labelResource: StringResource,
+    val iconResource: ImageResource
+) {
+    data object Stations :
+        Screen(allStationsRoute, SharedRes.strings.stations, SharedRes.images.ic_lightnings)
 
-sealed class Screen(val route: String, val labelId: String, val iconRes: String) {
-    object Trips : Screen(allTripsRoute, "stations", "ic_orders.xml")
-    object Passengers : Screen(allPassengersRoute, "passengers", "ic_profile.xml")
-    object Messages : Screen(Routes.MESSAGES, "messages", "ic_chat.xml")
-    object Profile : Screen(Routes.PROFILE, "profile", "ic_profile.xml")
+    data object Favorites :
+        Screen(allPassengersRoute, SharedRes.strings.favorites, SharedRes.images.ic_heart)
+
+    data object Profile : Screen(Routes.PROFILE, SharedRes.strings.profile, SharedRes.images.ic_profile)
 }

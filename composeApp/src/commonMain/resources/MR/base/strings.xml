@@ -148,4 +148,6 @@
     <string name="next_month_button">Следующий месяц</string>
     <string name="charging_stations">Станции зарядки</string>
     <string name="somoni"> сомони</string>
+    <string name="stations">Cтанции</string>
+    <string name="favorites">Избранные</string>
 </resources>

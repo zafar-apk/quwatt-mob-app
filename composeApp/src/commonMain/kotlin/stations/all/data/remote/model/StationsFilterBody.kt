@@ -6,7 +6,7 @@ import profile.domain.transport.TransportBrand
 import profile.domain.transport.TransportType
 
 @Serializable
-class TripFilterBody(
+class StationsFilterBody(
     @SerialName("type")
     val autoType: TransportType?,
     @SerialName("brand")

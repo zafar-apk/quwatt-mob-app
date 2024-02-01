@@ -8,14 +8,14 @@ import io.ktor.client.request.get
 import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
-import stations.all.data.remote.mapper.TripsMapper
+import stations.all.data.remote.mapper.StationsMapper
 import stations.all.data.remote.model.TripDTO
 import stations.all.domain.models.Station
 import tj.ham_safar.app.trips.my_trips.data.remote.GetAllMyTripsClient
 
 class GetAllMyTripsHttpClient(
     private val client: HttpClient,
-    private val mapper: TripsMapper
+    private val mapper: StationsMapper
 ) : GetAllMyTripsClient {
 
     override suspend fun getAll(): Resource<List<Station>> = networkCall(
@@ -29,5 +29,5 @@ class GetAllMyTripsHttpClient(
     )
 
     private fun mapAllTripsResult(dto: List<TripDTO>): List<Station> =
-        dto.map { mapper.createTrip() }
+        dto.map { mapper.creteStation() }
 }

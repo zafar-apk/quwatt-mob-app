@@ -148,4 +148,7 @@
     <string name="previous_month_button">Previous month button</string>
     <string name="next_month_button">Next month button</string>
     <string name="somoni"> somoni</string>
+    <string name="stations"> Stations</string>
+    <string name="favorites"> Favorites</string>
+
 </resources>

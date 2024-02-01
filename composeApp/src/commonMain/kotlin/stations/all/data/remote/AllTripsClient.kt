@@ -1,9 +1,9 @@
 package stations.all.data.remote
 
 import core.domain.util.Resource
-import stations.all.domain.models.TripsFilter
-import stations.all.domain.models.Trips
+import stations.all.domain.models.StationsFilter
+import stations.all.domain.models.Stations
 
 interface AllTripsClient {
-    suspend fun getTrips(query: TripsFilter?): Resource<Trips>
+    suspend fun getTrips(query: StationsFilter?): Resource<Stations>
 }
