@@ -4,25 +4,24 @@ import core.data.remote.networkCall
 import core.domain.util.AppConstants
 import core.domain.util.Resource
 import io.ktor.client.HttpClient
-import io.ktor.client.request.get
-import io.ktor.client.request.parameter
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import stations.all.data.remote.mapper.StationsMapper
-import stations.all.domain.models.Stations
+import stations.all.domain.models.Station
 import stations.all.domain.models.StationsFilter
 
-class AllTripsHttpClient(
+class AllStationsHttpClientClient(
     private val client: HttpClient,
     private val mapper: StationsMapper
-) : AllTripsClient {
+) : AllStationsClient {
 
-    override suspend fun getTrips(query: StationsFilter?): Resource<Stations> = networkCall(
+    override suspend fun getStations(query: StationsFilter?): Resource<List<Station>> = networkCall(
         map = mapper::createStations,
         call = {
-            client.get("${AppConstants.BASE_URL}/trips") {
-                parameter("role", "DRIVER")
-                query?.tripDate?.let { parameter("start_date", it) }
+            client.post("${AppConstants.BASE_URL}/stations") {
+                setBody(query?.let(mapper::createStationsFilterBody))
                 contentType(ContentType.Application.Json)
             }
         }

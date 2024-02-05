@@ -9,7 +9,7 @@ import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import stations.all.data.remote.mapper.StationsMapper
-import stations.all.data.remote.model.TripDTO
+import stations.all.data.remote.model.StationDTO
 import stations.all.domain.models.Station
 import tj.ham_safar.app.trips.my_trips.data.remote.GetAllMyTripsClient
 
@@ -28,6 +28,6 @@ class GetAllMyTripsHttpClient(
         }
     )
 
-    private fun mapAllTripsResult(dto: List<TripDTO>): List<Station> =
-        dto.map { mapper.creteStation() }
+    private fun mapAllTripsResult(dto: List<StationDTO>): List<Station> =
+        dto.map { mapper.createStation(it) }
 }

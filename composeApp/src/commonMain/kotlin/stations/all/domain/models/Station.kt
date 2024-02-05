@@ -12,5 +12,5 @@ data class Station(
     val powerFrom: Int,
     val powerTo: Int?,
     val chargersCount: Int,
-    val status: String
+    val isAvailable: Boolean
 )

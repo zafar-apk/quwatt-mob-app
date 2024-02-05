@@ -150,4 +150,6 @@
     <string name="somoni"> сомони</string>
     <string name="stations">Cтанции</string>
     <string name="favorites">Избранные</string>
+    <string name="available">Свободно</string>
+    <string name="busy">Занято</string>
 </resources>

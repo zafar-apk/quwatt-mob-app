@@ -80,12 +80,13 @@ fun StationImageBox(
         }
 
         Text(
-            text = station.status,
+            text = if (station.isAvailable) stringResource(SharedRes.strings.available)
+            else stringResource(SharedRes.strings.busy),
             style = MaterialTheme.typography.subtitle2.copy(color = Color.White),
             modifier = Modifier.align(Alignment.TopStart)
                 .padding(top = 8.dp, start = 16.dp)
                 .background(
-                    color = if (station.status == "Available") Color.Green
+                    color = if (station.isAvailable) Color.Green
                     else Color.Red,
                     shape = MaterialTheme.shapes.small
                 )
