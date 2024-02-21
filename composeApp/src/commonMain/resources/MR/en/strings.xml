@@ -152,4 +152,6 @@
     <string name="favorites"> Favorites</string>
     <string name="available">Available</string>
     <string name="busy">Occupied</string>
+    <string name="connectors"> Connectors</string>
+    <string name="connector_type_image_description">An image of the type of the connector</string>
 </resources>

@@ -13,6 +13,7 @@ expect class Strings {
 @Composable
 @Deprecated("Remove usage asap! It doesn't work. Use Strings instead")
 fun stringResource(id: String, args: List<Any> = emptyList(), quantity: Int? = null): String {
+    return "REPLACE stringResource() function"
     return when {
         quantity != null -> DeprecatedStrings.get(id, quantity)
         args.isNotEmpty() -> DeprecatedStrings.format(id, args)

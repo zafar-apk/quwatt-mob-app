@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -22,10 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import core.presentation.DatePickerDialog
 import dev.icerock.moko.resources.compose.stringResource
-import tj.ham_safar.app.android.core.presentation.components.ActionButton
-import tj.quwatt.quwattapp.SharedRes
 import stations.filter.presentation.TripFilterScreenEvent
 import stations.filter.presentation.TripFilterScreenState
+import tj.quwatt.quwattapp.SharedRes
 import ui.core.presentation.components.BackButton
 import ui.core.presentation.components.MainButton
 import ui.core.presentation.components.TimePickerDialog
@@ -96,12 +93,12 @@ fun TripFilterScreen(
                         text = stringResource(SharedRes.strings.filters),
                         style = MaterialTheme.typography.body1.copy(fontSize = 20.sp)
                     )
-
-                    ActionButton(
-                        icon = Icons.Default.Refresh,
-                        onClick = { onEvent(TripFilterScreenEvent.ResetFilter) },
-                        contentDescription = stringResource(SharedRes.strings.reset)
-                    )
+//
+//                    ActionButton(
+//                        icon = Icons.Default.Refresh,
+//                        onClick = { onEvent(TripFilterScreenEvent.ResetFilter) },
+//                        contentDescription = stringResource(SharedRes.strings.reset)
+//                    )
                 }
             }
 

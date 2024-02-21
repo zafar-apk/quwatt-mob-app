@@ -6,7 +6,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -27,21 +34,22 @@ import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import core.domain.util.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 import edit.transport.presentation.EditTransportEvent
 import edit.transport.presentation.EditTransportScreenState
 import profile.domain.transport.TransportBrand
 import profile.domain.transport.TransportColors
 import profile.domain.transport.TransportType
-import tj.ham_safar.app.android.core.presentation.components.TopBar
+import tj.quwatt.quwattapp.SharedRes
 import ui.auth.presentation.components.BigStyleTextField
 import ui.core.presentation.components.MainButton
+import ui.core.presentation.components.TopBar
 import ui.core.presentation.getImagePainterOrPlaceHolder
+import ui.stations.filter.presentation.components.TextDropDown
 import ui.theme.Blue
 import ui.theme.Gray
 import ui.theme.GrayGainsboro
 import ui.theme.Red
-import ui.stations.filter.presentation.components.TextDropDown
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -74,7 +82,7 @@ fun EditTransportScreen(
     }
     Scaffold(
         topBar = {
-            TopBar(text = stringResource(id = "transport")) {
+            TopBar(text = stringResource(SharedRes.strings.transport)) {
                 onEvent(EditTransportEvent.GoBack)
             }
         }
@@ -100,7 +108,7 @@ fun EditTransportScreen(
                         photo = state.photo?.toString(),
                         placeholderResId = "car_placeholder@1x.png"
                     ),
-                    contentDescription = stringResource(id = "transport_photo")
+                    contentDescription = stringResource(SharedRes.strings.transport_photo)
                 )
             }
 
@@ -109,7 +117,7 @@ fun EditTransportScreen(
                     modifier = Modifier.clickable {
 //                        launcher.launch("image/jpeg")
                                                   },
-                    text = stringResource(id = "pick_photo"),
+                    text = stringResource(SharedRes.strings.pick_photo),
                     style = MaterialTheme.typography.body1,
                     color = Blue
                 )
@@ -120,7 +128,7 @@ fun EditTransportScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 12.dp),
-                    text = stringResource(id = "auto_type"),
+                    text = stringResource(SharedRes.strings.auto_type),
                     style = MaterialTheme.typography.subtitle1, color = Gray
                 )
                 TextDropDown(
@@ -153,7 +161,7 @@ fun EditTransportScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 8.dp),
-                    text = stringResource(id = "transport_brand"),
+                    text = stringResource(SharedRes.strings.transport_brand),
                     style = MaterialTheme.typography.subtitle1,
                     color = Gray
                 )
@@ -190,7 +198,7 @@ fun EditTransportScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 8.dp),
-                    text = stringResource(id = "transport_model"),
+                    text = stringResource(SharedRes.strings.transport_model),
                     style = MaterialTheme.typography.subtitle1,
                     color = Gray
                 )
@@ -215,7 +223,7 @@ fun EditTransportScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 8.dp),
-                    text = stringResource(id = "transport_color"),
+                    text = stringResource(SharedRes.strings.transport_color),
                     style = MaterialTheme.typography.subtitle1,
                     color = Gray
                 )
@@ -250,7 +258,7 @@ fun EditTransportScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 8.dp),
-                    text = stringResource(id = "release_year"),
+                    text = stringResource(SharedRes.strings.release_year),
                     style = MaterialTheme.typography.subtitle1,
                     color = Gray
                 )
@@ -281,7 +289,7 @@ fun EditTransportScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = stringResource(id = "transport_capacity"),
+                        text = stringResource(SharedRes.strings.transport_capacity),
                         style = MaterialTheme.typography.subtitle1,
                         color = Gray
                     )
@@ -291,7 +299,7 @@ fun EditTransportScreen(
                     Spacer(modifier = Modifier.width(16.dp))
 
                     Text(
-                        text = stringResource(id = "ac"),
+                        text = stringResource(SharedRes.strings.ac),
                         style = MaterialTheme.typography.subtitle1,
                         color = Gray
                     )

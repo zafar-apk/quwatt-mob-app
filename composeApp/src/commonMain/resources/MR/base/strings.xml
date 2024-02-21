@@ -152,4 +152,6 @@
     <string name="favorites">Избранные</string>
     <string name="available">Свободно</string>
     <string name="busy">Занято</string>
+    <string name="connectors">Коннекторы</string>
+    <string name="connector_type_image_description">Изображение типа коннектора</string>
 </resources>

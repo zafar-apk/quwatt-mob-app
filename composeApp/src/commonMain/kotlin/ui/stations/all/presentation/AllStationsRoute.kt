@@ -11,9 +11,9 @@ import ui.stations.core.models.StationsFilter
 
 const val allStationsRoute = "stations"
 
-fun RouteBuilder.addToGraphAllTripsScreen(
+fun RouteBuilder.addAllStationsScreenToGraph(
     onNavigateToStationsFilterForResult: suspend () -> StationsFilter?,
-    onNavigateToTripItem: (tripItemId: Int) -> Unit,
+    onNavigateToStationDetails: (tripItemId: Int) -> Unit,
     onNavigateToLogin: () -> Unit,
     onNavigateToProfile: () -> Unit
 ) {
@@ -25,7 +25,7 @@ fun RouteBuilder.addToGraphAllTripsScreen(
             openStationsFilterForResult = onNavigateToStationsFilterForResult,
             onEvent = { event ->
                 when (event) {
-                    is StationsScreenEvent.NavigateToChargingStation -> onNavigateToTripItem(event.id)
+                    is StationsScreenEvent.NavigateToChargingStation -> onNavigateToStationDetails(event.id)
                     is StationsScreenEvent.NavigateToLoginScreen -> onNavigateToLogin()
                     is StationsScreenEvent.NavigateToProfileScreen -> onNavigateToProfile()
                     else -> viewModel.onEvent(event)

@@ -16,6 +16,8 @@ val GrayGainsboro = Color(Colors.GrayGainsboro)
 val GrayAlt = Color(Colors.GrayAlt)
 val LightGray = Color(Colors.LightGray)
 val TextBlack = Color.Black
+val Green = Color(Colors.Green)
+val DarkRed = Color(Colors.DarkRed)
 
 val lightColors = lightColors(
     primary = Primary,

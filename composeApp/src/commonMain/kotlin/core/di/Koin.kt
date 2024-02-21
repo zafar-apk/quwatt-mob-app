@@ -17,7 +17,7 @@ import ui.register.user.di.RegisterUserModule
 import ui.root.RootModule
 import ui.stations.all.di.AllTripsModule
 import ui.stations.detailed_booking_trip.di.DetailedBookedTripModule
-import ui.stations.detailed_trip.di.DetailedTripModule
+import ui.stations.details.di.StationDetailsModule
 import ui.stations.filter.di.TripFilterModule
 import ui.stations.my_trips.di.MyTripsModule
 
@@ -39,7 +39,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration) {
             AuthModule,
             ImageCompressorModule,
             TripFilterModule,
-            DetailedTripModule,
+            StationDetailsModule,
             CreateTripModule,
             DetailedBookedTripModule,
             EditLicenceModule,

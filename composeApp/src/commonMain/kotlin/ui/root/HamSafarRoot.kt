@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import auth.enter_code.presentation.EnterCodeScreenEvent
 import auth.enter_code.presentation.EnterCodeViewModel
 import com.mmk.kmpnotifier.notification.NotifierManager
-import hamsafar_root.HamsafarRootEvent
-import hamsafar_root.HamsafarRootViewModel
+import hamsafar_root.QuWattRootEvent
+import hamsafar_root.QuWattRootViewModel
 import kotlinx.coroutines.flow.mapNotNull
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.koin.koinViewModel
@@ -30,7 +30,6 @@ import register.user.presentation.RegisterUserViewModel
 import tj.ham_safar.app.android.core.presentation.Routes
 import ui.auth.presentation.enter_code.EnterCode
 import ui.auth.presentation.enter_phone.EnterPhone
-import ui.core.presentation.changePlaceHoldersToArgs
 import ui.core.presentation.components.QuWattBottomNavigation
 import ui.passengers.all.presentation.allPassengersRoute
 import ui.passengers.my_requests.presentation.navigateToMyRequestsScreen
@@ -40,9 +39,10 @@ import ui.register.register_driver.addRegisterDriverGraph
 import ui.register.register_driver.navigateToRegisterDriverGraph
 import ui.register.user.presentation.user.RegisterUserScreen
 import ui.root.Arguments.PhoneNumber
-import ui.root.Arguments.TripId
-import ui.stations.all.presentation.addToGraphAllTripsScreen
+import ui.stations.all.presentation.addAllStationsScreenToGraph
 import ui.stations.all.presentation.allStationsRoute
+import ui.stations.details.presentation.addStationDetailsToGraph
+import ui.stations.details.presentation.navigateToStationDetails
 import ui.stations.filter.presentation.addToGraphTripFilterScreen
 import ui.stations.filter.presentation.navigateToTripFilterScreen
 
@@ -61,19 +61,19 @@ private val bottomNavigationRoutes = listOf(
 )
 
 @Composable
-fun HamSafarRoot() {
-    val viewModel: HamsafarRootViewModel = koinViewModel(vmClass = HamsafarRootViewModel::class)
+fun QuWattRoot() {
+    val viewModel: QuWattRootViewModel = koinViewModel(vmClass = QuWattRootViewModel::class)
     val state = viewModel.state.collectAsState()
 
     NotifierManager.addListener(object : NotifierManager.Listener {
         override fun onNewToken(token: String) {
-            viewModel.onEvent(HamsafarRootEvent.OnNewFcmToken(token))
+            viewModel.onEvent(QuWattRootEvent.OnNewFcmToken(token))
         }
     })
 
     if (state.value.isFirstLaunch == true) {
         OnBoarding(
-            onOpenNextScreen = { viewModel.onEvent(HamsafarRootEvent.SetFirstLaunchFalse) }
+            onOpenNextScreen = { viewModel.onEvent(QuWattRootEvent.SetFirstLaunchFalse) }
         )
     } else if (state.value.isFirstLaunch == false) {
         AppContent()
@@ -181,30 +181,14 @@ private fun AppNavigation(
                         RegisterUserScreenEvent.GoBack -> navController.goBack()
                         RegisterUserScreenEvent.CompleteRegistration ->
                             navController.goBack()
+
                         else -> viewModel.onEvent(event)
                     }
                 }
             )
         }
 
-//        scene(route = Routes.DETAILED_PASSENGER) { backStackEntry ->
-//            val viewModel = koinViewModel(DetailedPassengerScreenAndroidViewModel::class)
-//            LaunchedEffect(false) {
-//                backStackEntry.path<Int>(Arguments.passengerId)?.let {
-//                    viewModel.onEvent(DetailedPassengerScreenEvent.LoadPassenger(it))
-//                }
-//            }
-//            val state by viewModel.state.collectAsState()
-//            DetailedPassengerScreen(
-//                state = state,
-//                onEvent = { event ->
-//                    when (event) {
-//                        DetailedPassengerScreenEvent.OnBackClick -> navController.popBackStack()
-//                        else -> viewModel.onEvent(event)
-//                    }
-//                }
-//            )
-//        }
+        addStationDetailsToGraph(navController)
 //
 //        scene(route = Routes.DETAILED_TRIP) { backStackEntry ->
 //            val viewModel = koinViewModel(DetailedTripScreenAndroidViewModel::class)
@@ -338,15 +322,9 @@ private fun AppNavigation(
 ////            onTripDataResult = navController.getResultFromPreviousBackStack(tripDataKey)
 //        )
 //
-        addToGraphAllTripsScreen(
-            onNavigateToStationsFilterForResult = {
-                navController.navigateToTripFilterScreen()
-            },
-            onNavigateToTripItem = { tripItemId ->
-                navController.navigate(
-                    Routes.DETAILED_TRIP.changePlaceHoldersToArgs(TripId to tripItemId.toString())
-                )
-            },
+        addAllStationsScreenToGraph(
+            onNavigateToStationsFilterForResult = navController::navigateToTripFilterScreen,
+            onNavigateToStationDetails = navController::navigateToStationDetails,
             onNavigateToLogin = { navController.navigate(Routes.ENTER_PHONE) },
         ) { navController.navigate(Routes.PROFILE) }
 

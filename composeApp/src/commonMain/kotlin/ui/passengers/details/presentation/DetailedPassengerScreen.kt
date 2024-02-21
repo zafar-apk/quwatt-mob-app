@@ -2,10 +2,23 @@ package ui.passengers.details.presentation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,23 +28,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import ui.core.presentation.painterResource
 import passengers.detail.presentation.DetailedPassengerScreenEvent
 import passengers.detail.presentation.DetailedPassengerScreenState
-import ui.core.presentation.components.Loader
-import tj.ham_safar.app.android.core.presentation.components.TopBar
-import ui.passengers.details.presentation.components.DriverRequest
 import tj.ham_safar.app.android.trips.components.LabelRating
 import tj.ham_safar.app.android.trips.components.LabelText
 import tj.ham_safar.app.android.trips.components.TripDestinationPath
 import ui.core.presentation.components.ErrorView
+import ui.core.presentation.components.Loader
 import ui.core.presentation.components.MainButton
+import ui.core.presentation.components.TopBar
 import ui.core.presentation.getImagePainterOrPlaceHolder
-import ui.theme.PrimaryGray
+import ui.core.presentation.painterResource
+import ui.passengers.details.presentation.components.DriverRequest
+import ui.stations.details.presentation.components.ProfileRatingItem
 import ui.theme.Primary
+import ui.theme.PrimaryGray
 import ui.theme.labelText
 import ui.theme.propertyText
-import ui.stations.detailed_trip.presentation.components.ProfileRatingItem
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable

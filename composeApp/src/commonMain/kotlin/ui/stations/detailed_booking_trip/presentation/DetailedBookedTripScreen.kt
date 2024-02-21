@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import stations.all.domain.models.BookedTrip
-import tj.ham_safar.app.android.core.presentation.components.TopBar
 import tj.ham_safar.app.android.trips.components.LabelRating
 import tj.ham_safar.app.android.trips.components.LabelText
 import tj.ham_safar.app.android.trips.components.PassengersCount
@@ -42,6 +41,7 @@ import tj.ham_safar.app.trips.detailed_booking_trip.presentation.DetailedBookedT
 import ui.core.presentation.components.ErrorView
 import ui.core.presentation.components.Loader
 import ui.core.presentation.components.MainButton
+import ui.core.presentation.components.TopBar
 import ui.core.presentation.dialogs.RequestConfirmationDialog
 import ui.core.presentation.getImagePainterOrPlaceHolder
 import ui.core.presentation.painterResource

@@ -12,7 +12,7 @@ import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
 import user.domain.UserRepository
 
-class HamsafarRootViewModel(
+class QuWattRootViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
@@ -23,10 +23,10 @@ class HamsafarRootViewModel(
         isFirstLaunch()
     }
 
-    fun onEvent(event: HamsafarRootEvent) = when (event) {
-        is HamsafarRootEvent.CheckIfTheFirstLaunch -> isFirstLaunch()
-        is HamsafarRootEvent.SetFirstLaunchFalse -> setFirstLaunchFalse()
-        is HamsafarRootEvent.OnNewFcmToken -> updateFcmToken(event.token)
+    fun onEvent(event: QuWattRootEvent) = when (event) {
+        is QuWattRootEvent.CheckIfTheFirstLaunch -> isFirstLaunch()
+        is QuWattRootEvent.SetFirstLaunchFalse -> setFirstLaunchFalse()
+        is QuWattRootEvent.OnNewFcmToken -> updateFcmToken(event.token)
     }
 
     private fun updateFcmToken(token: String): Job = viewModelScope.launch {

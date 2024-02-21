@@ -32,7 +32,7 @@ import core.domain.util.stringResource
 import edit.licence.presentation.EditUserLicenceEvent
 import edit.licence.presentation.EditUserLicenceScreenState
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import tj.ham_safar.app.android.core.presentation.components.TopBar
+import ui.core.presentation.components.TopBar
 import ui.theme.GrayGainsboro
 import ui.theme.Red
 import ui.theme.TextBlack

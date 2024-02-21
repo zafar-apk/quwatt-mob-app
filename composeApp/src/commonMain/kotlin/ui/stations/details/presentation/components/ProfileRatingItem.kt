@@ -1,4 +1,4 @@
-package ui.stations.detailed_trip.presentation.components
+package ui.stations.details.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import core.domain.util.stringResource
-import ui.theme.PrimaryGray
 import ui.stations.components.RatingBar
+import ui.theme.PrimaryGray
 
 @Composable
 fun ProfileRatingItem(

@@ -1,5 +1,5 @@
 [versions]
-agp = "8.2.0"
+agp = "8.2.2"
 android-compileSdk = "34"
 android-minSdk = "26"
 android-targetSdk = "34"
@@ -10,9 +10,10 @@ androidx-core-ktx = "1.12.0"
 androidx-espresso-core = "3.5.1"
 androidx-material = "1.10.0"
 androidx-test-junit = "1.1.5"
-compose = "1.5.4"
+compose = "1.6.1"
 compose-compiler = "1.5.5"
-compose-plugin = "1.5.11"
+compose-plugin = "1.6.0-rc02"
+cupertino = "0.1.0-alpha03"
 junit = "4.13.2"
 kamelImage = "0.9.0"
 kotlin = "1.9.21"
@@ -33,6 +34,7 @@ crashlytics = "2.9.9"
 kmpNotifier = "0.2.0"
 
 [libraries]
+cupertino = { module = "io.github.alexzhirkevich:cupertino-adaptive", version.ref = "cupertino" }
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }

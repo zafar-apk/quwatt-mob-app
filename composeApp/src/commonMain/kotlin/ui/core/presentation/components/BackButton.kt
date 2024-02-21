@@ -4,12 +4,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import core.domain.util.stringResource
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import ui.core.presentation.painterResource
+import dev.icerock.moko.resources.compose.painterResource
+import dev.icerock.moko.resources.compose.stringResource
+import tj.quwatt.quwattapp.SharedRes
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun BackButton(
     modifier: Modifier = Modifier,
@@ -17,14 +15,7 @@ fun BackButton(
 ) {
     Icon(
         modifier = modifier.clickable { onClick() },
-        painter = painterResource("arrow_left.xml"),
-        contentDescription = stringResource(id = "back_button"),
-        tint = Color.Unspecified
+        painter = painterResource(SharedRes.images.arrow_left),
+        contentDescription = stringResource(SharedRes.strings.back_button)
     )
 }
-
-//@Preview
-//@Composable
-//fun BackButtonPreview() {
-//    BackButton(onClick = {})
-//}

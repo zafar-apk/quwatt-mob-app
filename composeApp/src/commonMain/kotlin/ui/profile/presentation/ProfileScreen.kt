@@ -46,7 +46,7 @@ import io.kamel.image.asyncPainterResource
 import profile.domain.User
 import profile.presentation.ProfileScreenEvent
 import profile.presentation.ProfileScreenState
-import tj.ham_safar.app.android.core.presentation.components.TopBar
+import ui.core.presentation.components.TopBar
 import tj.ham_safar.app.android.register.user.presentation.user.components.LineTextField
 import tj.quwatt.quwattapp.SharedRes
 import ui.core.presentation.components.ErrorView

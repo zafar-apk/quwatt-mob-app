@@ -92,6 +92,7 @@ kotlin {
             implementation(libs.photo.picker)
 
             implementation(libs.kamel.image)
+            implementation(libs.cupertino)
         }
     }
 }
@@ -110,6 +111,12 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.7"
     }
     packaging {
         resources {

@@ -3,13 +3,42 @@ package stations.all.data.remote.mapper
 import core.data.remote.LocationDTO
 import core.data.remote.cities.model.CityDTO
 import core.domain.cities.model.City
+import stations.all.data.remote.model.ConnectorDTO
+import stations.all.data.remote.model.ConnectorTypeDTO
 import stations.all.data.remote.model.StationDTO
+import stations.all.data.remote.model.StationDetailsDTO
 import stations.all.data.remote.model.StationsFilterBody
+import stations.all.domain.models.Connector
+import stations.all.domain.models.ConnectorType
 import stations.all.domain.models.Location
 import stations.all.domain.models.Station
+import stations.all.domain.models.StationDetails
 import stations.all.domain.models.StationsFilter
 
 class StationsMapper {
+
+    fun createStationDetails(dto: StationDetailsDTO): StationDetails = StationDetails(
+        station = createStation(dto.stationDTO),
+        connectors = dto.connectors.map(::createConnector)
+    )
+
+    private fun createConnector(dto: ConnectorDTO): Connector {
+        return Connector(
+            id = dto.id,
+            type = createConnectorType(dto.type),
+            power = dto.maxPower,
+            price = dto.rate,
+            isAvailable = dto.isAvailable
+        )
+    }
+
+    private fun createConnectorType(dto: ConnectorTypeDTO): ConnectorType {
+        return ConnectorType(
+            id = dto.id,
+            name = dto.name,
+            image = dto.image
+        )
+    }
 
     fun createStations(stationDTOS: List<StationDTO>): List<Station> =
         stationDTOS.map(::createStation)
@@ -29,7 +58,6 @@ class StationsMapper {
             chargersCount = dto.chargersCount,
             isAvailable = dto.isAvailable
         )
-
     }
 
     private fun createLocation(dto: LocationDTO): Location = Location(

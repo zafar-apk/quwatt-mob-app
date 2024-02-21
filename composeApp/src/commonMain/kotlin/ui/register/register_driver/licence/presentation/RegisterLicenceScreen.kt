@@ -38,7 +38,7 @@ import dev.icerock.moko.resources.compose.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import register.licence.presentation.RegisterUserLicenceEvent
 import register.licence.presentation.RegisterUserLicenceScreenState
-import tj.ham_safar.app.android.core.presentation.components.TopBar
+import ui.core.presentation.components.TopBar
 import tj.quwatt.quwattapp.SharedRes
 import ui.auth.presentation.components.BigStyleTextField
 import ui.core.presentation.components.MainButton

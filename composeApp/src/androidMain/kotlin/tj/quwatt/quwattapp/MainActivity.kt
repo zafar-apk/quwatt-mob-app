@@ -1,7 +1,6 @@
 package tj.quwatt.quwattapp
 
 import App
-import MainView
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview

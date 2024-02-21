@@ -1,29 +1,26 @@
 package ui.core.presentation.components
 
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
+import io.github.alexzhirkevich.cupertino.adaptive.AdaptiveNavigationBar
 import moe.tlaster.precompose.navigation.Navigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import tj.ham_safar.app.android.core.presentation.Routes
 import tj.quwatt.quwattapp.SharedRes
 import ui.passengers.all.presentation.allPassengersRoute
 import ui.stations.all.presentation.allStationsRoute
-import ui.theme.Gray
-import ui.theme.Primary
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -33,14 +30,14 @@ fun QuWattBottomNavigation(navController: Navigator) {
         Screen.Favorites,
         Screen.Profile
     )
-    BottomNavigation(backgroundColor = Color.White) {
+    AdaptiveNavigationBar {
         val navBackStackEntry by navController.currentEntry.collectAsState(null)
         val currentDestination = navBackStackEntry?.route?.route
         items.forEach { screen ->
-            BottomNavigationItem(
+            NavigationBarItem(
                 icon = {
                     Icon(
-                        modifier = Modifier.size(32.dp),
+                        modifier = Modifier.height(28.dp),
                         painter = painterResource(screen.iconResource),
                         contentDescription = null
                     )
@@ -48,11 +45,9 @@ fun QuWattBottomNavigation(navController: Navigator) {
                 label = {
                     Text(
                         text = stringResource(screen.labelResource),
-                        fontSize = 12.sp
+                        style = MaterialTheme.typography.labelMedium
                     )
                 },
-                selectedContentColor = Primary,
-                unselectedContentColor = Gray,
                 selected = currentDestination == screen.route,
 //                currentDestination?.any { it.route == screen.route } == true,
                 onClick = {

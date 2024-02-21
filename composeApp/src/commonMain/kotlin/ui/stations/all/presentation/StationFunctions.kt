@@ -2,6 +2,7 @@ package ui.stations.all.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
+import core.domain.util.asRemoteImage
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 import io.kamel.core.getOrNull
@@ -15,16 +16,15 @@ fun Station.getDisplayAddress(): String {
 
 @Composable
 fun getStationPainter(image: String): Painter {
-//    return asyncPainterResource(image.asRemoteImage()).getOrNull()
-    return asyncPainterResource(image).getOrNull()
+    return asyncPainterResource(image.asRemoteImage()).getOrNull()
         ?: painterResource(SharedRes.images.placeholder)
 }
 
 @Composable
 fun getFavoriteButtonPainter(favorite: Boolean): Painter {
     return painterResource(
-        if (favorite) SharedRes.images.ic_favorite
-        else SharedRes.images.ic_favorite_border
+        if (favorite) SharedRes.images.ic_heart_filled
+        else SharedRes.images.ic_heart
     )
 }
 

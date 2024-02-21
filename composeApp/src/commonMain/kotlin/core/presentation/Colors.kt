@@ -12,4 +12,6 @@ object Colors {
     const val LightGray = 0xFFD5DDE0
     const val PrimaryGray = 0xFFF2F2F2
     const val DuoToneGray = 0x407E869E
+    const val Green = 0xFF04CC00
+    const val DarkRed = 0xFFA91010
 }

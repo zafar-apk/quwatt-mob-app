@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -24,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import dev.icerock.moko.resources.compose.stringResource
 import passengers.filter.presentation.PassengerFilterScreenEvent
 import passengers.filter.presentation.PassengerFilterScreenState
-import tj.ham_safar.app.android.core.presentation.components.ActionButton
 import tj.quwatt.quwattapp.SharedRes
 import ui.core.presentation.components.BackButton
 import ui.core.presentation.components.MainButton
@@ -87,11 +84,11 @@ fun PassengerFilterScreen(
                         style = MaterialTheme.typography.body1.copy(fontSize = 20.sp)
                     )
 
-                    ActionButton(
-                        icon = Icons.Default.Refresh,
-                        onClick = { onEvent(PassengerFilterScreenEvent.ResetFilter) },
-                        contentDescription = stringResource(SharedRes.strings.rating)
-                    )
+//                    ActionButton(
+//                        icon = Icons.Default.Refresh,
+//                        onClick = { onEvent(PassengerFilterScreenEvent.ResetFilter) },
+//                        contentDescription = stringResource(SharedRes.strings.rating)
+//                    )
                 }
             }
 
